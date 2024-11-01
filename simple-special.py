@@ -190,7 +190,7 @@ class Propagator():
         ovlp_beta = jnp.linalg.det(jnp.matmul(wf1_beta.conj().T, wf2_beta))
         ovlp = ovlp_alpha * ovlp_beta
         magnitude = jnp.abs(ovlp)
-        phase = jnp.exp(1j * np.angle(ovlp))
+        phase = jnp.exp(1j * jnp.angle(ovlp))
         return magnitude, phase
 
     def get_green_func(self, wf1_alpha, wf1_beta, wf2_alpha, wf2_beta):
@@ -322,12 +322,12 @@ class Propagator():
         alpha = self.psi_alpha.copy()
         beta = self.psi_beta.copy()
         variational_energies = jnp.zeros(self.n_steps)
+        logweights =jnp.zeros(self.n_samples)
         self.init_walkers(alpha, beta)
         for t in range(self.n_steps):
             magnitudes = jnp.zeros(self.n_samples)
             phases = jnp.ones(self.n_samples, dtype=jnp.complex128)
             energies = jnp.zeros(self.n_samples, dtype=jnp.complex128)
-            logweights =jnp.zeros(self.n_samples)
              # Get the left and right tensors for the current step 't' for the initial walker
             left_alpha = self.samples.left_tensor_alpha[0]
             left_beta = self.samples.left_tensor_beta[0]
@@ -390,6 +390,7 @@ class Propagator():
             variational_energy = jnp.sum(weighted_phases * energies) / jnp.sum(weighted_phases)
             variational_energies = variational_energies.at[t].set(jnp.real(variational_energy))
             # Reorthogonalize every third step
+            print(logweights)
             if t % 3 == 0:
                 logweights, self.samples.left_tensor_alpha, self.samples.left_tensor_beta = \
                     self.reorthogonalize(logweights, self.samples.left_tensor_alpha, self.samples.left_tensor_beta)
