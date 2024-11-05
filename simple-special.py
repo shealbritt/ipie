@@ -111,7 +111,7 @@ class Propagator():
         "ny": self.L,
         "U": self.U,
         "t": self.t,
-        "xpbc" : False,
+        "xpbc" : True,
         "ypbc" : True,
         "ueff": self.U
         } 
@@ -224,57 +224,52 @@ class Propagator():
         Returns:
             local_energy: The calculated local energy of the system.
         """
-        e1 = jnp.einsum("pq, pq ->", galpha, self.hmf)
-        e1 += jnp.einsum("pq, pq ->", gbeta, self.hmf)
-        e2 = jnp.einsum("prqs, pr, qs ->", self.V, galpha, galpha)
-        e2 += jnp.einsum("prqs, pr, qs ->", self.V, gbeta, galpha)
-        e2 += jnp.einsum("prqs, pr, qs ->", self.V, galpha, gbeta)
-        e2 += jnp.einsum("prqs, pr, qs ->", self.V, gbeta, gbeta)
-        e2 -= jnp.einsum("prqs, ps, qr ->", self.V, galpha, galpha)
-        e2 -= jnp.einsum("prqs, ps, qr ->", self.V, gbeta, gbeta)
+        e1 = jnp.einsum("pq,pq->", galpha, self.hmf)
+        e1 += jnp.einsum("pq,pq->", gbeta, self.hmf)
+        e2 = jnp.einsum("prqs,pr,qs ->", self.V, galpha, galpha)
+        e2 += jnp.einsum("prqs,pr,qs ->", self.V, gbeta, galpha)
+        e2 += jnp.einsum("prqs,pr,qs ->", self.V, galpha, gbeta)
+        e2 += jnp.einsum("prqs,pr,qs ->", self.V, gbeta, gbeta)
+        e2 -= jnp.einsum("prqs,ps,qr ->", self.V, galpha, galpha)
+        e2 -= jnp.einsum("prqs,ps,qr ->", self.V, gbeta, gbeta)
         local_energy = e1 + 0.5 * e2
         return local_energy
-
-    def reorthogonalize(self, logweights, wf_alpha, wf_beta):
+    
+   
+    def reorthogonalize(self, wf_alpha, wf_beta):
         """
-        Reorthogonalize the wavefunction matrices for all walkers and update the log weights.
+    Orthogonalizes spin-up and spin-down orbitals separately using Cholesky decomposition.
+    
+    Parameters:
+        psi_up (jnp.ndarray): An Ne x N matrix for spin-up orbitals.
+        psi_down (jnp.ndarray): An Ne x N matrix for spin-down orbitals.
+        
+    Returns:
+        tuple: The orthogonalized spin-up and spin-down orbitals.
+    """
+        # Step 1: Compute the overlap matrix M_up = ψ_up†ψ_up for spin-up orbitals
+        overlap_matrix_up = wf_alpha.T.conj() @ wf_alpha
+        # Step 2: Perform Cholesky decomposition on the overlap matrix M_up = L_up†L_up
+        L_up = jnp.linalg.cholesky(overlap_matrix_up)
+        
+        # Step 3: Compute the inverse of L_up
+        L_inv_up = jnp.linalg.inv(L_up.T.conj())
+        # Step 4: Generate orthogonalized spin-up orbitals ψ_up' = ψ_up @ L_inv_up
+        psi_up_prime = wf_alpha  @ L_inv_up
+        # Step 5: Repeat for spin-down orbitals
+        overlap_matrix_down = wf_beta.T.conj() @ wf_beta
+        L_down = jnp.linalg.cholesky(overlap_matrix_down)
+        L_inv_down = jnp.linalg.inv(L_down.T.conj())
+        psi_down_prime = wf_beta @ L_inv_down    
+        return psi_up_prime, psi_down_prime
 
-        Parameters:
-        -----------
-        logweights : jnp.ndarray
-            A vector of log weights for each walker.
-        wf_alpha : jnp.ndarray
-            A tensor of shape (n_walkers, n_sites, n_sites) representing the alpha spin wavefunctions for all walkers.
-        wf_beta : jnp.ndarray
-            A tensor of shape (n_walkers, n_sites, n_sites) representing the beta spin wavefunctions for all walkers.
-
-        Returns:
-        --------
-        logweights : jnp.ndarray
-            Updated log weights for each walker.
-        wf_alpha : jnp.ndarray
-            Reorthogonalized alpha spin wavefunctions for all walkers.
-        wf_beta : jnp.ndarray
-            Reorthogonalized beta spin wavefunctions for all walkers.
-        """
-        q_alpha, r_alpha = jax.vmap(jnp.linalg.qr)(wf_alpha)  
-        q_beta, r_beta = jax.vmap(jnp.linalg.qr)(wf_beta)     
-
-        det_alpha = jax.vmap(jnp.linalg.det)(r_alpha) # upper triangular easier way to calc deteminant than this
-        det_beta = jax.vmap(jnp.linalg.det)(r_beta)
-
-        logweights += jnp.log(jnp.abs(det_alpha)) + jnp.log(jnp.abs(det_beta))
-
-        wf_alpha = jax.vmap(lambda q, det: jnp.sign(det) * q)(q_alpha, det_alpha)
-        wf_beta = jax.vmap(lambda q, det: jnp.sign(det) * q)(q_beta, det_beta)
-        return logweights, wf_alpha, wf_beta
 
     def propagate_one_step(self, psi_a, psi_b, fields, i):
         two_body_a = jsp.linalg.expm(self.lam * jnp.diag(fields[i]))
         two_body_b = jsp.linalg.expm(self.lam * jnp.diag(-fields[i]))
-        norm = 2**(-self.L * self.L) * jsp.linalg.expm(-self.U * self.dt * jnp.eye(self.L * self.L)/2)
-        two_body_a = jnp.matmul(norm, two_body_a)
-        two_body_b = jnp.matmul(norm, two_body_b)
+       # norm = 2**(-self.L * self.L) * jsp.linalg.expm(-self.U * self.dt * jnp.eye(self.L * self.L)/2)
+        #two_body_a = jnp.matmul(norm, two_body_a)
+        #two_body_b = jnp.matmul(norm, two_body_b)
         newpsi_a = jnp.matmul(self.one_body, jnp.matmul(two_body_a, psi_a.copy()))
         newpsi_b = jnp.matmul(self.one_body, jnp.matmul(two_body_b, psi_b.copy()))
         return newpsi_a, newpsi_b
@@ -313,8 +308,10 @@ class Propagator():
 
      # Metropolis hasting
     def sample(self):
-        accepted = 0
-        total = 0
+        key = self.key_manager.get_key()
+        self.init_left = self.generate_random_choices(key, 0.5)
+        key = self.key_manager.get_key()
+        self.init_right = self.generate_random_choices(key, 0.5)
         self.one_body = jsp.linalg.expm(-self.dt * self.hmf_params)
         # Initial fields for left and right walkers
         fields1 = self.init_left
@@ -322,50 +319,65 @@ class Propagator():
         alpha = self.psi_alpha.copy()
         beta = self.psi_beta.copy()
         variational_energies = jnp.zeros(self.n_steps)
-        logweights =jnp.zeros(self.n_samples)
-        self.init_walkers(alpha, beta)
-        for t in range(self.n_steps):
-            magnitudes = jnp.zeros(self.n_samples)
+        variational_errors = jnp.zeros(self.n_steps)
+        nums = jnp.zeros(self.n_steps)
+        denoms = jnp.ones(self.n_steps)
+        ga0, gb0 = self.get_green_func(alpha, beta, alpha, beta)
+        variational_energy = self.get_local_energy(ga0,gb0)
+        variational_energies = variational_energies.at[0].set(jnp.real(variational_energy))
+        nums = nums.at[0].set(jnp.real(variational_energy))
+        #Set up original walker:
+        og_magnitudes = jnp.ones(self.n_steps)
+        og_phases = jnp.ones(self.n_steps)
+        og_right_alphas = jnp.array([alpha] * self.n_steps, dtype=jnp.complex128)
+        og_right_betas = jnp.array([beta] * self.n_steps, dtype=jnp.complex128)
+        og_left_alphas = jnp.array([alpha] * self.n_steps, dtype=jnp.complex128)
+        og_left_betas = jnp.array([beta] * self.n_steps, dtype=jnp.complex128)
+        og_left_alpha = alpha
+        og_left_beta = beta
+        og_right_alpha = alpha
+        og_right_beta = beta
+        for t in range(1, self.n_steps):
+            og_left_alpha, og_left_beta = self.propagate_one_step(og_left_alpha, og_left_beta, fields1, t)
+            og_right_alpha, og_right_beta = self.propagate_one_step(og_right_alpha, og_right_beta, fields2, t)   
+            ogmag, ogphase = self.get_overlap(og_left_alpha, og_left_beta, og_right_alpha, og_right_beta)
+            og_magnitudes = og_magnitudes.at[t].set(ogmag)
+            og_phases = og_phases.at[t].set(ogphase)
+            if t % 5 == 0:
+                og_left_alpha, og_left_beta = \
+                    self.reorthogonalize(og_left_alpha, og_left_beta)
+                og_right_alpha, og_right_beta = \
+                    self.reorthogonalize(og_right_alpha, og_right_beta)
+            og_left_alphas = og_left_alphas.at[t].set(og_left_alpha)
+            og_left_betas = og_left_betas.at[t].set(og_left_beta)
+            og_right_alphas = og_right_alphas.at[t].set(og_right_alpha)
+            og_right_betas = og_right_betas.at[t].set(og_right_beta)
+        for t in range(1, self.n_steps):
+            #print(right_beta)
             phases = jnp.ones(self.n_samples, dtype=jnp.complex128)
             energies = jnp.zeros(self.n_samples, dtype=jnp.complex128)
-             # Get the left and right tensors for the current step 't' for the initial walker
-            left_alpha = self.samples.left_tensor_alpha[0]
-            left_beta = self.samples.left_tensor_beta[0]
-            right_alpha = self.samples.right_tensor_alpha[0]
-            right_beta = self.samples.right_tensor_beta[0]
-            # Use JAX's functional updates for the tensors after propagation
-            new_left_alpha, new_left_beta = self.propagate_one_step(left_alpha, left_beta, fields1, t)
-            new_right_alpha, new_right_beta = self.propagate_one_step(right_alpha, right_beta, fields2, t)
-            self.samples.left_tensor_alpha = self.samples.left_tensor_alpha.at[0].set(new_left_alpha)
-            self.samples.left_tensor_beta = self.samples.left_tensor_beta.at[0].set(new_left_beta)
-            self.samples.right_tensor_alpha = self.samples.right_tensor_alpha.at[0].set(new_right_alpha)
-            self.samples.right_tensor_beta = self.samples.right_tensor_beta.at[0].set(new_right_beta)
-            magnitude, phase = self.get_overlap(new_left_alpha, new_left_beta, new_right_alpha, new_right_beta)
-            galpha, gbeta = self.get_green_func(new_left_alpha, new_left_beta, new_right_alpha, new_right_beta)
-            energy = self.get_local_energy(galpha, gbeta)
-            magnitudes = magnitudes.at[0].set(magnitude)
-            phases = phases.at[0].set(phase)
-            energies = energies.at[0].set(energy)
-            for i in range(1, self.n_samples):
+            magnitude = og_magnitudes[t]
+            new_left_alpha = og_left_alphas[t]            
+            new_right_alpha = og_right_alphas[t]
+            new_left_beta = og_left_betas[t]
+            new_right_beta = og_right_betas[t]                        
+            accepted = 0
+            for i in range(self.n_samples):
                 key = self.key_manager.get_key()
                 randi1 = random.choice(key, jnp.arange(fields1[t].size))
                 key = self.key_manager.get_key()
                 randi2 = random.choice(key, jnp.arange(fields2[t].size))
                 trialfields1 = self.switcher(fields1, randi1, t)
                 trialfields2 = self.switcher(fields2, randi2, t)
-                 # Get the left and right tensors for the current step 't' for the ith walker
-                left_alpha = self.samples.left_tensor_alpha[i]
-                left_beta = self.samples.left_tensor_beta[i]
-                right_alpha = self.samples.right_tensor_alpha[i]
-                right_beta = self.samples.right_tensor_beta[i]
-                # Use JAX's functional updates for the tensors after propagation
-                trial_left_alpha, trial_left_beta = self.propagate_one_step(left_alpha, left_beta, trialfields1, t)
-                trial_right_alpha, trial_right_beta = self.propagate_one_step(right_alpha, right_beta, trialfields2, t)
+                trial_left_alpha, trial_left_beta = self.propagate_one_step(og_left_alphas[t-1], og_left_betas[t-1], trialfields1, t)
+                trial_right_alpha, trial_right_beta = self.propagate_one_step(og_right_alphas[t-1], og_right_betas[t-1], trialfields2, t)
                 trialmagnitude, trialphase = self.get_overlap(trial_left_alpha, trial_left_beta, trial_right_alpha, trial_right_beta)
                 accept = trialmagnitude / magnitude
                 key = self.key_manager.get_key()
-                u = jax.random.uniform(key)
+                u = random.uniform(key)
+              #  print(magnitude, trialmagnitude,accept, accept > u)
                 if accept > u:
+                    accepted += 1
                     magnitude = trialmagnitude 
                     phase = trialphase
                     fields1 = trialfields1
@@ -376,54 +388,73 @@ class Propagator():
                     new_right_beta = trial_right_beta.copy()
                 galpha, gbeta = self.get_green_func(new_left_alpha, new_left_beta, new_right_alpha, new_right_beta)
                 energy = self.get_local_energy(galpha, gbeta)
-                # Use index_update or .at().set() to modify tensors immutably
-                self.samples.left_tensor_alpha = self.samples.left_tensor_alpha.at[i].set(new_left_alpha)
-                self.samples.left_tensor_beta = self.samples.left_tensor_beta.at[i].set(new_left_beta)
-                self.samples.right_tensor_alpha = self.samples.right_tensor_alpha.at[i].set(new_right_alpha)
-                self.samples.right_tensor_beta = self.samples.right_tensor_beta.at[i].set(new_right_beta)
-                magnitudes = magnitudes.at[i].set(magnitude)
                 phases = phases.at[i].set(phase)
                 energies = energies.at[i].set(energy)   
-            logweights = logweights - max(logweights)   
-            weighted_phases = phases * jnp.exp(logweights)
-            #Variational energys
-            variational_energy = jnp.sum(weighted_phases * energies) / jnp.sum(weighted_phases)
+            #Variational energy
+           # print(accepted/self.n_samples)
+            #print(energies)
+            num = phases * energies
+            denom = phases
+            mean, sigma = self.jackknife_ratios(num, denom)
+            variational_energy = jnp.sum(num) / jnp.sum(denom)
+            #print(jnp.mean(num))
+            #print(jnp.mean(denom))
             variational_energies = variational_energies.at[t].set(jnp.real(variational_energy))
-            # Reorthogonalize every third step
-            print(logweights)
-            if t % 3 == 0:
-                logweights, self.samples.left_tensor_alpha, self.samples.left_tensor_beta = \
-                    self.reorthogonalize(logweights, self.samples.left_tensor_alpha, self.samples.left_tensor_beta)
-                logweights, self.samples.right_tensor_alpha, self.samples.right_tensor_beta = \
-                    self.reorthogonalize(logweights, self.samples.right_tensor_alpha, self.samples.right_tensor_beta)
+            variational_errors = variational_errors.at[t].set(jnp.real(sigma))
+        return variational_energies, variational_errors
+    def jackknife_ratios(self, num: jnp.ndarray, denom: jnp.ndarray):
+        r"""Jackknife estimation of standard deviation of the ratio of means.
 
-        return variational_energies
+        Parameters
+        ----------
+        num : :class:`np.ndarray
+            Numerator samples.
+        denom : :class:`np.ndarray`
+            Denominator samples.
 
+        Returns
+        -------
+        mean : :class:`np.ndarray`
+            Ratio of means.
+        sigma : :class:`np.ndarray`
+            Standard deviation of the ratio of means.
+        """
+        n_samples = num.size
+        num_mean = jnp.mean(num)
+        denom_mean = jnp.mean(denom)
+        mean = num_mean / denom_mean
+        jackknife_estimates = jnp.zeros(n_samples, dtype=num.dtype)
+        for i in range(n_samples):
+            mean_num_i = (num_mean * n_samples - num[i]) / (n_samples - 1)
+            mean_denom_i = (denom_mean * n_samples - denom[i]) / (n_samples - 1)
+            jackknife_estimates = jackknife_estimates.at[i].set((mean_num_i / mean_denom_i).real)
+        mean = jnp.mean(jackknife_estimates)
+        sigma = jnp.sqrt((n_samples - 1) * jnp.var(jackknife_estimates))
 
+        return mean, sigma
 
     def get_variational_energy(self, params):
             # Reshape the Hamiltonian matrix parameters
             self.hmf_params = self.hmf + params.reshape(self.L * self.L, self.L * self.L)
 
-            num_runs = 5  # Number of Monte Carlo runs
+            num_runs = 1 # Number of Monte Carlo runs
             t = jnp.linspace(0, self.tau, self.n_steps)
-            
             # Setting up the figure and axis for plotting
             plt.figure(figsize=(10, 6))
-            
             # Run the Monte Carlo process and plot each run
             for i in range(num_runs):
-                variational_energies = self.sample()
-                plt.plot(t, variational_energies, label=f'Run {i+1}', alpha=0.7, linewidth=2)
-            
+                variational_energies, variational_errors = self.sample()
+                print(jnp.mean(variational_energies))
+                print(jnp.std(variational_energies))
+                plt.errorbar(t, variational_energies, variational_errors, label=f'Run {i+1}', alpha=0.7, linewidth=2)
+            plt.hlines(-6.681695234496717, xmin=0, xmax=5, label=f'FCI Reference')
             # Adding labels and title to the plot
             plt.xlabel('Time (tau)', fontsize=14)
             plt.ylabel('Variational Energy', fontsize=14)
             plt.title('Variational Energy vs Time for Multiple Runs', fontsize=16)
-            
             # Adding a legend to distinguish different runs
             plt.legend(loc='upper right', fontsize=12)
-            
+              
             # Adding grid for better readability
             plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 
@@ -460,5 +491,5 @@ class Propagator():
         opt_params = res.x
         return res.fun
 
-simple = Propagator(1, 2, 2, (2, 2), 2, 0.05, 1000)
+simple = Propagator(1, 2, 2, (2, 2), 5, 0.05, 100)
 simple.run()
