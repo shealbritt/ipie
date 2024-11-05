@@ -328,7 +328,7 @@ class Propagator():
         nums = nums.at[0].set(jnp.real(variational_energy))
         #Set up original walker:
         og_magnitudes = jnp.ones(self.n_steps)
-        og_phases = jnp.ones(self.n_steps)
+        og_phases = jnp.ones(self.n_steps, dtype = jnp.complex128)
         og_right_alphas = jnp.array([alpha] * self.n_steps, dtype=jnp.complex128)
         og_right_betas = jnp.array([beta] * self.n_steps, dtype=jnp.complex128)
         og_left_alphas = jnp.array([alpha] * self.n_steps, dtype=jnp.complex128)
@@ -362,6 +362,7 @@ class Propagator():
             new_left_beta = og_left_betas[t]
             new_right_beta = og_right_betas[t]                        
             accepted = 0
+            phase = og_phases[t]
             for i in range(self.n_samples):
                 key = self.key_manager.get_key()
                 randi1 = random.choice(key, jnp.arange(fields1[t].size))
