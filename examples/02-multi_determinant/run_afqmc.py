@@ -11,6 +11,8 @@ from ipie.qmc.afqmc import AFQMC
 from ipie.systems.generic import Generic
 from ipie.trial_wavefunction.particle_hole import ParticleHole
 from ipie.utils.from_pyscf import gen_ipie_input_from_pyscf_chk
+from ipie.walkers.uhf_walkers import UHFWalkersParticleHole
+from ipie.utils.mpi import MPIHandler
 
 try:
     from mpi4py import MPI
@@ -90,11 +92,25 @@ trial.compute_trial_energy = True
 trial.build()
 trial.half_rotate(ham)
 
+initial_walker = numpy.hstack([trial.psi0a, trial.psi0b])
+random_perturbation = numpy.random.random(initial_walker.shape)
+initial_walker = initial_walker + random_perturbation
+initial_walker, _ = numpy.linalg.qr(initial_walker)
+walkers = UHFWalkersParticleHole(
+    initial_walker,
+    mol_nelec[0],
+    mol_nelec[1],
+    num_basis,
+    num_walkers,
+    MPIHandler(),
+)
+walkers.build(trial)
 
 afqmc_msd = AFQMC.build(
     mol_nelec,
     ham,
     trial,
+    walkers=walkers,
     num_walkers=num_walkers,
     num_steps_per_block=25,
     num_blocks=10,
