@@ -7,6 +7,7 @@ import h5py
 from ipie.walkers.pop_controller import PopController
 from ipie.walkers.base_walkers import BaseWalkers
 from ipie.qmc.comm import FakeComm
+import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
@@ -164,44 +165,6 @@ class Propagator(object):
                     nuc = integral
         return h1e, v2e, nuc
 
-    def modified_cholesky_decomposition(self, eri):
-       # print("Starting modified Cholesky decomposition (NumPy version).")
-        
-        eri = np.array(eri)  # Ensure eri is a numpy array
-        norb = eri.shape[0]
-        v2e = eri.reshape((norb**2, -1))
-        thresh = 10**(-9)
-        residual = v2e.copy()
-        num_fields = 0
-        tensor_list = []
-        error = np.linalg.norm(residual)
-      #  print(f"Initial error: {error}")
-        
-        while error > thresh:
-            max_res, max_i = np.max(np.diag(residual)), np.argmax(np.diag(residual))
-            #print(f"Max residual: {max_res}, Index: {max_i}")
-            
-            for i in range(norb**2):
-                if np.sqrt(np.abs(residual[i, i] * max_res)) <= thresh:
-                    residual[i, i] = 0
-            
-            L = residual[:, max_i] / np.sqrt(max_res)
-         #   print(f"L vector (reshaped to {norb}x{norb}): {L.reshape(norb, norb)}")
-            tensor_list.append(L.reshape(norb, norb))
-            
-            for i in range(norb**2):
-                for j in range(norb**2):
-                    products = np.array([L.flatten()[i] * L.flatten()[j] for L in tensor_list])
-                    residual[i, j] = v2e[i, j] - np.sum(products)
-            
-            error = np.linalg.norm(residual)
-          #  print(f"Current error: {error}")
-            num_fields += 1
-        
-        tensor_list = np.array(tensor_list)
-       # print("Finished modified Cholesky decomposition (NumPy version).")
-        return tensor_list, num_fields
-
     def hamiltonian_integral(self):
         #Checked
         with h5py.File("input.h5") as fa:
@@ -211,7 +174,12 @@ class Propagator(object):
         ftmp = tempfile.NamedTemporaryFile()
         tools.fcidump.from_mo(self.mol, ftmp.name, ao_coeff)
         h1e, eri, nuc = self.read_fcidump(ftmp.name, norb)
-        l_tensor, self.nfields = self.modified_cholesky_decomposition(eri)
+        v2e = eri.reshape((norb**2, -1))
+        u, s, v = scipy.linalg.svd(v2e)
+        l_tensor = u * np.sqrt(s)
+        l_tensor = l_tensor.T
+        l_tensor = l_tensor.reshape(l_tensor.shape[0], norb, norb)
+        self.nfields = l_tensor.shape[0]
         with h5py.File("input.h5", "r+") as fa:
             fa["h1e"] = h1e
             fa["nuc"] = nuc
@@ -228,9 +196,8 @@ class Propagator(object):
         self.walkers.init_walkers(tempa, tempb)
 
     def get_overlap(self):
-        #Checked
-        overlap_alpha = np.linalg.det(np.einsum('pr, zpq -> zrq', self.trial.tensor_alpha.conj(), self.walkers.tensor_alpha))
-        overlap_beta = np.linalg.det(np.einsum('pr, zpq -> zrq', self.trial.tensor_beta.conj(), self.walkers.tensor_beta))
+        overlap_alpha = np.linalg.det(np.einsum('rp, zrq -> zpq', self.trial.tensor_alpha.conj(), self.walkers.tensor_alpha))
+        overlap_beta = np.linalg.det(np.einsum('rp, zrq -> zpq', self.trial.tensor_beta.conj(), self.walkers.tensor_beta))
         return overlap_alpha * overlap_beta
     
     def get_theta(self):
@@ -262,18 +229,14 @@ class Propagator(object):
         for p in range(h1e.shape[0]):
             for q in range(h1e.shape[0]):
                 v0[p, q] = h1e[p, q] - 0.5 * temp[p, q]
-        print("v0", v0)
         xi = np.random.normal(0.0, 1.0, self.nfields * self.nwalkers).reshape(self.nwalkers, self.nfields)
-        print("Auxilary fields", xi[0])
         #print("force_bias", xbar[0])
         #print("force _bias  subtracted", (xi-xbar)[0])
         #print("L tensors", l_tensor)
         mat = np.einsum('nm, mpq -> npq', xi - xbar, l_tensor)
-        print("matrix after summing", mat[0])
         v0_broadcast = v0[np.newaxis, :, :]
         #print("v0_broadcast", v0_broadcast)
         matrixA = 1j*np.sqrt(self.dt)*mat-self.dt*v0_broadcast
-        print("A matrix", matrixA[0])
         tempa = self.walkers.tensor_alpha.copy()
         tempb = self.walkers.tensor_beta.copy()
         expA = scipy.linalg.expm(matrixA)
@@ -281,9 +244,6 @@ class Propagator(object):
         #print("expA", expA[0])
         #print("Before prop ", tempa[0])
         self.walkers.tensor_alpha = np.einsum('npq, nqr -> npr', expA, tempa)
-        print("Aftee prop ", self.walkers.tensor_alpha[0])
-        
-        exit()
         self.walkers.tensor_beta = np.einsum('npq, nqr -> npr', expA, tempb)
 
 
@@ -299,8 +259,7 @@ class Propagator(object):
         return green_func_alpha, green_func_beta
     
     def get_local_energy(self, l_tensor, theta_alpha, theta_beta, v2e, h1e, nuc, green_func_alpha, green_func_beta):
-        #Checked
-
+        #Changed indexing it is working now, issue was with cholesky!
         modified_l_tensor_alpha = np.einsum('pr, npq -> nrq', self.trial.tensor_alpha.conj(), l_tensor)
         modified_l_tensor_beta = np.einsum('pr, npq -> nrq', self.trial.tensor_beta.conj(), l_tensor)
         l_theta_trace = self.get_l_theta_trace(modified_l_tensor_alpha, modified_l_tensor_beta, theta_alpha, theta_beta)
@@ -314,8 +273,16 @@ class Propagator(object):
         local_e2 = np.einsum('ij -> i', local_energy_field)
         local_e1 = np.einsum("pq, zpq -> z", h1e, green_func_alpha)
         local_e1 += np.einsum("pq, zpq -> z", h1e, green_func_beta)
+        #e2 = np.einsum("prqs,zpr,zqs ->z", v2e, green_func_alpha, green_func_alpha)
+        #e2 += np.einsum("prqs,zpr,zqs ->z", v2e, green_func_beta, green_func_alpha)
+        #e2 += np.einsum("prqs,zpr,zqs ->z", v2e, green_func_alpha, green_func_beta)
+        #e2 += np.einsum("prqs,zpr,zqs ->z", v2e, green_func_beta, green_func_beta)
+        #e2 -= np.einsum("prqs,zps,zqr ->z", v2e, green_func_alpha, green_func_alpha)
+        #e2 -= np.einsum("prqs,zps,zqr ->z", v2e, green_func_beta, green_func_beta)
         local_energy = (local_e1 + 0.5*local_e2 + nuc)
         return local_energy
+
+#picking up from here
 
     def update_walker(self, local_energy, energy, overlap):
         # checked
@@ -367,8 +334,6 @@ class Propagator(object):
             l_theta_trace = self.get_l_theta_trace(modified_l_tensor_alpha, modified_l_tensor_beta, theta_alpha, theta_beta)
             force_bias = self.get_force_bias(l_theta_trace)
             self.propagate_walkers(h1e, force_bias, l_tensor)
-            print(self.walkers.tensor_alpha[:5])
-            exit()
             self.update_walker(local_e, energy, ovlp)
             if step % self.stab_freq == 0:
                 self.pcontrol.pop_control(self.walkers, comm)
@@ -377,3 +342,29 @@ class Propagator(object):
                 self.orthonormalize()
         
         return time_list, energy_list
+    
+
+
+# Define the H2 molecule with PySCF
+mol = gto.M(atom='H 0 0 0; H 0 0 0.74', basis='sto-3g', unit='angstrom')
+
+# Instantiate the Propagator class for the H2 molecule
+# Example parameters: time step dt=0.01, total simulation time total_t=1.0
+print("Running H2O")
+prop = Propagator(mol, dt=0.005, total_t=15.0, nwalkers=100, trial_type="uhf")
+
+# Run the simulation to get time and energy lists
+time_list, energy_list = prop.run()
+
+
+# Plot time vs energy
+plt.figure(figsize=(8, 6))
+print(np.mean(energy_list[30:]))
+plt.plot(time_list, energy_list, label='AFQMC Energy (H2)', color='b', marker='o')
+plt.hlines(-1.1372838344885023, xmin=0, xmax=15)
+plt.xlabel('Time (a.u.)')
+plt.ylabel('Energy (Hartree)')
+plt.title('AFQMC Simulation: Time vs Energy for H2')
+plt.grid(True)
+plt.legend()
+plt.show()
