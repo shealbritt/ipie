@@ -6,17 +6,17 @@ import h5py
 import jax.numpy as jnp
 import jax.scipy as jsp
 import jax
-from ipie.walkers.pop_controller import PopController
+import os
 from ipie.qmc.comm import FakeComm
 import matplotlib.pyplot as plt
 from ipie.analysis.autocorr import reblock_by_autocorr
 import sys
-sys.path.append('../VAFQMC/afqmc')
-from trial import Trial
-from walkers import Walkers
-from utils import read_fcidump, get_fci
-from keymanager import KeyManager
-from jax_afqmc import JaxPropagator
+sys.path.append('/n/home06/mbritt/VAFQMC')
+from afqmc.trial import Trial
+from afqmc.walkers import Walkers
+from afqmc.utils import read_fcidump, get_fci
+from afqmc.keymanager import KeyManager
+from afqmc.jax_afqmc import JaxPropagator
 jax.config.update('jax_enable_x64', True)
 
  
@@ -348,7 +348,7 @@ mol = gto.M(atom='H 0 0 0; H 0 0 0.74', basis='sto-3g', unit='angstrom')
 print("Running H2O")
 t = 1
 times = np.linspace(0, t, int(t/0.005) + 1)
-times = [4]
+times = [10]
 energy_list = []
 error_list = []
 for time in times:
