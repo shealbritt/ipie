@@ -163,7 +163,7 @@ class Propagator(object):
             # periodic re-orthogonalization
             if int(time / self.dt) % self.stab_freq == 0:
                 self.reorthogonal()
-                #self.pop_control()
+                self.pop_control()
             time = time + self.dt
         return time_list, energy_list
 
@@ -207,7 +207,7 @@ class Propagator(object):
             weights = jnp.ones(nwalkers) * average_weight
             #Shea added the line below
             max_weight = max(weights)
-            #weights = weights / max_weight
+            weights = weights / max_weight
             z = total_weight * (jnp.arange(nwalkers) + zeta) / nwalkers
             indices = jax.vmap(jnp.searchsorted, in_axes=(None, 0))(cumulative_weights, z)
             #Shea added the line below 
@@ -352,10 +352,10 @@ times = [4]
 energy_list = []
 error_list = []
 for time in times:
-    prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=1000)  
+    prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=20)  
     time_list, energy = prop.simulate_afqmc()
     plt.plot(time_list, energy, label="jax_afqmc")
-    prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=1000)
+    prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=20)
 
 # Run the simulation to get time and energy lists
 
@@ -378,4 +378,4 @@ plt.grid(True)
 plt.legend()
 
 # Show the plot
-plt.savefig()
+plt.savefig("h2-20walkers.png")
