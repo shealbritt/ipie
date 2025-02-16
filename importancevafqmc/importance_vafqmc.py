@@ -11,7 +11,7 @@ from ipie.qmc.comm import FakeComm
 import matplotlib.pyplot as plt
 from ipie.analysis.autocorr import reblock_by_autocorr
 import sys
-sys.path.append('/n/home06/mbritt/VAFQMC')
+sys.path.append('../')
 from afqmc.trial import Trial
 from afqmc.walkers import Walkers
 from afqmc.utils import read_fcidump, get_fci
@@ -340,42 +340,47 @@ class Propagator(object):
 
         time, energy = self.simulate_afqmc(opt_params)
         return time, energy
-# Define the H2 molecule with PySCF
-mol = gto.M(atom='H 0 0 0; H 0 0 0.74', basis='sto-3g', unit='angstrom')
+    
 
-# Instantiate the Propagator class for the H2 molecule
-# Example parameters: time step dt=0.01, total simulation time total_t=1.0
-print("Running H2O")
-t = 1
-times = np.linspace(0, t, int(t/0.005) + 1)
-times = [10]
-energy_list = []
-error_list = []
-for time in times:
-    prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=20)  
-    time_list, energy = prop.simulate_afqmc()
-    plt.plot(time_list, energy, label="jax_afqmc")
-    prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=20)
+if __name__ == "__main__":
+        
+    # Define the H2 molecule with PySCF
+    mol = gto.M(atom='H 0 0 0; H 0 0 0.74', basis='sto-3g', unit='angstrom')
 
-# Run the simulation to get time and energy lists
+    # Instantiate the Propagator class for the H2 molecule
+    # Example parameters: time step dt=0.01, total simulation time total_t=1.0
+    print("Running H2O")
+    t = 1
+    times = np.linspace(0, t, int(t/0.005) + 1)
+    times = [10]
+    energy_list = []
+    error_list = []
+    
+    for time in times:
+        prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=20)  
+        time_list, energy = prop.simulate_afqmc()
+        plt.plot(time_list, energy, label="jax_afqmc")
+        prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=20)
 
-    time_list, energy = prop.run()
+    # Run the simulation to get time and energy lists
 
-    plt.plot(time_list, energy, label="vafqmc")
+        time_list, energy = prop.run()
+
+        plt.plot(time_list, energy, label="vafqmc")
 
 
 
-#plt.errorbar(time_list, np.real(energy_list), np.real(error_list), label='Importance Propagator', color='r', marker='x')
+    #plt.errorbar(time_list, np.real(energy_list), np.real(error_list), label='Importance Propagator', color='r', marker='x')
 
-# Optionally, plot a reference energy line if available
-plt.hlines(-1.1372838344885023, xmin=0, xmax=3, color='k', linestyle='--', label='Reference Energy')
+    # Optionally, plot a reference energy line if available
+    plt.hlines(-1.1372838344885023, xmin=0, xmax=3, color='k', linestyle='--', label='Reference Energy')
 
-# Add labels, title, and legend
-plt.xlabel('Time (a.u.)')
-plt.ylabel('Energy (Hartree)')
-plt.title('Comparison of AFQMC Propagators: JAX vs VAFQMC for H2')
-plt.grid(True)
-plt.legend()
+    # Add labels, title, and legend
+    plt.xlabel('Time (a.u.)')
+    plt.ylabel('Energy (Hartree)')
+    plt.title('Comparison of AFQMC Propagators: JAX vs VAFQMC for H2')
+    plt.grid(True)
+    plt.legend()
 
-# Show the plot
-plt.savefig("h2-20walkers.png")
+    # Show the plot
+    plt.savefig("h2-20walkers.png")
