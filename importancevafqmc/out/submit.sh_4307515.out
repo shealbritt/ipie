@@ -1,0 +1,787 @@
+/n/home06/mbritt/.conda/envs/afqmc_env/bin/pip
+Requirement already satisfied: pip in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (25.0.1)
+Requirement already satisfied: pyscf in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (2.6.2)
+Requirement already satisfied: jax in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (0.4.28)
+Requirement already satisfied: scipy in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (1.14.0)
+Requirement already satisfied: numpy in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (2.0.0)
+Requirement already satisfied: matplotlib in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (3.9.1)
+Requirement already satisfied: h5py>=2.7 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from pyscf) (3.11.0)
+Requirement already satisfied: setuptools in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from pyscf) (70.3.0)
+Requirement already satisfied: ml-dtypes>=0.2.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from jax) (0.4.0)
+Requirement already satisfied: opt-einsum in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from jax) (3.3.0)
+Requirement already satisfied: contourpy>=1.0.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (1.2.1)
+Requirement already satisfied: cycler>=0.10 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (4.53.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (1.4.5)
+Requirement already satisfied: packaging>=20.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (24.1)
+Requirement already satisfied: pillow>=8 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (3.1.2)
+Requirement already satisfied: python-dateutil>=2.7 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (2.9.0)
+Requirement already satisfied: six>=1.5 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from python-dateutil>=2.7->matplotlib) (1.16.0)
+# packages in environment at /n/home06/mbritt/.conda/envs/afqmc_env:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                 conda_forge    conda-forge
+_openmp_mutex             4.5                  2_kmp_llvm    conda-forge
+alsa-lib                  1.2.12               h4ab18f5_0    conda-forge
+attr                      2.5.1                h166bdaf_1    conda-forge
+beartype                  0.18.5                   pypi_0    pypi
+brotli                    1.1.0                hd590300_1    conda-forge
+brotli-bin                1.1.0                hd590300_1    conda-forge
+bzip2                     1.0.8                h4bc722e_7    conda-forge
+c-ares                    1.32.2               h4bc722e_0    conda-forge
+ca-certificates           2024.7.4             hbcca054_0    conda-forge
+cached-property           1.5.2                hd8ed1ab_1    conda-forge
+cached_property           1.5.2              pyha770c72_1    conda-forge
+cairo                     1.18.0               hbb29018_2    conda-forge
+certifi                   2024.7.4           pyhd8ed1ab_0    conda-forge
+contourpy                 1.2.1           py312h8572e83_0    conda-forge
+cycler                    0.12.1             pyhd8ed1ab_0    conda-forge
+dbus                      1.13.6               h5008d03_3    conda-forge
+expat                     2.6.2                h59595ed_0    conda-forge
+font-ttf-dejavu-sans-mono 2.37                 hab24e00_0    conda-forge
+font-ttf-inconsolata      3.000                h77eed37_0    conda-forge
+font-ttf-source-code-pro  2.038                h77eed37_0    conda-forge
+font-ttf-ubuntu           0.83                 h77eed37_2    conda-forge
+fontconfig                2.14.2               h14ed4e7_0    conda-forge
+fonts-conda-ecosystem     1                             0    conda-forge
+fonts-conda-forge         1                             0    conda-forge
+fonttools                 4.53.1          py312h41a817b_0    conda-forge
+freetype                  2.12.1               h267a509_2    conda-forge
+gettext                   0.22.5               h59595ed_2    conda-forge
+gettext-tools             0.22.5               h59595ed_2    conda-forge
+glib                      2.80.3               h8a4344b_1    conda-forge
+glib-tools                2.80.3               h73ef956_1    conda-forge
+graphite2                 1.3.13            h59595ed_1003    conda-forge
+gst-plugins-base          1.24.5               hbaaba92_0    conda-forge
+gstreamer                 1.24.5               haf2f30d_0    conda-forge
+h5py                      3.11.0          nompi_py312hb7ab980_102    conda-forge
+harfbuzz                  8.5.0                hfac3d4d_0    conda-forge
+hdf5                      1.14.3          nompi_hdf9ad27_105    conda-forge
+icu                       73.2                 h59595ed_0    conda-forge
+importlib-metadata        8.0.0              pyha770c72_0    conda-forge
+importlib_metadata        8.0.0                hd8ed1ab_0    conda-forge
+iniconfig                 2.0.0                    pypi_0    pypi
+ipie                      0.7.1                    pypi_0    pypi
+jax                       0.4.28             pyhd8ed1ab_0    conda-forge
+jaxlib                    0.4.28          cpu_py312h17e8b90_0    conda-forge
+keyutils                  1.6.1                h166bdaf_0    conda-forge
+kiwisolver                1.4.5           py312h8572e83_1    conda-forge
+krb5                      1.21.3               h659f571_0    conda-forge
+lame                      3.100             h166bdaf_1003    conda-forge
+lcms2                     2.16                 hb7c19ff_0    conda-forge
+ld_impl_linux-64          2.40                 hf3520f5_7    conda-forge
+lerc                      4.0.0                h27087fc_0    conda-forge
+libabseil                 20240116.2      cxx17_he02047a_1    conda-forge
+libaec                    1.1.3                h59595ed_0    conda-forge
+libasprintf               0.22.5               h661eb56_2    conda-forge
+libasprintf-devel         0.22.5               h661eb56_2    conda-forge
+libblas                   3.9.0           22_linux64_openblas    conda-forge
+libbrotlicommon           1.1.0                hd590300_1    conda-forge
+libbrotlidec              1.1.0                hd590300_1    conda-forge
+libbrotlienc              1.1.0                hd590300_1    conda-forge
+libcap                    2.69                 h0f662aa_0    conda-forge
+libcblas                  3.9.0           22_linux64_openblas    conda-forge
+libcint                   6.1.2                h4ab18f5_0    conda-forge
+libclang-cpp15            15.0.7          default_h127d8a8_5    conda-forge
+libclang13                18.1.8          default_h6ae225f_0    conda-forge
+libcups                   2.3.3                h4637d8d_4    conda-forge
+libcurl                   8.8.0                hca28451_1    conda-forge
+libdeflate                1.20                 hd590300_0    conda-forge
+libedit                   3.1.20191231         he28a2e2_2    conda-forge
+libev                     4.33                 hd590300_2    conda-forge
+libevent                  2.1.12               hf998b51_1    conda-forge
+libexpat                  2.6.2                h59595ed_0    conda-forge
+libffi                    3.4.2                h7f98852_5    conda-forge
+libflac                   1.4.3                h59595ed_0    conda-forge
+libgcc-ng                 14.1.0               h77fa898_0    conda-forge
+libgcrypt                 1.11.0               h4ab18f5_0    conda-forge
+libgettextpo              0.22.5               h59595ed_2    conda-forge
+libgettextpo-devel        0.22.5               h59595ed_2    conda-forge
+libgfortran-ng            14.1.0               h69a702a_0    conda-forge
+libgfortran5              14.1.0               hc5f4f2c_0    conda-forge
+libglib                   2.80.3               h8a4344b_1    conda-forge
+libgpg-error              1.50                 h4f305b6_0    conda-forge
+libgrpc                   1.62.2               h15f2491_0    conda-forge
+libiconv                  1.17                 hd590300_2    conda-forge
+libjpeg-turbo             3.0.0                hd590300_1    conda-forge
+liblapack                 3.9.0           22_linux64_openblas    conda-forge
+libllvm15                 15.0.7               hb3ce162_4    conda-forge
+libllvm18                 18.1.8               h8b73ec9_1    conda-forge
+libnghttp2                1.58.0               h47da74e_1    conda-forge
+libnsl                    2.0.1                hd590300_0    conda-forge
+libogg                    1.3.5                h4ab18f5_0    conda-forge
+libopenblas               0.3.27          pthreads_hac2b453_1    conda-forge
+libopus                   1.3.1                h7f98852_1    conda-forge
+libpng                    1.6.43               h2797004_0    conda-forge
+libpq                     16.3                 ha72fbe1_0    conda-forge
+libprotobuf               4.25.3               h08a7969_0    conda-forge
+libre2-11                 2023.09.01           h5a48ba9_2    conda-forge
+libsndfile                1.2.2                hc60ed4a_1    conda-forge
+libsqlite                 3.46.0               hde9e2c9_0    conda-forge
+libssh2                   1.11.0               h0841786_0    conda-forge
+libstdcxx-ng              14.1.0               hc0a3c3a_0    conda-forge
+libsystemd0               255                  h3516f8a_1    conda-forge
+libtiff                   4.6.0                h1dd3fc0_3    conda-forge
+libuuid                   2.38.1               h0b41bf4_0    conda-forge
+libvorbis                 1.3.7                h9c3ff4c_0    conda-forge
+libwebp-base              1.4.0                hd590300_0    conda-forge
+libxc-c                   6.2.2            cpu_h1b64f48_4    conda-forge
+libxcb                    1.16                 hd590300_0    conda-forge
+libxcrypt                 4.4.36               hd590300_1    conda-forge
+libxkbcommon              1.7.0                h2c5496b_1    conda-forge
+libxml2                   2.12.7               h4c95cb1_3    conda-forge
+libzlib                   1.3.1                h4ab18f5_1    conda-forge
+llvm-openmp               18.1.8               hf5423f3_0    conda-forge
+llvmlite                  0.43.0                   pypi_0    pypi
+lz4-c                     1.9.4                hcb278e6_0    conda-forge
+markdown-it-py            3.0.0                    pypi_0    pypi
+matplotlib                3.9.1           py312h7900ff3_0    conda-forge
+matplotlib-base           3.9.1           py312h9201f00_0    conda-forge
+mdurl                     0.1.2                    pypi_0    pypi
+ml_dtypes                 0.4.0           py312h1d6d2e6_1    conda-forge
+mpg123                    1.32.6               h59595ed_0    conda-forge
+munkres                   1.1.4              pyh9f0ad1d_0    conda-forge
+mysql-common              8.3.0                hf1915f5_4    conda-forge
+mysql-libs                8.3.0                hca2cd23_4    conda-forge
+ncurses                   6.5                  h59595ed_0    conda-forge
+nspr                      4.35                 h27087fc_0    conda-forge
+nss                       3.102                h593d115_0    conda-forge
+numba                     0.60.0                   pypi_0    pypi
+numpy                     2.0.0           py312h22e1c76_0    conda-forge
+openjpeg                  2.5.2                h488ebb8_0    conda-forge
+openssl                   3.3.1                h4bc722e_2    conda-forge
+opt-einsum                3.3.0                hd8ed1ab_2    conda-forge
+opt_einsum                3.3.0              pyhc1e730c_2    conda-forge
+packaging                 24.1               pyhd8ed1ab_0    conda-forge
+pandas                    2.2.2                    pypi_0    pypi
+pcre2                     10.44                h0f59acf_0    conda-forge
+pillow                    10.4.0          py312h287a98d_0    conda-forge
+pip                       25.0.1                   pypi_0    pypi
+pixman                    0.43.2               h59595ed_0    conda-forge
+pluggy                    1.5.0                    pypi_0    pypi
+plum-dispatch             2.5.2                    pypi_0    pypi
+ply                       3.11               pyhd8ed1ab_2    conda-forge
+pthread-stubs             0.4               h36c2ea0_1001    conda-forge
+pulseaudio-client         17.0                 hb77b528_0    conda-forge
+pybind11-abi              4                    hd8ed1ab_3    conda-forge
+pygments                  2.18.0                   pypi_0    pypi
+pyparsing                 3.1.2              pyhd8ed1ab_0    conda-forge
+pyqt                      5.15.9          py312h949fe66_5    conda-forge
+pyqt5-sip                 12.12.2         py312h30efb56_5    conda-forge
+pyscf                     2.6.2           py312h974a264_0    conda-forge
+pytest                    8.2.2                    pypi_0    pypi
+python                    3.12.4          h194c7f8_0_cpython    conda-forge
+python-dateutil           2.9.0              pyhd8ed1ab_0    conda-forge
+python_abi                3.12                    4_cp312    conda-forge
+pytz                      2024.1                   pypi_0    pypi
+qhull                     2020.2               h434a139_5    conda-forge
+qt-main                   5.15.8              ha2b5568_22    conda-forge
+re2                       2023.09.01           h7f4b329_2    conda-forge
+readline                  8.2                  h8228510_1    conda-forge
+rich                      13.7.1                   pypi_0    pypi
+scipy                     1.14.0          py312hc2bc53b_1    conda-forge
+setuptools                70.3.0             pyhd8ed1ab_0    conda-forge
+sip                       6.7.12          py312h30efb56_0    conda-forge
+six                       1.16.0             pyh6c4a22f_0    conda-forge
+tk                        8.6.13          noxft_h4845f30_101    conda-forge
+toml                      0.10.2             pyhd8ed1ab_0    conda-forge
+tomli                     2.0.1              pyhd8ed1ab_0    conda-forge
+tornado                   6.4.1           py312h9a8786e_0    conda-forge
+typing-extensions         4.12.2                   pypi_0    pypi
+tzdata                    2024.1                   pypi_0    pypi
+wheel                     0.43.0             pyhd8ed1ab_1    conda-forge
+xcb-util                  0.4.1                hb711507_2    conda-forge
+xcb-util-image            0.4.0                hb711507_2    conda-forge
+xcb-util-keysyms          0.4.1                hb711507_0    conda-forge
+xcb-util-renderutil       0.3.10               hb711507_0    conda-forge
+xcb-util-wm               0.4.2                hb711507_0    conda-forge
+xcfun                     2.1.1                h5b9907d_7    conda-forge
+xkeyboard-config          2.42                 h4ab18f5_0    conda-forge
+xorg-kbproto              1.0.7             h7f98852_1002    conda-forge
+xorg-libice               1.1.1                hd590300_0    conda-forge
+xorg-libsm                1.2.4                h7391055_0    conda-forge
+xorg-libx11               1.8.9                hb711507_1    conda-forge
+xorg-libxau               1.0.11               hd590300_0    conda-forge
+xorg-libxdmcp             1.1.3                h7f98852_0    conda-forge
+xorg-libxext              1.3.4                h0b41bf4_2    conda-forge
+xorg-libxrender           0.9.11               hd590300_0    conda-forge
+xorg-renderproto          0.11.1            h7f98852_1002    conda-forge
+xorg-xextproto            7.3.0             h0b41bf4_1003    conda-forge
+xorg-xf86vidmodeproto     2.3.1             h7f98852_1002    conda-forge
+xorg-xproto               7.0.31            h7f98852_1007    conda-forge
+xz                        5.2.6                h166bdaf_0    conda-forge
+zipp                      3.19.2             pyhd8ed1ab_0    conda-forge
+zlib                      1.3.1                h4ab18f5_1    conda-forge
+zstd                      1.5.6                ha6fb4c9_0    conda-forge
+      ipie-ETotal  vafqmc-ETotal
+0        7.367928       7.367928
+1        7.367710       7.367717
+2        7.367442       7.367548
+3        7.367363       7.367372
+4        7.367225       7.367033
+...           ...            ...
+4991     7.363525       7.363683
+4992     7.363803       7.363498
+4993     7.363842       7.363300
+4994     7.364155       7.363398
+4995     7.364530       7.363456
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   7.363446         0.000056               90  46
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   7.363306         0.000052              160  26
+Error processing distance 0.1: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0        2.405276       2.405276
+1        2.405055       2.405063
+2        2.404779       2.404890
+3        2.404695       2.404711
+4        2.404560       2.404366
+...           ...            ...
+4991     2.400411       2.400620
+4992     2.400693       2.400410
+4993     2.400726       2.400203
+4994     2.401044       2.400307
+4995     2.401472       2.400344
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   2.400352         0.000068               84  49
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   2.400191          0.00006              154  27
+Error processing distance 0.2: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0        0.790724       0.790724
+1        0.790500       0.790507
+2        0.790214       0.790331
+3        0.790124       0.790147
+4        0.789991       0.789793
+...           ...            ...
+4991     0.785218       0.785487
+4992     0.785507       0.785242
+4993     0.785534       0.785025
+4994     0.785861       0.785135
+4995     0.786358       0.785144
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   0.785184         0.000084               68  61
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   0.784994         0.000072              143  29
+Error processing distance 0.3: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0        0.018545       0.018545
+1        0.018317       0.018323
+2        0.018020       0.018143
+3        0.017924       0.017954
+4        0.017792       0.017591
+...           ...            ...
+4991     0.012286       0.012615
+4992     0.012581       0.012331
+4993     0.012602       0.012104
+4994     0.012938       0.012220
+4995     0.013516       0.012193
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   0.012293         0.000103               56  73
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   0.012062         0.000086              134  31
+Error processing distance 0.4: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.415089      -0.415089
+1       -0.415322      -0.415315
+2       -0.415630      -0.415500
+3       -0.415732      -0.415694
+4       -0.415863      -0.416068
+...           ...            ...
+4991    -0.422196      -0.421813
+4992    -0.421896      -0.422139
+4993    -0.421881      -0.422375
+4994    -0.421539      -0.422256
+4995    -0.420869      -0.422323
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.422137         0.000129               48  85
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.422415         0.000107              122  34
+Error processing distance 0.5: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.679609      -0.679609
+1       -0.679847      -0.679841
+2       -0.680168      -0.680031
+3       -0.680277      -0.680231
+4       -0.680407      -0.680616
+...           ...            ...
+4991    -0.687674      -0.687252
+4992    -0.687370      -0.687620
+4993    -0.687363      -0.687864
+4994    -0.687018      -0.687743
+4995    -0.686241      -0.687858
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   -0.68755         0.000157               45  91
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.687884         0.000133              109  38
+Error processing distance 0.6: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.848330      -0.848330
+1       -0.848574      -0.848568
+2       -0.848907      -0.848764
+3       -0.849024      -0.848970
+4       -0.849153      -0.849367
+...           ...            ...
+4991    -0.857475      -0.857034
+4992    -0.857169      -0.857448
+4993    -0.857172      -0.857698
+4994    -0.856827      -0.857579
+4995    -0.855928      -0.857751
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.857269         0.000178               42  98
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.857671         0.000166               92  45
+Error processing distance 0.7: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.958219      -0.958219
+1       -0.958469      -0.958463
+2       -0.958816      -0.958665
+3       -0.958940      -0.958877
+4       -0.959069      -0.959288
+...           ...            ...
+4991    -0.968576      -0.968148
+4992    -0.968270      -0.968609
+4993    -0.968286      -0.968863
+4994    -0.967947      -0.968748
+4995    -0.966906      -0.968991
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -0.968268         0.000221               39  106
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.968756         0.000203               84  49
+Error processing distance 0.7999999999999999: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.029933      -1.029933
+1       -1.030190      -1.030185
+2       -1.030551      -1.030393
+3       -1.030684      -1.030612
+4       -1.030812      -1.031036
+...           ...            ...
+4991    -1.041643      -1.041267
+4992    -1.041340      -1.041776
+4993    -1.041374      -1.042033
+4994    -1.041046      -1.041926
+4995    -1.039841      -1.042256
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.041206         0.000254               38  108
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.041808         0.000254               80  52
+Error processing distance 0.8999999999999999: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.075890      -1.075890
+1       -1.076155      -1.076149
+2       -1.076530      -1.076364
+3       -1.076671      -1.076591
+4       -1.076799      -1.077029
+...           ...            ...
+4991    -1.089103      -1.088820
+4992    -1.088808      -1.089379
+4993    -1.088864      -1.089636
+4994    -1.088556      -1.089542
+4995    -1.087159      -1.089979
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.088526         0.000297               37  110
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.089262         0.000281               78  53
+Error processing distance 0.9999999999999999: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.103969      -1.103969
+1       -1.104241      -1.104236
+2       -1.104631      -1.104458
+3       -1.104782      -1.104693
+4       -1.104910      -1.105146
+...           ...            ...
+4991    -1.118846      -1.118692
+4992    -1.118563      -1.119304
+4993    -1.118648      -1.119558
+4994    -1.118368      -1.119480
+4995    -1.116749      -1.120048
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.118086         0.000356               37  111
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.119008         0.000384               77  54
+Error processing distance 1.0999999999999999: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.119378      -1.119378
+1       -1.119658      -1.119653
+2       -1.120064      -1.119883
+3       -1.120223      -1.120126
+4       -1.120353      -1.120595
+...           ...            ...
+4991    -1.136089      -1.136086
+4992    -1.135824      -1.136755
+4993    -1.135945      -1.137001
+4994    -1.135704      -1.136944
+4995    -1.133825      -1.137669
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.135127         0.000409               37  111
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   -1.13627         0.000473               77  54
+Error processing distance 1.2: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.125668      -1.125668
+1       -1.125957      -1.125952
+2       -1.126379      -1.126190
+3       -1.126549      -1.126442
+4       -1.126679      -1.126928
+...           ...            ...
+4991    -1.144393      -1.144536
+4992    -1.144152      -1.145262
+4993    -1.144316      -1.145496
+4994    -1.144125      -1.145464
+4995    -1.141947      -1.146372
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.143198         0.000472               37  112
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.144611         0.000583               77  54
+Error processing distance 1.3: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.125324      -1.125324
+1       -1.125623      -1.125618
+2       -1.126062      -1.125864
+3       -1.126241      -1.126125
+4       -1.126374      -1.126628
+...           ...            ...
+4991    -1.146245      -1.146493
+4992    -1.146036      -1.147277
+4993    -1.146251      -1.147491
+4994    -1.146121      -1.147486
+4995    -1.143598      -1.148601
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.144786         0.000537               37  112
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.146519         0.000629               78  53
+Error processing distance 1.4: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.120121      -1.120121
+1       -1.120430      -1.120425
+2       -1.120886      -1.120680
+3       -1.121076      -1.120950
+4       -1.121210      -1.121472
+...           ...            ...
+4991    -1.143419      -1.143683
+4992    -1.143248      -1.144522
+4993    -1.143522      -1.144712
+4994    -1.143468      -1.144733
+4995    -1.140550      -1.146070
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.141666         0.000607               37  112
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.143779         0.000797               81  51
+Error processing distance 1.5: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.111350      -1.111350
+1       -1.111669      -1.111664
+2       -1.112143      -1.111928
+3       -1.112344      -1.112208
+4       -1.112480      -1.112749
+...           ...            ...
+4991    -1.137198      -1.137344
+4992    -1.137075      -1.138230
+4993    -1.137412      -1.138389
+4994    -1.137447      -1.138435
+4995    -1.134082      -1.139996
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.135125         0.000681               37  112
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.137682         0.001035               83  50
+Error processing distance 1.5999999999999999: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.099964      -1.099964
+1       -1.100293      -1.100289
+2       -1.100787      -1.100563
+3       -1.100998      -1.100853
+4       -1.101136      -1.101414
+...           ...            ...
+4991    -1.128525      -1.128373
+4992    -1.128454      -1.129289
+4993    -1.128859      -1.129417
+4994    -1.128998      -1.129478
+4995    -1.125132      -1.131253
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.126152         0.000773               36  113
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.129175          0.00123               88  47
+Error processing distance 1.7: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.086677      -1.086677
+1       -1.087017      -1.087014
+2       -1.087530      -1.087297
+3       -1.087753      -1.087598
+4       -1.087894      -1.088179
+...           ...            ...
+4991    -1.118093      -1.117433
+4992    -1.118080      -1.118349
+4993    -1.118554      -1.118449
+4994    -1.118813      -1.118510
+4995    -1.114390      -1.120466
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.115339          0.00082               36  114
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.118976          0.00148               96  43
+Error processing distance 1.8: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.072028      -1.072028
+1       -1.072381      -1.072377
+2       -1.072913      -1.072670
+3       -1.073148      -1.072982
+4       -1.073291      -1.073585
+...           ...            ...
+4991    -1.106416      -1.105017
+4992    -1.106463      -1.105884
+4993    -1.107005      -1.105971
+4994    -1.107399      -1.106000
+4995    -1.102366      -1.108079
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.103305         0.000875               36  115
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.107616         0.001694              112  37
+Error processing distance 1.9: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.056430      -1.056430
+1       -1.056794      -1.056791
+2       -1.057347      -1.057095
+3       -1.057594      -1.057418
+4       -1.057740      -1.058043
+...           ...            ...
+4991    -1.093877      -1.091499
+4992    -1.093985      -1.092238
+4993    -1.094588      -1.092344
+4994    -1.095130      -1.092282
+4995    -1.089439      -1.094391
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0   -1.09051         0.000997               35  116
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   -1.09552         0.001891              143  29
+Error processing distance 2.0: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.040200      -1.040200
+1       -1.040576      -1.040573
+2       -1.041150      -1.040888
+3       -1.041409      -1.041223
+4       -1.041559      -1.041871
+...           ...            ...
+4991    -1.080757      -1.077169
+4992    -1.080923      -1.077664
+4993    -1.081578      -1.077844
+4994    -1.082282      -1.077595
+4995    -1.075890      -1.079597
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.077049         0.001137               35  117
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.083015         0.002157              180  23
+Error processing distance 2.0999999999999996: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.023584      -1.023584
+1       -1.023974      -1.023971
+2       -1.024569      -1.024297
+3       -1.024840      -1.024644
+4       -1.024993      -1.025314
+...           ...            ...
+4991    -1.067268      -1.062257
+4992    -1.067485      -1.062365
+4993    -1.068181      -1.062694
+4994    -1.069053      -1.062129
+4995    -1.061930      -1.063857
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.063291         0.001227               35  118
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.070302         0.002306              218  19
+Error processing distance 2.1999999999999997: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -1.006779      -1.006779
+1       -1.007181      -1.007178
+2       -1.007798      -1.007516
+3       -1.008082      -1.007875
+4       -1.008239      -1.008569
+...           ...            ...
+4991    -1.043958      -1.046962
+4992    -1.044097      -1.046544
+4993    -1.045019      -1.047100
+4994    -1.047438      -1.046090
+4995    -1.045329      -1.047380
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.048065         0.001057               48  85
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.057509         0.002694              244  17
+Error processing distance 2.3: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.989937      -0.989937
+1       -0.990353      -0.990351
+2       -0.990992      -0.990699
+3       -0.991289      -0.991071
+4       -0.991449      -0.991790
+...           ...            ...
+4991    -1.026131      -1.031464
+4992    -1.027679      -1.030436
+4993    -1.028485      -1.031267
+4994    -1.031432      -1.029734
+4995    -1.028487      -1.030481
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.042408         0.002495               30  135
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.044704         0.003251              244  17
+Error processing distance 2.4: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.973185      -0.973185
+1       -0.973614      -0.973611
+2       -0.974275      -0.973972
+3       -0.974585      -0.974356
+4       -0.974749      -0.975099
+...           ...            ...
+4991    -1.059957      -1.015920
+4992    -1.078119      -1.014277
+4993    -1.096391      -1.015385
+4994    -1.116523      -1.013332
+4995    -1.065324      -1.013524
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.025524          0.00199               39  105
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.031862         0.003769              260  16
+Error processing distance 2.5: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.956620      -0.956620
+1       -0.957063      -0.957061
+2       -0.957747      -0.957434
+3       -0.958070      -0.957831
+4       -0.958238      -0.958599
+...           ...            ...
+4991    -1.046376      -1.000455
+4992    -1.046728      -0.998260
+4993    -1.044181      -0.999607
+4994    -1.053300      -0.997104
+4995    -1.032255      -0.996800
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.012003         0.002558               44  93
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.019149         0.004241              260  16
+Error processing distance 2.6: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.940326      -0.940326
+1       -0.940783      -0.940781
+2       -0.941489      -0.941165
+3       -0.941826      -0.941576
+4       -0.941998      -0.942368
+...           ...            ...
+4991    -1.019926      -0.985161
+4992    -1.008824      -0.982500
+4993    -1.005461      -0.984030
+4994    -0.999554      -0.981179
+4995    -0.998279      -0.980471
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac   ac
+0  -1.003331         0.004251               26  158
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -1.006593         0.004643              260  16
+Error processing distance 2.6999999999999997: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.924368      -0.924368
+1       -0.924838      -0.924836
+2       -0.925568      -0.925233
+3       -0.925917      -0.925656
+4       -0.926094      -0.926474
+...           ...            ...
+4991    -0.977075      -0.970101
+4992    -0.978404      -0.967058
+4993    -0.981416      -0.968716
+4994    -0.982147      -0.965614
+4995    -0.984036      -0.964592
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.992847         0.003703              106  39
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.994274         0.004982              260  16
+Error processing distance 2.8: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.908798      -0.908798
+1       -0.909283      -0.909281
+2       -0.910035      -0.909690
+3       -0.910398      -0.910126
+4       -0.910579      -0.910970
+...           ...            ...
+4991    -0.994335      -0.955323
+4992    -0.996435      -0.951966
+4993    -0.993840      -0.953704
+4994    -1.001356      -0.950431
+4995    -0.988258      -0.949167
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.985653         0.004772               43  96
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.982263         0.005275              260  16
+Error processing distance 2.9: 'NoneType' object is not subscriptable
+      ipie-ETotal  vafqmc-ETotal
+0       -0.893661      -0.893661
+1       -0.894159      -0.894158
+2       -0.894934      -0.894579
+3       -0.895311      -0.895028
+4       -0.895496      -0.895897
+...           ...            ...
+4991    -0.954482      -0.940866
+4992    -0.957634      -0.937243
+4993    -0.955918      -0.939026
+4994    -0.960863      -0.935643
+4995    -0.959678      -0.934187
+
+[4996 rows x 2 columns]
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0  -0.970408         0.003759               53  78
+   ETotal_ac  ETotal_error_ac  ETotal_nsamp_ac  ac
+0   -0.97066          0.00636              277  15
+Error processing distance 3.0: 'NoneType' object is not subscriptable
+Skipped distances due to NaNs: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7999999999999999, 0.8999999999999999, 0.9999999999999999, 1.0999999999999999, 1.2, 1.3, 1.4, 1.5, 1.5999999999999999, 1.7, 1.8, 1.9, 2.0, 2.0999999999999996, 2.1999999999999997, 2.3, 2.4, 2.5, 2.6, 2.6999999999999997, 2.8, 2.9, 3.0]

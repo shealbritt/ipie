@@ -15,29 +15,19 @@ vafqmcerror = []
 distances = []
 
 nan_distances = []
-
-# Iterate over job directories
-for job_dir in sorted(glob.glob("job_*")):
-    plot_dir = os.path.join(job_dir, "plots")
-
-    if not os.path.exists(plot_dir):
-        continue  # Skip if no plots directory
-
-    csv_files = glob.glob(os.path.join(plot_dir, "h2-*.csv"))
-
-    for csv_path in csv_files:
-        match = re.search(r"h2-(\d+\.?\d*).csv", csv_path)
-        if match:
+for csv_path in sorted(glob.glob("csv/h2-*.csv")):  # Now looking directly in 'csv'
+    match = re.search(r"h2-(\d+\.?\d*).csv", csv_path)
+    if match:
             dist = float(match.group(1))
             df = pd.read_csv(csv_path)
-
+            print(df)
             # Check for NaNs
-            if df['ipie-ETotal'].isna().any() or df['vafqmc-ETotal'].isna().any():
-                nan_distances.append(dist)
-                continue  # Skip this distance but keep going
+   #         if df['ipie-ETotal'].isna().any() or df['vafqmc-ETotal'].isna().any():
+    #            nan_distances.append(dist)
+     #           continue  # Skip this distance but keep going
 
             try:
-                reblocked_ipie = reblock(df['ipie-ETotal'])
+                reblocked_ipie = reblock(df['ipie-ETotal'].dropna())
                 reblocked_vafqmc = reblock(df['vafqmc-ETotal'])
 
                 distances.append(dist)
