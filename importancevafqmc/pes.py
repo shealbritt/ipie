@@ -8,7 +8,7 @@ from itertools import zip_longest
 sys.path.append('../')
 from afqmc.ipieafqmc import ipierun
 
-def run_simulation(dist)
+def run_simulation(dist):
     os.makedirs('./plots', exist_ok=True) 
     natoms = 2
     time = 50
@@ -19,7 +19,7 @@ def run_simulation(dist)
     verbose=5  
     )
     ipie_energy = ipierun(mol)
-    prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=1000)
+    prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=100)
 
     # Run the simulation to get time and energy lists
     time_list, vafqmc_energy = prop.run()
@@ -27,7 +27,7 @@ def run_simulation(dist)
     file_path = f"./plots/h2-{dist}.csv"  # Using f-string to insert the value of `dist`
     with open(file_path, "w", newline="") as file:  
         writer = csv.writer(file)
-        writer.writerows(["ipie-ETotal", "vafqmc-ETotal"])
+        writer.writerow(["ipie-ETotal", "vafqmc-ETotal"])
         writer. writerows(rows)
 
 

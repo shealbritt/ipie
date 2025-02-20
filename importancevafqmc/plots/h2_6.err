@@ -1,0 +1,26 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:96: FutureWarning: scatter inputs have incompatible types: cannot safely cast value from dtype=complex128 to dtype=float64 with jax_numpy_dtype_promotion='standard'. In future JAX releases this will result in an error.
+  warnings.warn(
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:136: ComplexWarning: Casting complex values to real discards the imaginary part
+  return lax_internal._convert_element_type(out, dtype, weak_type)
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:96: FutureWarning: scatter inputs have incompatible types: cannot safely cast value from dtype=complex128 to dtype=float64 with jax_numpy_dtype_promotion='standard'. In future JAX releases this will result in an error.
+  warnings.warn(
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:136: ComplexWarning: Casting complex values to real discards the imaginary part
+  return lax_internal._convert_element_type(out, dtype, weak_type)
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:96: FutureWarning: scatter inputs have incompatible types: cannot safely cast value from dtype=complex128 to dtype=float64 with jax_numpy_dtype_promotion='standard'. In future JAX releases this will result in an error.
+  warnings.warn(
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:136: ComplexWarning: Casting complex values to real discards the imaginary part
+  return lax_internal._convert_element_type(out, dtype, weak_type)
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:96: FutureWarning: scatter inputs have incompatible types: cannot safely cast value from dtype=complex128 to dtype=float64 with jax_numpy_dtype_promotion='standard'. In future JAX releases this will result in an error.
+  warnings.warn(
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:136: ComplexWarning: Casting complex values to real discards the imaginary part
+  return lax_internal._convert_element_type(out, dtype, weak_type)
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:96: FutureWarning: scatter inputs have incompatible types: cannot safely cast value from dtype=complex128 to dtype=float64 with jax_numpy_dtype_promotion='standard'. In future JAX releases this will result in an error.
+  warnings.warn(
+/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/jax/_src/ops/scatter.py:136: ComplexWarning: Casting complex values to real discards the imaginary part
+  return lax_internal._convert_element_type(out, dtype, weak_type)
+ This problem is unconstrained.

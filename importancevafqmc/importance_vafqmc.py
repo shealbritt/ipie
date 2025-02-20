@@ -163,7 +163,7 @@ class Propagator(object):
             # periodic re-orthogonalization
             if int(time / self.dt) % self.stab_freq == 0:
                 self.reorthogonal()
-                self.pop_control()
+               # self.pop_control()
             time = time + self.dt
         return time_list, energy_list
 

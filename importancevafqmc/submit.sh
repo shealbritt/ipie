@@ -18,8 +18,8 @@ which pip  # This will show you which pip is being used, and confirm it's from t
 
 # Install necessary packages using pip
 pip install --upgrade pip  # Make sure pip is the latest version
-pip install pyscf jax scipy numpy
+pip install pyscf jax scipy numpy matplotlib
 
 mamba list  # Check the environment's installed packages
 
-python importance_vafqmc.py
+python pesplot.py
