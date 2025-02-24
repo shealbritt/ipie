@@ -11,12 +11,12 @@ from ipie.qmc.comm import FakeComm
 import matplotlib.pyplot as plt
 from ipie.analysis.autocorr import reblock_by_autocorr
 import sys
-sys.path.append('../')
-from afqmc.trial import Trial
-from afqmc.walkers import Walkers
-from afqmc.utils import read_fcidump, get_fci
-from afqmc.keymanager import KeyManager
-from afqmc.jax_afqmc import JaxPropagator
+sys.path.append('../afqmc/')
+from trial import Trial
+from walkers import Walkers
+from utils import read_fcidump, get_fci
+from keymanager import KeyManager
+from jax_afqmc import JaxPropagator
 jax.config.update('jax_enable_x64', True)
 
  
@@ -291,18 +291,10 @@ class Propagator(object):
         # Run the simulation
         time_list, energy_list = self.simulate_afqmc(params)
         lam = 3
-        
-        # Index for the naive error calculation
-        idx = int(0.2 * len(energy_list))
-        
-        # Compute naive error (ensure it's a concrete value)
-        naive_error = jnp.std(energy_list)
 
-        # Compute the mean over a slice of energy_list
-        energy_mean = jnp.mean(jnp.real(energy_list[idx:])).item()
 
         # Return the mean value (this will be a concrete scalar, not a tracer)
-        return energy_mean
+        return jnp.real(energy_list[-1].item())
 
 
     def gradient(self, params):
@@ -352,7 +344,7 @@ if __name__ == "__main__":
     print("Running H2O")
     t = 1
     times = np.linspace(0, t, int(t/0.005) + 1)
-    times = [10]
+    times = [3]
     energy_list = []
     error_list = []
     
