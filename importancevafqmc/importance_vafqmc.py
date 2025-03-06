@@ -66,18 +66,17 @@ def read_fcidump(fname, norb):
 
 
 class Propagator(object):
-    def __init__(self, mol, dt, total_t, nwalkers=100,
+    def __init__(self, mol, dt, nsteps, nwalkers=100,
                  taylor_order=6, scheme='local energy',
                  stab_freq=5, seed = 47193717):
         self.mol = mol
         self.nwalkers = nwalkers
-        self.total_t = total_t
+        self.nsteps = nsteps
         self.dt = dt
         self.key_manager = KeyManager(seed)
         self.nfields = None
         self.trial = None
         self.walkers = None
-        self.nsteps = int(self.total_t / self.dt) + 1
         self.precomputed_l_tensora = None
         self.precomputed_l_tensorb = None
         self.taylor_order = taylor_order
@@ -108,92 +107,127 @@ class Propagator(object):
             fa["nuc"] = nuc
             fa["chol"] = l_tensor
 
-        return jnp.array(h1e), jnp.array(eri), jnp.array(nuc), jnp.array(l_tensor)
+        return jnp.array(h1e, dtype=jnp.complex128), jnp.array(eri,  dtype=jnp.complex128), jnp.array(nuc,  dtype=jnp.complex128), jnp.array(l_tensor,  dtype=jnp.complex128)
 
     def initialize_simulation(self):
-        self.trial = Trial(self.mol)
-        self.trial.get_trial()
-        self.trial.triala = jnp.array(self.trial.triala)
-        self.trial.trialb = jnp.array(self.trial.trialb)
-        tempa, tempb = self.trial.triala.copy(), self.trial.trialb.copy()
+        tempa, tempb = self.trial.tensora.copy(), self.trial.tensorb.copy()
         self.walkers = Walkers(self.mol, self.nwalkers)
         self.walkers.init_walkers(tempa, tempb)
-        self.walkers.walker_tensora = jnp.array(self.walkers.walker_tensora)
-        self.walkers.walker_tensorb = jnp.array(self.walkers.walker_tensorb)
+        self.walkers.tensora = jnp.array(self.walkers.tensora, dtype=jnp.complex128)
+        self.walkers.tensorb = jnp.array(self.walkers.tensorb, dtype=jnp.complex128)
+        self.walkers.weight = jnp.array(self.walkers.weight, dtype=jnp.complex128)
 
     def simulate_afqmc(self, params):
         self.initialize_simulation()
-        energy_list = jnp.zeros(self.nsteps)
-        time_list = jnp.zeros(self.nsteps)
+        energy_list = jnp.zeros(self.nsteps, dtype=jnp.complex128)
+        time_list = jnp.zeros(self.nsteps, dtype=jnp.complex128)
         h1e_params, l_tensor_params = self.unpack_params(params)
         h1e_mod = jnp.zeros(h1e_params.shape)
-        Gmfa = self.trial.triala.dot(self.trial.triala.T.conj())
-        Gmfb = self.trial.trialb.dot(self.trial.trialb.T.conj())
+        Gmfa = self.trial.tensora.dot(self.trial.tensora.T.conj())
+        Gmfb = self.trial.tensorb.dot(self.trial.tensorb.T.conj())
         self.mf_shift = 0.5 * (1j * jnp.einsum("npq,pq->n", l_tensor_params, Gmfa) + 1j * jnp.einsum("npq,pq->n", l_tensor_params, Gmfb))
         temp = jnp.einsum('npr, nrq -> pq', l_tensor_params, l_tensor_params)
-        for p, q in itertools.product(range(h1e_params.shape[0]), repeat=2):
-            h1e_mod = h1e_mod.at[p, q].set(h1e_params[p, q] - 0.5 * temp[p, q])
-        h1e_mod = h1e_mod - jnp.einsum("n, npq->pq", self.mf_shift, 1j*l_tensor_params)
-        self.precomputed_l_tensora = jnp.einsum("pr, npq->nrq", self.trial.triala.conj(), l_tensor_params)
-        self.precomputed_l_tensorb = jnp.einsum("pr, npq->nrq", self.trial.trialb.conj(), l_tensor_params)
+        h1e_mod = h1e_params - 0.5 * temp[None, :, :]
+        h1e_mod = h1e_mod - jnp.einsum("n, npq->pq", self.mf_shift, 1j*l_tensor_params)[None, :, :]
+        self.precomputed_l_tensora = jnp.einsum("pr, npq->nrq", self.trial.tensora.conj(), l_tensor_params)
+        self.precomputed_l_tensorb = jnp.einsum("pr, npq->nrq", self.trial.tensorb.conj(), l_tensor_params)
         time = 0
         for i in range(len(time_list)):
             time_list = time_list.at[i].set(time)
             # tensors preparation
+            #TODO NEED TO CHANGE SO IT IS SYMMETRIC
+            #TODO WRITE ONE TO COMPUTE OVERLAPS WITH TRIAL TOO
             ovlpa, ovlpb = self.get_overlap()
             ovlp_inva = jnp.linalg.inv(ovlpa)
             ovlp_invb = jnp.linalg.inv(ovlpb)
-            thetaa = jnp.einsum("zqp, zpr->zqr", self.walkers.walker_tensora, ovlp_inva)
-            thetab = jnp.einsum("zqp, zpr->zqr", self.walkers.walker_tensorb, ovlp_invb)
-            green_funca =jnp.einsum("zqr, pr->zpq", thetaa, self.trial.triala.conj())
-            green_funcb = jnp.einsum("zqr, pr->zpq", thetab, self.trial.trialb.conj())
+            thetaa = jnp.einsum("zqp, zpr->zqr", self.walkers.tensora, ovlp_inva)
+            thetab = jnp.einsum("zqp, zpr->zqr", self.walkers.tensorb, ovlp_invb)
+            green_funca =jnp.einsum("zqr, pr->zpq", thetaa, self.trial.tensora.conj())
+            green_funcb = jnp.einsum("zqr, pr->zpq", thetab, self.trial.tensorb.conj())
             l_thetaa = jnp.einsum('npq, zqr->znpr', self.precomputed_l_tensora, thetaa)
             l_thetab = jnp.einsum('npq, zqr->znpr', self.precomputed_l_tensorb, thetab)
             trace_l_theta = jnp.einsum('znpp->zn', l_thetaa)
             trace_l_theta += jnp.einsum('znpp->zn', l_thetab)
             # calculate the local energy for each walker
             local_e = self.local_energy(self.h1e, self.v2e, self.nuc, green_funca, green_funcb)
-            energy = jnp.sum(jnp.array([self.walkers.walker_weight[i] * local_e[i] for i in range(len(local_e))]))
-            energy = energy / jnp.sum(self.walkers.walker_weight)
+            energy = jnp.sum(jnp.array([self.walkers.weight[i] * local_e[i] for i in range(len(local_e))]))
+            energy = energy / jnp.sum(self.walkers.weight)
+            # WRITE A FUNCTION HERE THAT CALCULATES SYMMETRIC ENERGY
+            if (jnp.sum(self.walkers.weight) == 0):
+                print("Invalid Denominator")
             energy_list = energy_list.at[i].set(energy)
             # imaginary time propagation
+            #TODO KEEP FORCE BIAS THE SAME
             xbar = -jnp.sqrt(self.dt) * (1j * trace_l_theta - self.mf_shift)
-            cfb, cmf = self.propagate(h1e_mod, xbar, l_tensor_params)
+            cfb, cmf = self.propagate(h1e_mod[i], xbar, l_tensor_params)
             self.update_weight(ovlpa, ovlpb, cfb, cmf, local_e, time)
             # periodic re-orthogonalization
             if int(time / self.dt) % self.stab_freq == 0:
                 self.reorthogonal()
                # self.pop_control()
             time = time + self.dt
-        return time_list, energy_list
+        variational_energy = self.variational_energy(self.h1e, self.v2e, self.nuc, local_e)
+        return time_list, energy_list, variational_energy
+
+    def variational_energy(self, h1e, v2e, nuc, ga):
+        tempa = self.trial.tensora.copy()
+        tempb = self.trial.tensorb.copy()
+        tensora = np.array([tempa] * self.nwalkers, dtype=np.complex128)
+        tensorb = np.array([tempb] * self.nwalkers, dtype=np.complex128)
+        ovlpawalkers = jnp.einsum('npr, mpq->nmrq', self.walkers.tensora.conj(), self.walkers.tensora)
+        ovlpbwalkers = jnp.einsum('npr, mpq->nmrq', self.walkers.tensorb.conj(), self.walkers.tensorb)
+        ovlpawalkers_inv = jnp.linalg.inv(ovlpawalkers)
+        ovlpbwalkers_inv = jnp.linalg.inv(ovlpbwalkers)
+        thetaa = jnp.einsum("mqp, nmpr->nmqr", self.walkers.tensora, ovlpawalkers_inv)
+        thetab = jnp.einsum("mqp, nmpr->nmqr", self.walkers.tensorb, ovlpbwalkers_inv)
+        green_funca =jnp.einsum("nmqr, npr->nmpq", thetaa, self.walkers.tensora.conj())
+        green_funcb = jnp.einsum("nmqr, npr->nmpq", thetab, self.walkers.tensorb.conj())
+        local_e2 = jnp.einsum("prqs, nmpr, nmqs->nm", v2e, green_funca, green_funca)
+        local_e2 += jnp.einsum("prqs, nmpr, nmqs->nm", v2e, green_funca, green_funcb)
+        local_e2 += jnp.einsum("prqs, nmpr, nmqs->nm", v2e, green_funcb, green_funca)
+        local_e2 += jnp.einsum("prqs, nmpr, nmqs->nm", v2e, green_funcb, green_funcb)
+        local_e2 -= jnp.einsum("prqs, nmps, nmqr->nm", v2e, green_funca, green_funca)
+        local_e2 -= jnp.einsum("prqs, nmps, nmqr->nm", v2e, green_funcb, green_funcb)
+        local_e1 = jnp.einsum("nmpq, pq->nm", green_funca, h1e)
+        local_e1 += jnp.einsum("nmpq, pq->nm", green_funcb, h1e)
+        local_e = (local_e1 + 0.5 * local_e2 + nuc)
+        ovlpa = jnp.linalg.det(ovlpawalkers)
+        ovlpb = jnp.linalg.det(ovlpbwalkers)
+        totalovlp = ovlpa * ovlpb
+        ones = jnp.ones_like(self.walkers.weight)
+        coeffs = jnp.einsum("n, m -> nm", self.walkers.weight.conj(), self.walkers.weight)
+        print("energies", local_e)
+        print("Coefficients",coeffs)
+        variational_energy = jnp.einsum("nm, nm -> nm", coeffs, local_e)
+        variational_energy = jnp.einsum("nm ->",variational_energy) / jnp.sum(coeffs)
+        return variational_energy
 
     def get_overlap(self):
-        ovlpa = jnp.einsum('pr, zpq->zrq', self.trial.triala.conj(), self.walkers.walker_tensora)
-        ovlpb = jnp.einsum('pr, zpq->zrq', self.trial.trialb.conj(), self.walkers.walker_tensorb)
+        ovlpa = jnp.einsum('pr, zpq->zrq', self.trial.tensora.conj(), self.walkers.tensora)
+        ovlpb = jnp.einsum('pr, zpq->zrq', self.trial.tensorb.conj(), self.walkers.tensorb)
         return ovlpa, ovlpb
 
     def propagate(self, h1e_mod, xbar, l_tensor):
         # 1-body propagator propagation
         one_body_op_power = jsp.linalg.expm(-self.dt/2 * h1e_mod)
-        self.walkers.walker_tensora = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.walker_tensora)
-        self.walkers.walker_tensorb = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.walker_tensorb)
+        self.walkers.tensora = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.tensora)
+        self.walkers.tensorb = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.tensorb)
         # 2-body propagator propagation
         key = self.key_manager.get_key()
         xi = jax.random.normal(key, (self.nfields * self.nwalkers,))
         xi = xi.reshape(self.nwalkers, self.nfields)
         two_body_op_power = 1j * jnp.sqrt(self.dt) * jnp.einsum('zn, npq->zpq', xi-xbar, l_tensor)
-        Tempa = self.walkers.walker_tensora.copy()
-        Tempb = self.walkers.walker_tensorb.copy()
+        Tempa = self.walkers.tensora.copy()
+        Tempb = self.walkers.tensorb.copy()
         for order_i in range(1, 1+self.taylor_order):
             Tempa = jnp.einsum('zpq, zqr->zpr', two_body_op_power, Tempa) / order_i
             Tempb = jnp.einsum('zpq, zqr->zpr', two_body_op_power, Tempb) / order_i
-            self.walkers.walker_tensora += Tempa
-            self.walkers.walker_tensorb += Tempb
+            self.walkers.tensora += Tempa
+            self.walkers.tensorb += Tempb
         # 1-body propagator propagation
         one_body_op_power = jsp.linalg.expm(-self.dt/2 * h1e_mod)
-        self.walkers.walker_tensora = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.walker_tensora)
-        self.walkers.walker_tensorb = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.walker_tensorb)
-
+        self.walkers.tensora = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.tensora)
+        self.walkers.tensorb = jnp.einsum('pq, zqr->zpr', one_body_op_power, self.walkers.tensorb)
         cfb = jnp.einsum("zn, zn->z", xi, xbar)-0.5*jnp.einsum("zn, zn->z", xbar, xbar)
         cmf = -jnp.sqrt(self.dt)*jnp.einsum('zn, n->z', xi-xbar, self.mf_shift)
         return cfb, cmf
@@ -215,13 +249,13 @@ class Propagator(object):
             walkersalpha = walkersalpha[indices]
             walkersbeta = walkersbeta[indices]
             return walkersalpha, walkersbeta, weights
-        alpha = self.walkers.walker_tensora
-        beta = self.walkers.walker_tensorb
-        weights = self.walkers.walker_weight
+        alpha = self.walkers.tensora
+        beta = self.walkers.tensorb
+        weights = self.walkers.weight
         alpha, beta, weights = stochastic_reconfiguration(alpha, beta, weights, zeta)
-        self.walkers.walker_tensora = alpha
-        self.walkers.walker_tensorb= beta
-        self.walkers.walker_weight = weights
+        self.walkers.tensora = alpha
+        self.walkers.tensorb= beta
+        self.walkers.weight = weights
        
 
     def update_weight(self, ovlpa, ovlpb, cfb, cmf, local_e, time):
@@ -245,11 +279,11 @@ class Propagator(object):
             ovlp_ratio = ovlp_ratio * jnp.exp(cmf)
             phase_factor = jnp.array([max(0, jnp.cos(jnp.angle(iovlp))) for iovlp in ovlp_ratio])
             importance_func = jnp.exp(-self.dt * jnp.real(local_e)) * phase_factor
-        self.walkers.walker_weight = self.walkers.walker_weight * importance_func
-        max_weight = max(self.walkers.walker_weight)
+        self.walkers.weight = self.walkers.weight * importance_func
+        max_weight = max(self.walkers.weight)
         if max_weight == 0:
             max_weight = 1
-        self.walkers.walker_weight = self.walkers.walker_weight / max_weight
+        #self.walkers.weight = self.walkers.weight / max_weight
 
     def local_energy(self, h1e, v2e, nuc, green_funca, green_funcb):
         local_e2 = jnp.einsum("prqs, zpr, zqs->z", v2e, green_funca, green_funca)
@@ -264,13 +298,13 @@ class Propagator(object):
         return local_e
 
     def reorthogonal(self):
-        ortho_walkersa = jnp.zeros_like(self.walkers.walker_tensora)
-        ortho_walkersb = jnp.zeros_like(self.walkers.walker_tensorb)
-        for idx in range(self.walkers.walker_tensorb.shape[0]):
-            ortho_walkersb = ortho_walkersb.at[idx].set(jnp.linalg.qr(self.walkers.walker_tensorb[idx])[0])
-            ortho_walkersa = ortho_walkersa.at[idx].set(jnp.linalg.qr(self.walkers.walker_tensora[idx])[0])
-        self.walkers.walker_tensorb = ortho_walkersb
-        self.walkers.walker_tensora = ortho_walkersa
+        ortho_walkersa = jnp.zeros_like(self.walkers.tensora)
+        ortho_walkersb = jnp.zeros_like(self.walkers.tensorb)
+        for idx in range(self.walkers.tensorb.shape[0]):
+            ortho_walkersb = ortho_walkersb.at[idx].set(jnp.linalg.qr(self.walkers.tensorb[idx])[0])
+            ortho_walkersa = ortho_walkersa.at[idx].set(jnp.linalg.qr(self.walkers.tensora[idx])[0])
+        self.walkers.tensorb = ortho_walkersb
+        self.walkers.tensora = ortho_walkersa
 
     
     def unpack_params(self, params):
@@ -281,35 +315,57 @@ class Propagator(object):
         h1e_shape = self.h1e.shape
         l_tensor_shape = self.l_tensor.shape
         
+        # Modify h1e shape to incorporate nsteps as the first dimension
+        h1e_shape_with_time = (self.nsteps, *h1e_shape)  # Adding nsteps as the first dimension
+        
         # Unpack the flattened params into h1e and l_tensor
-        h1e_unpacked = params[:h1e_shape[0] * h1e_shape[1]].reshape(h1e_shape)
-        l_tensor_unpacked = params[h1e_shape[0] * h1e_shape[1]:].reshape(l_tensor_shape)
+        h1e_unpacked = params[:self.nsteps * h1e_shape[0] * h1e_shape[1]].reshape(h1e_shape_with_time)
+        l_tensor_unpacked = params[self.nsteps * h1e_shape[0] * h1e_shape[1]:].reshape(l_tensor_shape)
         
         return h1e_unpacked, l_tensor_unpacked
     
     def objective_func(self, params):
         # Run the simulation
-        time_list, energy_list = self.simulate_afqmc(params)
+        params = jnp.array(params)
+        time_list, energy_list, variational_energy = self.simulate_afqmc(params)
         lam = 3
-
-
-        # Return the mean value (this will be a concrete scalar, not a tracer)
-        return jnp.real(energy_list[-1].item())
-
+        plt.plot(time_list, energy_list)
+        mol = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
+        mf = scf.RHF(mol)
+        hf_energy = mf.kernel()
+        cisolver = fci.FCI(mf)
+        fci_energy = cisolver.kernel()[0]
+        plt.hlines(fci_energy, xmin=0, xmax=10, color='k', linestyle='--', label='Reference Energy')
+        plt.hlines(hf_energy, xmin=0, xmax=10, color = 'r', linestyle='--', label='HF Energy')
+        plt.hlines(variational_energy, xmin=0, xmax=10, linestyle='--', label='Variational Energy')
+        plt.plot(time_list, energy_list , marker='o',label="prop")
+        print(variational_energy)
+        plt.legend()
+        plt.show()
+        exit()
+        return jnp.real(variational_energy)
 
     def gradient(self, params):
-
+        print("gradient called")
+        params = jnp.array(params)
         grad = jax.grad(self.objective_func)(params)
+        print('gradient', grad)
         return np.array(grad, dtype=np.float64)
 
     def run(self, max_iter=1000, tol=1e-8, disp=True, seed=1222):
+        self.trial = Trial(self.mol)
+        self.trial.get_trial()
+        self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
+        self.trial.tensorb = jnp.array(self.trial.tensorb, dtype=jnp.complex128)
         self.initialize_simulation()
         h1e, v2e, nuc, l_tensor = self.hamiltonian_integral()
         self.h1e = jnp.array(h1e)
         self.v2e = jnp.array(v2e)
         self.nuc = nuc
         self.l_tensor = jnp.array(l_tensor)
-        params = jnp.concatenate([h1e.flatten(), l_tensor.flatten()])
+        h1e_repeated = jnp.tile(h1e, (self.nsteps, 1, 1))  # Repeat h1e nsteps times
+
+        params = jnp.concatenate([h1e_repeated.flatten(), l_tensor.flatten()])
         res = scipy.optimize.minimize(
             self.objective_func,
             params,
@@ -329,19 +385,18 @@ class Propagator(object):
             },
           )
         opt_params = res.x
-
-        time, energy = self.simulate_afqmc(opt_params)
+        h1e_opt_params, l_tensor_opt_params = self.unpack_params(opt_params)
+        time, energy, var_energy = self.simulate_afqmc(opt_params)
         return time, energy
     
 
 if __name__ == "__main__":
-        
     # Define the H2 molecule with PySCF
-    mol = gto.M(atom='H 0 0 0; H 0 0 0.74', basis='sto-3g', unit='angstrom')
+    mol = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
 
     # Instantiate the Propagator class for the H2 molecule
     # Example parameters: time step dt=0.01, total simulation time total_t=1.0
-    print("Running H2O")
+    print("Running H2")
     t = 1
     times = np.linspace(0, t, int(t/0.005) + 1)
     times = [3]
@@ -349,10 +404,11 @@ if __name__ == "__main__":
     error_list = []
     
     for time in times:
-        prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=20)  
-        time_list, energy = prop.simulate_afqmc()
-        plt.plot(time_list, energy, label="jax_afqmc")
-        prop = Propagator(mol, dt=0.01, total_t=time, nwalkers=20)
+        
+       # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
+        #time_list, energy = prop.simulate_afqmc()
+        #plt.plot(time_list, energy, label="jax_afqmc")
+        prop = Propagator(mol, dt=0.01, nsteps=100, nwalkers=5)
 
     # Run the simulation to get time and energy lists
 
@@ -363,9 +419,14 @@ if __name__ == "__main__":
 
 
     #plt.errorbar(time_list, np.real(energy_list), np.real(error_list), label='Importance Propagator', color='r', marker='x')
-
+    mf = scf.RHF(mol)
+    hf_energy = mf.kernel()
+    cisolver = fci.FCI(mf)
+    fci_energy = cisolver.kernel()[0]
+    print("fci-energy",fci_energy)
+    print("vafqmc-energy", energy[-1])
     # Optionally, plot a reference energy line if available
-    plt.hlines(-1.1372838344885023, xmin=0, xmax=3, color='k', linestyle='--', label='Reference Energy')
+    plt.hlines(fci_energy, xmin=0, xmax=10, color='k', linestyle='--', label='Reference Energy')
 
     # Add labels, title, and legend
     plt.xlabel('Time (a.u.)')
