@@ -8,6 +8,7 @@ import jax.scipy as jsp
 import jax
 import os
 from jaxlib import xla_extension
+from numpyro.infer.initialization import init_to_median
 
 from ipie.qmc.comm import FakeComm
 import matplotlib.pyplot as plt
@@ -15,7 +16,7 @@ from ipie.analysis.autocorr import reblock_by_autocorr
 import sys
 import multiprocessing
 multiprocessing.set_start_method('fork')
-
+import optax
 import numpyro
 import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS
@@ -110,6 +111,7 @@ class Propagator(object):
         l_tensor = l_tensor.T
         l_tensor = l_tensor.reshape(l_tensor.shape[0], norb, norb)
         self.nfields = l_tensor.shape[0]
+        #originally was r+ not w
         with h5py.File("input.h5", "r+") as fa:
             fa["h1e"] = h1e
             fa["nuc"] = nuc
@@ -143,8 +145,7 @@ class Propagator(object):
         potential_energy = -log_overlap_magnitude
         return potential_energy
 
-            
-    def simulate_afqmc(self, params, num_warmup): # Renamed to differentiate
+    def sampler(self, params, num_warmup): # Renamed to differentiate
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params
         key = self.key_manager.get_key()
@@ -153,16 +154,15 @@ class Propagator(object):
         init_x_reshaped = init_x.reshape(2, self.nsteps, self.nfields)
         init_overlap = self.target(init_x_reshaped)
         init_magnitude = jnp.abs(init_overlap)
-        while init_magnitude == 0: # Keep trying until we find a non-zero overlap start
+        '''while jnp.any(init_magnitude == 0): # Keep trying until we find a non-zero overlap start
             key = self.key_manager.get_key()
             init_x = jax.random.normal(key, (2 * self.nsteps * self.nfields,))
             init_x_reshaped = init_x.reshape(2, self.nsteps, self.nfields)
             init_overlap = self.target(init_x_reshaped)
             init_magnitude = jnp.abs(init_overlap)
-
+'''
         # Create NUTS kernel with the potential_fn
-        nuts_kernel = NUTS(potential_fn=self.potential_fn, target_accept_prob=0.5)
-        print('sampling')
+        nuts_kernel = NUTS(potential_fn=self.potential_fn, target_accept_prob=0.4)
         # Run MCMC
          # Split key for MCMC
         num_samples = self.nwalkers # Sample as many as your current walkers
@@ -172,7 +172,8 @@ class Propagator(object):
         mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
         samples = mcmc.get_samples()
         x_samples_flat = samples["x_flat"] 
-        return x_samples_flat
+        acceptance_rate = self.acceptance(x_samples_flat)
+        return x_samples_flat, acceptance_rate
     
     def get_overlap(self, l_tensora, l_tensorb, r_tensora, r_tensorb):
         ovlpa = jnp.einsum('pr, pq->rq', l_tensora.conj(), r_tensora)
@@ -192,7 +193,8 @@ class Propagator(object):
         tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
         # 2-body propagator propagation
         # Conditionally print only when NOT tracing (during runtime execution)
-        two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * (1j **((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
+        #i think this is - sqrt(s) when s is negative but should be positive sqrt s
+        two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * ((-1j)**((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
         '''Tempa = tensora.copy()
         Tempb = tensorb.copy()
         for order_i in range(1, 1+self.taylor_order):
@@ -289,7 +291,6 @@ class Propagator(object):
         return h1e_unpacked, l_tensor_unpacked, tensora_unpacked, tensorb_unpacked, t, s
 
 
-
     def variational_energy(self, x):
         x = x.reshape(2, self.nsteps, self.nfields)
         x_l = x[0]
@@ -306,7 +307,7 @@ class Propagator(object):
 
     def acceptance(self, samples):    
         accepted_count = 0
-        total_moves = samples.shape[0]
+        total_moves = samples.shape[0] - 1
 
         for i in range(1, samples.shape[0]):
             if not jnp.allclose(samples[i], samples[i-1]):  # Compare samples
@@ -319,9 +320,7 @@ class Propagator(object):
         lam = 1
         B = 0.7
         warmup = 2000
-        samples = jax.lax.stop_gradient(self.simulate_afqmc(params, warmup))
-        while (self.acceptance(samples) < 0.3): 
-            samples = jax.lax.stop_gradient(self.simulate_afqmc(params, warmup))
+        samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
 
         # Vectorizsd calculation of energies and phases for all samples
@@ -351,7 +350,7 @@ class Propagator(object):
        # print('gradient', grad)
         return np.array(grad, dtype=np.float64)
 
-    def run(self, max_iter=1000, tol=1e-5, disp=True, seed=1222):
+    def run(self, max_iter=30, tol=1e-5, disp=True, seed=1222):
         self.trial = Trial(self.mol)
         self.trial.get_trial()
         self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
@@ -390,29 +389,31 @@ class Propagator(object):
 
             if disp: # Print information during optimization
                 print(f"Iteration {len(energy_history)}: Energy = {current_energy:.8f}, Grad Norm = {grad_norm:.8f}, Param Update Norm = {param_update_norm:.8f}")
-       
-        res = scipy.optimize.minimize(
-            self.objective_func,
-            jnp.real(params),
-            args=(),
-            jac=self.gradient,
-            tol=tol,
-            method="L-BFGS-B",
-            options={
-                "maxls": 20,
-                "gtol": tol,
-                "eps": tol,
-                "maxiter": max_iter,
-                "ftol": 1e-10,
-                "maxcor": 1000,
-                "maxfun": max_iter,
-                "disp": disp,
-            },
-            callback=callback
-          )
-        opt_params = res.x
-        h1e_opt, ltensor_opt, tensora_opt, tensorb_opt, t_opt, s_opt = self.unpack_params(opt_params)
-        iterations = range(1, len(energy_history) + 1)
+        
+        max_iter = 1000
+        tol = 1e-6
+        learning_rate = 1e-3
+        optimizer = optax.adam(learning_rate)
+        opt_state = optimizer.init(params)
+
+        def train_step(params, opt_state):
+            grads = self.gradient(params)  # Compute gradients
+            updates, opt_state = optimizer.update(grads, opt_state)  # Compute updates
+            params = optax.apply_updates(params, updates)  # Apply updates
+            return params, opt_state
+
+        for i in range(max_iter):
+            new_params, opt_state = train_step(params, opt_state)
+            
+            # Check for convergence
+            if jnp.linalg.norm(new_params - params) < tol:
+                break
+            
+            params = new_params
+
+        opt_params = params
+        np.save('optimal_params_adams.npy', opt_params)
+        '''iterations = range(1, len(energy_history) + 1)
 
         plt.figure(figsize=(12, 4))
 
@@ -438,11 +439,11 @@ class Propagator(object):
 
 
         plt.tight_layout()
-        plt.show()
-        warmup = 2000
-        samples = jax.lax.stop_gradient(self.simulate_afqmc(opt_params, warmup))
-        while (self.acceptance(samples) < 0.3): 
-            samples = jax.lax.stop_gradient(self.simulate_afqmc(opt_params, warmup))
+        plt.show()'''
+        warmup = 500
+        samples, acceptance = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
+        #while (self.acceptance(samples) < 0.3): 
+         #   samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
         energies_phases = vectorized_variational_energy_func(samples)  # Call the vectorized function
         energies, phases = energies_phases # Unpack the tuple of arrays
@@ -468,7 +469,7 @@ if __name__ == "__main__":
     for time in times:
         
        # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
-        #time_list, energy = prop.simulate_afqmc()
+        #time_list, energy = prop.sampler()
         #plt.plot(time_list, energy, label="jax_afqmc")
         prop = Propagator(mol, dt=0.1, nsteps=10, nwalkers=10000)
 
@@ -498,4 +499,4 @@ if __name__ == "__main__":
     plt.legend()
 
     # Show the plot
-    plt.savefig("h2-20walkers.png")
+    plt.savrefig("h2-20walkers.png")
