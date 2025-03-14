@@ -10,10 +10,10 @@ from ipie.walkers.pop_controller import PopController
 from ipie.qmc.comm import FakeComm
 import matplotlib.pyplot as plt
 from ipie.analysis.autocorr import reblock_by_autocorr
-from .trial import Trial
-from. walkers import Walkers
-from .utils import read_fcidump, get_fci
-from .keymanager import KeyManager
+from trial import Trial
+from walkers import Walkers
+from utils import read_fcidump, get_fci
+from keymanager import KeyManager
 jax.config.update('jax_enable_x64', True)
 
  

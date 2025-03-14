@@ -15,7 +15,7 @@ mol = gto.M(
     verbose=5
 )
 def ipierun(mol):
-    mf = scf.RHF(mol)
+    mf = scf.UHF(mol)
     mf.chkfile = "scf.chk"
     mf.kernel()
 

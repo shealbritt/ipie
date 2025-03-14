@@ -20,6 +20,3 @@ class KeyManager:
         return self._get_next_key()
     
 
-if "__main__":
-    keymanager = KeyManager(1)
-    print(keymanager.get_key())

@@ -46,4 +46,4 @@ def get_fci(mol):
 
 def reblock(x):
     start_index = len(x) - len(x) // 6 * 5
-    print(reblock_by_autocorr(x[start_index:]))
+    return reblock_by_autocorr(x[start_index:])
