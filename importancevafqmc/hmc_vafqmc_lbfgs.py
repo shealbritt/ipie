@@ -22,12 +22,11 @@ multiprocessing.set_start_method('fork')
 import numpyro
 import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS
-sys.path.append('../afqmc/')
-from trial import Trial
-from walkers import Walkers
-from utils import read_fcidump, get_fci
-from keymanager import KeyManager
-from jax_afqmc import JaxPropagator
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from afqmc.trial import Trial
+from afqmc.walkers import Walkers
+from afqmc.utils import read_fcidump, get_fci
+from afqmc.keymanager import KeyManager
 jax.config.update('jax_enable_x64', True)
 
  
@@ -171,36 +170,12 @@ class Propagator(object):
         num_samples = self.nwalkers # Sample as many as your current walkers
         initial_params = {"x_flat": init_x} # Initial parameters for NUTS, must be a dict if model is None
         key = self.key_manager.get_key()
-        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1)
+        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1, progress_bar = False)
         mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
         samples = mcmc.get_samples()
         x_samples_flat = samples["x_flat"] 
         num_parameters = x_samples_flat.shape[1]
-        batch_size = 3  # Adjust as needed
-
-# Plot in batches of 10
-        for batch_start in range(0, num_parameters, batch_size):
-            batch_end = min(batch_start + batch_size, num_parameters)  # Ensure we don't exceed num_parameters
-            fig, axes = plt.subplots(batch_end - batch_start, 1, figsize=(10, 3 * (batch_end - batch_start)))
-            
-            # If there's only one subplot, axes might not be an array
-            if batch_end - batch_start == 1:
-                axes = [axes]
-            
-            # Plot each parameter's trace in the batch
-            for i in range(batch_start, batch_end):
-                axes[i - batch_start].plot(x_samples_flat[:, i])
-                axes[i - batch_start].set_title(f"Trace Plot for Parameter {i+1}")
-                axes[i - batch_start].set_xlabel("Sample Number")
-                axes[i - batch_start].set_ylabel(f"Parameter {i+1}")
-                axes[i - batch_start].grid(True)
-
-            # Tight layout to avoid overlap
-            plt.tight_layout()
-            plt.show()
-
         acceptance_rate = self.acceptance(x_samples_flat)
-        mcmc.print_summary()
         return x_samples_flat, acceptance_rate
     
     def get_overlap(self, l_tensora, l_tensorb, r_tensora, r_tensorb):
@@ -397,7 +372,9 @@ class Propagator(object):
                                   self.trial.tensora.flatten(), 
                                   self.trial.tensorb.flatten(),
                                   t, s])
-        
+        key = self.key_manager.get_key()
+        noise = random.normal(key, shape=params.shape) * 0.1 + 1
+        params = params * noise
         energy_history = []
         grad_norm_history = []
         param_update_norm_history = []
@@ -439,7 +416,8 @@ class Propagator(object):
             callback=callback
           )
         opt_params = res.x
-        np.save('optimal_params.npy', opt_params)
+        return opt_params
+        '''np.save('optimal_params.npy', opt_params)
         iterations = range(1, len(energy_history) + 1)
 
         plt.figure(figsize=(12, 4))
@@ -477,7 +455,7 @@ class Propagator(object):
         num = jnp.sum(energies)
         denom = jnp.sum(phases)
 
-        return num/denom
+        return num/denom'''
     
 
 if __name__ == "__main__":

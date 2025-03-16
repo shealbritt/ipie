@@ -1,0 +1,66 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
+    run_simulation(dist)
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
+    opt_params = prop.run()
+                 ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 359, in run
+    self.trial.get_trial()
+  File "/n/home06/mbritt/VAFQMC/afqmc/trial.py", line 27, in get_trial
+    with h5py.File("input.h5", "w") as fa:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/h5py/_hl/files.py", line 562, in __init__
+    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/h5py/_hl/files.py", line 241, in make_fid
+    fid = h5f.create(name, h5f.ACC_TRUNC, fapl=fapl, fcpl=fcpl)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 122, in h5py.h5f.create
+BlockingIOError: [Errno 11] Unable to synchronously create file (unable to lock file, errno = 11, error message = 'Resource temporarily unavailable')
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
+    run_simulation(dist)
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
+    opt_params = prop.run()
+                 ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 376, in run
+    noise = random.normal(key, shape=params.shape) * 0.1 + 1
+            ^^^^^^
+NameError: name 'random' is not defined. Did you forget to import 'random'?
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
+    run_simulation(dist)
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
+    opt_params = prop.run()
+                 ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 376, in run
+    noise = random.normal(key, shape=params.shape) * 0.1 + 1
+            ^^^^^^
+NameError: name 'random' is not defined. Did you forget to import 'random'?
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
+    run_simulation(dist)
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
+    opt_params = prop.run()
+                 ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 376, in run
+    noise = random.normal(key, shape=params.shape) * 0.1 + 1
+            ^^^^^^
+NameError: name 'random' is not defined. Did you forget to import 'random'?
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
+    run_simulation(dist)
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
+    opt_params = prop.run()
+                 ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 376, in run
+    noise = random.normal(key, shape=params.shape) * 0.1 + 1
+            ^^^^^^
+NameError: name 'random' is not defined. Did you forget to import 'random'?

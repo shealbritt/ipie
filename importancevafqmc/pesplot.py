@@ -6,8 +6,13 @@ import re
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-sys.path.append('../')
-from afqmc.utils import reblock
+from hmc_vafqmc_lbfgs import Propagator
+import jax.numpy as jnp
+import jax
+sys.path.append('../afqmc')
+from utils import reblock
+from trial import Trial
+from ipieafqmc import ipierun
 
 ipieenergy = []
 ipieerror = []
@@ -15,8 +20,48 @@ vafqmcenergy = []
 vafqmcerror = []
 distances = []
 fcienergies = []
-
 nan_distances = []
+dist_for_param = []
+warmup_steps = 300
+for npy_path in sorted(glob.glob("params/optimal_param-*.npy")):
+    match = re.search(r"optimal_param-(\d+\.?\d*)s.npy", npy_path)
+    dist = float(match.group(1))
+    if match:
+        mol = gto.M(atom=f'H 0 0 0; H 0 0 {dist}', basis='sto-3g', unit='bohr')
+        nsteps = 5
+        dt = 0.1
+        reblocked_ipie= reblock(ipierun(mol))
+        ipieenergy.append(reblocked_ipie['ETotal_ac'].values[0])
+        #vafqmcenergy.append(reblocked_vafqmc['ETotal_ac'].values[0])
+        ipieerror.append(reblocked_ipie['ETotal_error_ac'].values[0])
+
+        prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=100000) # Example parameters
+        prop.trial = Trial(prop.mol)
+        prop.trial.get_trial()
+        prop.trial.tensora = jnp.array(prop.trial.tensora, dtype=jnp.complex128)
+        prop.trial.tensorb = jnp.array(prop.trial.tensorb, dtype=jnp.complex128)
+        h1e, v2e, nuc, l_tensor = prop.hamiltonian_integral()
+        prop.h1e = jnp.array(h1e)
+        prop.v2e = jnp.array(v2e)
+        prop.nuc = nuc
+        prop.l_tensor = jnp.array(l_tensor)
+        h1e_repeated = jnp.tile(h1e, (prop.nsteps, 1, 1))  # Repeat h1e nsteps times
+        t = jnp.array([prop.dt] * prop.nsteps)
+        s = t.copy()
+        param_value = float(match.group(1))  # Extract numerical parameter
+        params = np.load(npy_path)  # Load NumPy array
+        samples, acceptance_rate = prop.sampler(params, warmup_steps)
+        vectorized_variational_energy_func = jax.vmap(prop.variational_energy, in_axes=0)
+        
+        energies_phases = vectorized_variational_energy_func(samples)
+        energy, phase = energies_phases
+        energy = jnp.real((energy) / jnp.sum(phase))
+        vafqmcenergy.append(jnp.sum(energy))
+        vafqmcerror.append(jnp.std(energy)) #This might not be the way to cALCULATE
+        dist_for_param.append(dist)
+
+
+'''
 for csv_path in sorted(glob.glob("csv/h2-*.csv")):  # Now looking directly in 'csv'
     match = re.search(r"h2-(\d+\.?\d*).csv", csv_path)
     if match:
@@ -29,29 +74,30 @@ for csv_path in sorted(glob.glob("csv/h2-*.csv")):  # Now looking directly in 'c
 
             try:
                 reblocked_ipie = reblock(df['ipie-ETotal'].dropna())
-                reblocked_vafqmc = reblock(df['vafqmc-ETotal'])
+               # reblocked_vafqmc = reblock(df['vafqmc-ETotal'])
 
                 distances.append(dist)
                 ipieenergy.append(reblocked_ipie['ETotal_ac'].values[0])
-                vafqmcenergy.append(reblocked_vafqmc['ETotal_ac'].values[0])
+                #vafqmcenergy.append(reblocked_vafqmc['ETotal_ac'].values[0])
                 ipieerror.append(reblocked_ipie['ETotal_error_ac'].values[0])
-                vafqmcerror.append(reblocked_vafqmc['ETotal_error_ac'].values[0])
+                #vafqmcerror.append(reblocked_vafqmc['ETotal_error_ac'].values[0])
             
             
             except Exception as e:
                 print(f"Error processing distance {dist}: {e}")
                 nan_distances.append(dist)
                 continue  # Skip this iteration safely
-        
+'''
+
 # Print distances that were skipped due to NaNs
 if nan_distances:
     print(f"Skipped distances due to NaNs: {sorted(nan_distances)}")
 sorted_indices = np.argsort(distances)
 sorted_distances = np.array(distances)[sorted_indices]
 sorted_ipieenergy = np.array(ipieenergy)[sorted_indices]
-sorted_vafqmcenergy = np.array(vafqmcenergy)[sorted_indices]
+#sorted_vafqmcenergy = np.array(vafqmcenergy)[sorted_indices]
 sorted_ipieerror = np.array(ipieerror)[sorted_indices]
-sorted_vafqmcerror = np.array(vafqmcerror)[sorted_indices]
+#sorted_vafqmcerror = np.array(vafqmcerror)[sorted_indices]
 
 for dist in sorted_distances:
     natoms = 2
@@ -75,7 +121,7 @@ plt.errorbar(sorted_distances, sorted_ipieenergy, yerr=sorted_ipieerror, fmt='o-
              label="IPIE", capsize=3, markersize=5, color='blue')
 
 # Plot VAFQMC data with error bars
-plt.errorbar(sorted_distances, sorted_vafqmcenergy, yerr=sorted_vafqmcerror, fmt='s-',
+plt.errorbar(dist_for_param, vafqmcenergy, yerr=vafqmcerror, fmt='s-',
              label="VAFQMC", capsize=3, markersize=5, color='red')
 plt.plot(sorted_distances, fcienergies, label="fci", linestyle = '--', color = 'green')
 # Labels and legend
@@ -89,3 +135,4 @@ plt.grid(True)
 # Save the figure
 plt.show()
 plt.savefig("energy_comparison.png", dpi=300, bbox_inches="tight")
+

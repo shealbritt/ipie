@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=100G
-#SBATCH --partition=sapphire
+#SBATCH --partition=joonholee
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=sheabritt@college.harvard.edu
 
@@ -18,8 +18,14 @@ which pip  # This will show you which pip is being used, and confirm it's from t
 
 # Install necessary packages using pip
 pip install --upgrade pip  # Make sure pip is the latest version
-pip install pyscf jax scipy numpy matplotlib
+pip install pyscf jax scipy numpy matplotlib numpyro
 
 mamba list  # Check the environment's installed packages
+distances=(0.1 0.25 0.4 0.55 0.7 0.85 1.0 1.2 1.4 1.6 1.8 2.0 2.2 2.4 2.6 2.8 3.0)
 
-python pesplot.py
+for d in "${distances[@]}"; do
+    echo "Running pes.py for distance $d Å"
+    python pes.py "$d"
+done
+
+echo "PES scan complete."
