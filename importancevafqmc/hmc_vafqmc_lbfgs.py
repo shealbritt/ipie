@@ -8,6 +8,7 @@ import jax.scipy as jsp
 import jax
 import os
 from jaxlib import xla_extension
+from jax import jit
 import numpyro
 numpyro.enable_x64()
 from numpyro.infer.initialization import init_to_median
@@ -152,7 +153,6 @@ class Propagator(object):
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params
         key = self.key_manager.get_key()
-
         init_x = jax.random.normal(key, (2 * self.nsteps * self.nfields,))
         init_x_reshaped = init_x.reshape(2, self.nsteps, self.nfields)
         init_overlap = self.target(init_x_reshaped)
@@ -169,38 +169,13 @@ class Propagator(object):
         # Run MCMC
          # Split key for MCMC
         num_samples = self.nwalkers # Sample as many as your current walkers
-        initial_params = {"x_flat": init_x} # Initial parameters for NUTS, must be a dict if model is None
+        initial_params = {"x_flat": jnp.array(init_x)} # Initial parameters for NUTS, must be a dict if model is None
         key = self.key_manager.get_key()
-        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1)
+        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1, progress_bar=False)
         mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
         samples = mcmc.get_samples()
         x_samples_flat = samples["x_flat"] 
-        num_parameters = x_samples_flat.shape[1]
-        batch_size = 3  # Adjust as needed
-
-# Plot in batches of 10
-        for batch_start in range(0, num_parameters, batch_size):
-            batch_end = min(batch_start + batch_size, num_parameters)  # Ensure we don't exceed num_parameters
-            fig, axes = plt.subplots(batch_end - batch_start, 1, figsize=(10, 3 * (batch_end - batch_start)))
-            
-            # If there's only one subplot, axes might not be an array
-            if batch_end - batch_start == 1:
-                axes = [axes]
-            
-            # Plot each parameter's trace in the batch
-            for i in range(batch_start, batch_end):
-                axes[i - batch_start].plot(x_samples_flat[:, i])
-                axes[i - batch_start].set_title(f"Trace Plot for Parameter {i+1}")
-                axes[i - batch_start].set_xlabel("Sample Number")
-                axes[i - batch_start].set_ylabel(f"Parameter {i+1}")
-                axes[i - batch_start].grid(True)
-
-            # Tight layout to avoid overlap
-            plt.tight_layout()
-            plt.show()
-
         acceptance_rate = self.acceptance(x_samples_flat)
-        mcmc.print_summary()
         return x_samples_flat, acceptance_rate
     
     def get_overlap(self, l_tensora, l_tensorb, r_tensora, r_tensorb):
@@ -215,36 +190,39 @@ class Propagator(object):
         return ovlpa, ovlpb
     
     def propagate_one_step(self, h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
-        # 1-body propagator propagation
-        one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
-        tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
-        # 2-body propagator propagation
-        # Conditionally print only when NOT tracing (during runtime execution)
-        #i think this is - sqrt(s) when s is negative but should be positive sqrt s
-        two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * ((-1j)**((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
-        '''Tempa = tensora.copy()
-        Tempb = tensorb.copy()
-        for order_i in range(1, 1+self.taylor_order):
-            Tempa = jnp.einsum('pq, qr->pr', two_body_op_power, Tempa) / order_i
-            Tempb = jnp.einsum('pq, qr->pr', two_body_op_power, Tempb) / order_i
-            self.walkers.tensora += Tempa
-            self.walkers.tensorb += Tempb'''
-        tensora = jnp.einsum('pq, qr->pr', two_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', two_body_op_power, tensorb)
-        # 1-body propagator propagation
-        one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
-        tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
-        #I Think i need to add probability of the field i chose
-        return tensora, tensorb
-
+        def _propagate_one_step(h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
+            # 1-body propagator propagation
+            one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
+            tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
+            # 2-body propagator propagation
+            # Conditionally print only when NOT tracing (during runtime execution)
+            #i think this is - sqrt(s) when s is negative but should be positive sqrt s
+            two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * ((-1j)**((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
+            '''Tempa = tensora.copy()
+            Tempb = tensorb.copy()
+            for order_i in range(1, 1+self.taylor_order):
+                Tempa = jnp.einsum('pq, qr->pr', two_body_op_power, Tempa) / order_i
+                Tempb = jnp.einsum('pq, qr->pr', two_body_op_power, Tempb) / order_i
+                self.walkers.tensora += Tempa
+                self.walkers.tensorb += Tempb'''
+            tensora = jnp.einsum('pq, qr->pr', two_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', two_body_op_power, tensorb)
+            # 1-body propagator propagation
+            one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
+            tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
+            #I Think i need to add probability of the field i chose
+            return tensora, tensorb
+        return jit(_propagate_one_step)(h1e_mod, xi, l_tensor, tensora, tensorb, t, s)
+    
     def normal_pdf(self, x):
-        prob = 1.0
-        for i in range(len(x)):
-            prob *= jnp.exp(-0.5*x[i]**2)/jnp.sqrt(2*jnp.pi)
-
-        return prob
+        def _normal_pdf(x):
+            prob = 1.0
+            for i in range(len(x)):
+                prob *= jnp.exp(-0.5*x[i]**2)/jnp.sqrt(2*jnp.pi)
+            return prob
+        return jit(_normal_pdf)(x)
 
     def propagate(self, x):
         tensora = self.tensora_params.copy()
@@ -469,8 +447,8 @@ class Propagator(object):
         plt.show()
         warmup = 500
         samples, acceptance = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
-        while (self.acceptance(samples) < 0.3): 
-            samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
+       # while (self.acceptance(samples) < 0.3): 
+        #    samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
         energies_phases = vectorized_variational_energy_func(samples)  # Call the vectorized function
         energies, phases = energies_phases # Unpack the tuple of arrays

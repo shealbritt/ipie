@@ -168,7 +168,7 @@ class Propagator(object):
         num_samples = self.nwalkers # Sample as many as your current walkers
         initial_params = {"x_flat": init_x} # Initial parameters for NUTS, must be a dict if model is None
         key = self.key_manager.get_key()
-        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples)
+        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, progress_bar=False)
         mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
         samples = mcmc.get_samples()
         x_samples_flat = samples["x_flat"] 
@@ -390,8 +390,8 @@ class Propagator(object):
             if disp: # Print information during optimization
                 print(f"Iteration {len(energy_history)}: Energy = {current_energy:.8f}, Grad Norm = {grad_norm:.8f}, Param Update Norm = {param_update_norm:.8f}")
         
-        max_iter = 1000
-        tol = 1e-6
+        max_iter = 30
+        tol = 1e-4
         learning_rate = 1e-3
         optimizer = optax.adam(learning_rate)
         opt_state = optimizer.init(params)
@@ -499,4 +499,4 @@ if __name__ == "__main__":
     plt.legend()
 
     # Show the plot
-    plt.savrefig("h2-20walkers.png")
+    plt.savefig("h2-20walkers.png")

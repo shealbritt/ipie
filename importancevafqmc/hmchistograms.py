@@ -18,10 +18,9 @@ if __name__ == "__main__":
     cisolver = fci.FCI(mf)
     fci_energy = cisolver.kernel()[0]
     print(fci_energy)
-    exit()
     nsteps = 10
     dt = 0.1
-    prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=100000) # Example parameters
+    prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=5000) # Example parameters
     prop.trial = Trial(prop.mol)
     prop.trial.get_trial()
     prop.trial.tensora = jnp.array(prop.trial.tensora, dtype=jnp.complex128)
@@ -34,7 +33,7 @@ if __name__ == "__main__":
     h1e_repeated = jnp.tile(h1e, (prop.nsteps, 1, 1))  # Repeat h1e nsteps times
     t = jnp.array([prop.dt] * prop.nsteps)
     s = t.copy()
-    params = np.load("optimal_params.npy", allow_pickle=True)    
+    params = np.load("optimal_params_adams.npy", allow_pickle=True)    
         
 
     num_hmc_runs = 1000
@@ -65,8 +64,8 @@ if __name__ == "__main__":
         energy, phase = energies_phases
         energy_estimate = jnp.real(jnp.sum(energy) / jnp.sum(phase))
         print(jnp.sum(phase))
-        plt.hist(energy/jnp.mean(phase), bins=10000)
-        plt.show()
+        #plt.hist(energy/jnp.mean(phase), bins=700)
+        #plt.show()
         print(energy_estimate)
         energies.append(energy_estimate)
         acceptance_rates.append(acceptance_rate)
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     plt.grid(axis='y', alpha=0.75)
 
     # Save and show plot
-    plt.savefig("hmc_energy_histogram_colored.png")
+    plt.savefig("hmc_energy_histogram_colored_adams.png")
     plt.show()
 
     print("Histogram plot saved to hmc_energy_histogram_colored.png")
