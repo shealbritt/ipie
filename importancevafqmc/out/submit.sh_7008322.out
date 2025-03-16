@@ -1287,3 +1287,2559 @@ Extra cycle  E= -0.848330154073809  delta_E=    0  |g|= 2.01e-16  |ddm|= 4.3e-16
     CPU time for SCF      0.11 sec, wall time      0.61 sec
 converged SCF energy = -0.848330154073809  <S^2> = 0  2S+1 = 1
 Running pes.py for distance 0.85 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:28 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:28 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.449800629282 AA    0.000000000000   0.000000000000   0.850000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 1.17647058823529
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpfsl9ycpo
+max_memory 4000 MB (current use 346 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 11.900767137667172
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.3548446554730549  Ecoul = 0.03189376330863967
+init E= -0.146480303929121
+    CPU time for initialize scf      0.11 sec, wall time      0.63 sec
+  alpha nocc = 1  HOMO = -1.41707829689549  LUMO = 0.316443250580523
+  beta  nocc = 1  HOMO = -0.73251259645912  LUMO = 0.518389296954466
+  alpha mo_energy =
+[-1.4170783   0.31644325]
+  beta  mo_energy =
+[-0.7325126  0.5183893]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.9031113331216325  Ecoul = 0.72870600488138
+cycle= 1 E= -0.997934740004958  delta_E= -0.851  |g|= 6.9e-16  |ddm|= 0.677
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.722849661679436  LUMO = 1.07485117759697
+  beta  nocc = 1  HOMO = -0.722849661679436  LUMO = 1.07485117759697
+  alpha mo_energy =
+[-0.72284966  1.07485118]
+  beta  mo_energy =
+[-0.72284966  1.07485118]
+multiplicity <S^2> = 2.220446e-16  2S+1 = 1
+E1 = -2.903111333121632  Ecoul = 0.7287060048813797
+cycle= 2 E= -0.997934740004958  delta_E=    0  |g|= 1.73e-17  |ddm|= 9.95e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.722849661679436  LUMO = 1.07485117759697
+  beta  nocc = 1  HOMO = -0.722849661679436  LUMO = 1.07485117759697
+  alpha mo_energy =
+[-0.72284966  1.07485118]
+  beta  mo_energy =
+[-0.72284966  1.07485118]
+multiplicity <S^2> = 4.4408921e-16  2S+1 = 1
+E1 = -2.9031113331216316  Ecoul = 0.7287060048813797
+Extra cycle  E= -0.997934740004958  delta_E= 4.44e-16  |g|= 1.73e-17  |ddm|= 2.83e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.63 sec
+    CPU time for SCF      0.11 sec, wall time      0.63 sec
+converged SCF energy = -0.997934740004958  <S^2> = 4.4408921e-16  2S+1 = 1
+Running pes.py for distance 1.0 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:40 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.21
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:40 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.529177210920 AA    0.000000000000   0.000000000000   1.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 1
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.21
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpe049y9a0
+max_memory 4000 MB (current use 347 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 8.829975102559038
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.287441218494564  Ecoul = 0.0398579777016504
+init E= -0.247583240792914
+    CPU time for initialize scf      0.12 sec, wall time      1.04 sec
+  alpha nocc = 1  HOMO = -1.35119756928304  LUMO = 0.184917588979423
+  beta  nocc = 1  HOMO = -0.690280857929753  LUMO = 0.400653017706162
+  alpha mo_energy =
+[-1.35119757  0.18491759]
+  beta  mo_energy =
+[-0.69028086  0.40065302]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.7904647180167155  Ecoul = 0.7145743102869979
+cycle= 1 E= -1.07589040772972  delta_E= -0.828  |g|= 4.59e-16  |ddm|= 0.691
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.68065804872136  LUMO = 0.937901335633742
+  beta  nocc = 1  HOMO = -0.68065804872136  LUMO = 0.937901335633744
+  alpha mo_energy =
+[-0.68065805  0.93790134]
+  beta  mo_energy =
+[-0.68065805  0.93790134]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.790464718016715  Ecoul = 0.7145743102869977
+cycle= 2 E= -1.07589040772972  delta_E= 4.44e-16  |g|= 1.73e-16  |ddm|= 4.37e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.68065804872136  LUMO = 0.937901335633742
+  beta  nocc = 1  HOMO = -0.68065804872136  LUMO = 0.937901335633742
+  alpha mo_energy =
+[-0.68065805  0.93790134]
+  beta  mo_energy =
+[-0.68065805  0.93790134]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.790464718016715  Ecoul = 0.7145743102869977
+Extra cycle  E= -1.07589040772972  delta_E=    0  |g|= 1.73e-16  |ddm|= 3.55e-16
+    CPU time for scf_cycle      0.12 sec, wall time      1.04 sec
+    CPU time for SCF      0.12 sec, wall time      1.04 sec
+converged SCF energy = -1.07589040772972  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 1.2 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:48 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:48 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.635012653104 AA    0.000000000000   0.000000000000   1.200000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.833333333333333
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmps8hdwr9c
+max_memory 4000 MB (current use 345 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 6.366960603009554
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.2053638894233965  Ecoul = 0.049572015527093324
+init E= -0.32245854056297
+    CPU time for initialize scf      0.11 sec, wall time      0.60 sec
+  alpha nocc = 1  HOMO = -1.26719888126165  LUMO = 0.0426356619580728
+  beta  nocc = 1  HOMO = -0.638482810040336  LUMO = 0.276988825835663
+  alpha mo_energy =
+[-1.26719888  0.04263566]
+  beta  mo_energy =
+[-0.63848281  0.27698883]
+multiplicity <S^2> = 2.220446e-16  2S+1 = 1
+E1 = -2.647483581310204  Ecoul = 0.6947726002470074
+cycle= 1 E= -1.11937764772986  delta_E= -0.797  |g|= 3.5e-16  |ddm|= 0.713
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.628969190408095  LUMO = 0.788272403928184
+  beta  nocc = 1  HOMO = -0.628969190408095  LUMO = 0.788272403928184
+  alpha mo_energy =
+[-0.62896919  0.7882724 ]
+  beta  mo_energy =
+[-0.62896919  0.7882724 ]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.6474835813102047  Ecoul = 0.6947726002470079
+cycle= 2 E= -1.11937764772986  delta_E=    0  |g|= 1.69e-16  |ddm|= 6e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.628969190408094  LUMO = 0.788272403928183
+  beta  nocc = 1  HOMO = -0.628969190408094  LUMO = 0.788272403928183
+  alpha mo_energy =
+[-0.62896919  0.7882724 ]
+  beta  mo_energy =
+[-0.62896919  0.7882724 ]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.6474835813102047  Ecoul = 0.6947726002470078
+Extra cycle  E= -1.11937764772986  delta_E= -4.44e-16  |g|= 2.31e-16  |ddm|= 1.57e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.61 sec
+    CPU time for SCF      0.11 sec, wall time      0.61 sec
+converged SCF energy = -1.11937764772986  <S^2> = -4.4408921e-16  2S+1 = 1
+Running pes.py for distance 1.4 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:57 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:12:57 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.740848095288 AA    0.000000000000   0.000000000000   1.400000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.714285714285714
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.16
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp93d7ks34
+max_memory 4000 MB (current use 349 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 4.868134253383172
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.1327091259830038  Ecoul = 0.05775914697733073
+init E= -0.360664264719959
+    CPU time for initialize scf      0.11 sec, wall time      0.61 sec
+  alpha nocc = 1  HOMO = -1.18889282964371  LUMO = -0.070953472500537
+  beta  nocc = 1  HOMO = -0.59181647750875  LUMO = 0.181587406488445
+  alpha mo_energy =
+[-1.18889283 -0.07095347]
+  beta  mo_energy =
+[-0.59181648  0.18158741]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.514147015606131  Ecoul = 0.6745369341376685
+cycle= 1 E= -1.12532436718275  delta_E= -0.765  |g|= 2.17e-16  |ddm|= 0.737
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.582536573665397  LUMO = 0.667062741198814
+  beta  nocc = 1  HOMO = -0.582536573665397  LUMO = 0.667062741198814
+  alpha mo_energy =
+[-0.58253657  0.66706274]
+  beta  mo_energy =
+[-0.58253657  0.66706274]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.514147015606131  Ecoul = 0.6745369341376686
+cycle= 2 E= -1.12532436718275  delta_E=    0  |g|= 4.3e-16  |ddm|= 3.81e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.582536573665397  LUMO = 0.667062741198815
+  beta  nocc = 1  HOMO = -0.582536573665397  LUMO = 0.667062741198815
+  alpha mo_energy =
+[-0.58253657  0.66706274]
+  beta  mo_energy =
+[-0.58253657  0.66706274]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.514147015606131  Ecoul = 0.6745369341376686
+Extra cycle  E= -1.12532436718275  delta_E=    0  |g|= 9.09e-17  |ddm|= 6.11e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.62 sec
+    CPU time for SCF      0.11 sec, wall time      0.62 sec
+converged SCF energy = -1.12532436718275  <S^2> = -4.4408921e-16  2S+1 = 1
+Running pes.py for distance 1.6 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:05 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:05 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.846683537472 AA    0.000000000000   0.000000000000   1.600000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.625
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp04j9m92y
+max_memory 4000 MB (current use 346 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 3.887476022291749
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.0690825620428446  Ecoul = 0.0641754286379452
+init E= -0.379907133404899
+    CPU time for initialize scf      0.11 sec, wall time      0.61 sec
+  alpha nocc = 1  HOMO = -1.11687891289995  LUMO = -0.162598455960075
+  beta  nocc = 1  HOMO = -0.549833667322599  LUMO = 0.107165239271845
+  alpha mo_energy =
+[-1.11687891 -0.16259846]
+  beta  mo_energy =
+[-0.54983367  0.10716524]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.3907888081789506  Ecoul = 0.6544390940702783
+cycle= 1 E= -1.11134971410867  delta_E= -0.731  |g|= 1.5e-16  |ddm|= 0.764
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.540955310019197  LUMO = 0.567405696592668
+  beta  nocc = 1  HOMO = -0.540955310019197  LUMO = 0.567405696592668
+  alpha mo_energy =
+[-0.54095531  0.5674057 ]
+  beta  mo_energy =
+[-0.54095531  0.5674057 ]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.390788808178951  Ecoul = 0.6544390940702787
+cycle= 2 E= -1.11134971410867  delta_E=    0  |g|= 3.31e-16  |ddm|= 2.6e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.540955310019197  LUMO = 0.567405696592668
+  beta  nocc = 1  HOMO = -0.540955310019197  LUMO = 0.567405696592668
+  alpha mo_energy =
+[-0.54095531  0.5674057 ]
+  beta  mo_energy =
+[-0.54095531  0.5674057 ]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.39078880817895  Ecoul = 0.6544390940702782
+Extra cycle  E= -1.11134971410867  delta_E= 4.44e-16  |g|= 1.11e-16  |ddm|= 3.68e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.62 sec
+    CPU time for SCF      0.11 sec, wall time      0.62 sec
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 1.8 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:14 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:14 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   0.952518979656 AA    0.000000000000   0.000000000000   1.800000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.555555555555556
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpex7kk7_e
+max_memory 4000 MB (current use 345 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 3.210929103647412
+Set gradient conv threshold to 3.16228e-05
+E1 = -1.0136366687440241  Ecoul = 0.06880837910044159
+init E= -0.389272734088027
+    CPU time for initialize scf      0.11 sec, wall time      0.67 sec
+  alpha nocc = 1  HOMO = -1.05126226062501  LUMO = -0.23702734780132
+  beta  nocc = 1  HOMO = -0.511953916952274  LUMO = 0.048655728339449
+  alpha mo_energy =
+[-1.05126226 -0.23702735]
+  beta  mo_energy =
+[-0.51195392  0.04865573]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.277150579266398  Ecoul = 0.6349184303099624
+cycle= 1 E= -1.08667659340088  delta_E= -0.697  |g|= 2.7e-16  |ddm|= 0.792
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.503656859323237  LUMO = 0.484518080046586
+  beta  nocc = 1  HOMO = -0.503656859323237  LUMO = 0.484518080046586
+  alpha mo_energy =
+[-0.50365686  0.48451808]
+  beta  mo_energy =
+[-0.50365686  0.48451808]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.277150579266398  Ecoul = 0.6349184303099624
+cycle= 2 E= -1.08667659340088  delta_E=    0  |g|= 1.57e-16  |ddm|= 6.64e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.503656859323237  LUMO = 0.484518080046586
+  beta  nocc = 1  HOMO = -0.503656859323237  LUMO = 0.484518080046586
+  alpha mo_energy =
+[-0.50365686  0.48451808]
+  beta  mo_energy =
+[-0.50365686  0.48451808]
+multiplicity <S^2> = 2.220446e-16  2S+1 = 1
+E1 = -2.277150579266398  Ecoul = 0.6349184303099622
+Extra cycle  E= -1.08667659340088  delta_E= -2.22e-16  |g|= 4.77e-17  |ddm|= 3.68e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.68 sec
+    CPU time for SCF      0.11 sec, wall time      0.68 sec
+converged SCF energy = -1.08667659340088  <S^2> = 2.220446e-16  2S+1 = 1
+Running pes.py for distance 2.0 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:22 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:22 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.058354421840 AA    0.000000000000   0.000000000000   2.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.5
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpy20phk1f
+max_memory 4000 MB (current use 348 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 2.725163451102817
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.9653973786684127  Ecoul = 0.07179422769055005
+init E= -0.393603150977863
+    CPU time for initialize scf      0.11 sec, wall time      0.63 sec
+  alpha nocc = 1  HOMO = -0.991878398388811  LUMO = -0.297752084979717
+  beta  nocc = 1  HOMO = -0.477616001335209  LUMO = 0.0023594864530517
+  alpha mo_energy =
+[-0.9918784  -0.29775208]
+  beta  mo_energy =
+[-0.477616    0.00235949]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -2.1727381669132058  Ecoul = 0.6163082847434691
+cycle= 1 E= -1.05642988216974  delta_E= -0.663  |g|= 5.35e-16  |ddm|= 0.822
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.470060798713134  LUMO = 0.414892072584251
+  beta  nocc = 1  HOMO = -0.470060798713133  LUMO = 0.414892072584251
+  alpha mo_energy =
+[-0.4700608   0.41489207]
+  beta  mo_energy =
+[-0.4700608   0.41489207]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.172738166913205  Ecoul = 0.6163082847434687
+cycle= 2 E= -1.05642988216974  delta_E= 4.44e-16  |g|= 1.35e-16  |ddm|= 1.05e-15
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.470060798713134  LUMO = 0.414892072584251
+  beta  nocc = 1  HOMO = -0.470060798713134  LUMO = 0.414892072584251
+  alpha mo_energy =
+[-0.4700608   0.41489207]
+  beta  mo_energy =
+[-0.4700608   0.41489207]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.172738166913205  Ecoul = 0.6163082847434687
+Extra cycle  E= -1.05642988216974  delta_E=    0  |g|= 1.35e-16  |ddm|=    0
+    CPU time for scf_cycle      0.11 sec, wall time      0.64 sec
+    CPU time for SCF      0.11 sec, wall time      0.64 sec
+converged SCF energy = -1.05642988216974  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 2.2 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:34 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.22
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:34 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.164189864024 AA    0.000000000000   0.000000000000   2.200000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.454545454545455
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.23
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpid7z3wxr
+max_memory 4000 MB (current use 345 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 2.365482229959017
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.923410828726968  Ecoul = 0.07335111042596416
+init E= -0.395514263755549
+    CPU time for initialize scf      0.12 sec, wall time      1.04 sec
+  alpha nocc = 1  HOMO = -0.938415937202394  LUMO = -0.347445477490971
+  beta  nocc = 1  HOMO = -0.44633475794814  LUMO = -0.0344712354532752
+  alpha mo_energy =
+[-0.93841594 -0.34744548]
+  beta  mo_energy =
+[-0.44633476 -0.03447124]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.0769836314152696  Ecoul = 0.598853928864394
+cycle= 1 E= -1.02358424800542  delta_E= -0.628  |g|= 1.05e-16  |ddm|= 0.853
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.439637886843241  LUMO = 0.35590714181268
+  beta  nocc = 1  HOMO = -0.439637886843241  LUMO = 0.35590714181268
+  alpha mo_energy =
+[-0.43963789  0.35590714]
+  beta  mo_energy =
+[-0.43963789  0.35590714]
+multiplicity <S^2> = 2.220446e-16  2S+1 = 1
+E1 = -2.0769836314152696  Ecoul = 0.5988539288643939
+cycle= 2 E= -1.02358424800542  delta_E=    0  |g|= 2.13e-16  |ddm|= 1.36e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.439637886843241  LUMO = 0.35590714181268
+  beta  nocc = 1  HOMO = -0.439637886843241  LUMO = 0.35590714181268
+  alpha mo_energy =
+[-0.43963789  0.35590714]
+  beta  mo_energy =
+[-0.43963789  0.35590714]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -2.0769836314152696  Ecoul = 0.5988539288643941
+Extra cycle  E= -1.02358424800542  delta_E= 2.22e-16  |g|= 1.5e-16  |ddm|= 6.47e-16
+    CPU time for scf_cycle      0.12 sec, wall time      1.05 sec
+    CPU time for SCF      0.12 sec, wall time      1.05 sec
+converged SCF energy = -1.02358424800542  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 2.4 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:42 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:42 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.270025306208 AA    0.000000000000   0.000000000000   2.400000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.416666666666667
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpbmsdfefd
+max_memory 4000 MB (current use 347 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 2.092664840926037
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.8868041078599511  Ecoul = 0.07373032115517886
+init E= -0.396407120038106
+    CPU time for initialize scf      0.11 sec, wall time      0.61 sec
+  alpha nocc = 1  HOMO = -0.890492028136388  LUMO = -0.38816015606084
+  beta  nocc = 1  HOMO = -0.417721707439352  LUMO = -0.0638817456376093
+  alpha mo_energy =
+[-0.89049203 -0.38816016]
+  beta  mo_energy =
+[-0.41772171 -0.06388175]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -1.9893267863542947  Ecoul = 0.5827226985359377
+cycle= 1 E= -0.98993742115169  delta_E= -0.594  |g|= 1.52e-16  |ddm|= 0.884
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.41194069464121  LUMO = 0.305597706167739
+  beta  nocc = 1  HOMO = -0.41194069464121  LUMO = 0.305597706167739
+  alpha mo_energy =
+[-0.41194069  0.30559771]
+  beta  mo_energy =
+[-0.41194069  0.30559771]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.9893267863542947  Ecoul = 0.5827226985359377
+cycle= 2 E= -0.98993742115169  delta_E=    0  |g|= 1.32e-16  |ddm|= 3.6e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.411940694641209  LUMO = 0.305597706167739
+  beta  nocc = 1  HOMO = -0.41194069464121  LUMO = 0.305597706167739
+  alpha mo_energy =
+[-0.41194069  0.30559771]
+  beta  mo_energy =
+[-0.41194069  0.30559771]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -1.9893267863542947  Ecoul = 0.5827226985359379
+Extra cycle  E= -0.98993742115169  delta_E= 2.22e-16  |g|= 7.57e-17  |ddm|= 3.96e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.61 sec
+    CPU time for SCF      0.11 sec, wall time      0.61 sec
+converged SCF energy = -0.98993742115169  <S^2> = -4.4408921e-16  2S+1 = 1
+Running pes.py for distance 2.6 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:51 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:13:51 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.375860748392 AA    0.000000000000   0.000000000000   2.600000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.384615384615385
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp3tbyyihf
+max_memory 4000 MB (current use 348 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 1.8817413224502926
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.8548068485311577  Ecoul = 0.07318325789270543
+init E= -0.397008206023068
+    CPU time for initialize scf      0.11 sec, wall time      0.61 sec
+  alpha nocc = 1  HOMO = -0.847696501790714  LUMO = -0.42149559151836
+  beta  nocc = 1  HOMO = -0.391483105626625  LUMO = -0.087406079065038
+  alpha mo_energy =
+[-0.8476965  -0.42149559]
+  beta  mo_energy =
+[-0.39148311 -0.08740608]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.9092464802195555  Ecoul = 0.5680106365417498
+cycle= 1 E= -0.956620459062421  delta_E= -0.56  |g|= 7.48e-17  |ddm|= 0.915
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.386612603568028  LUMO = 0.262471608530766
+  beta  nocc = 1  HOMO = -0.386612603568028  LUMO = 0.262471608530766
+  alpha mo_energy =
+[-0.3866126   0.26247161]
+  beta  mo_energy =
+[-0.3866126   0.26247161]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.9092464802195555  Ecoul = 0.5680106365417498
+cycle= 2 E= -0.956620459062421  delta_E=    0  |g|= 7.48e-17  |ddm|=    0
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.386612603568028  LUMO = 0.262471608530766
+  beta  nocc = 1  HOMO = -0.386612603568028  LUMO = 0.262471608530766
+  alpha mo_energy =
+[-0.3866126   0.26247161]
+  beta  mo_energy =
+[-0.3866126   0.26247161]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.9092464802195555  Ecoul = 0.5680106365417498
+Extra cycle  E= -0.956620459062421  delta_E=    0  |g|= 7.48e-17  |ddm|=    0
+    CPU time for scf_cycle      0.11 sec, wall time      0.61 sec
+    CPU time for SCF      0.11 sec, wall time      0.61 sec
+converged SCF energy = -0.956620459062421  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 2.8 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:14:00 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.16
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:14:00 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.481696190576 AA    0.000000000000   0.000000000000   2.800000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.357142857142857
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.16
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmp47q3rw6l
+max_memory 4000 MB (current use 345 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 1.7161584139624668
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.8267533152199957  Ecoul = 0.07194100906782824
+init E= -0.39766944900931
+    CPU time for initialize scf      0.11 sec, wall time      0.61 sec
+  alpha nocc = 1  HOMO = -0.809614590558169  LUMO = -0.448724466926937
+  beta  nocc = 1  HOMO = -0.367403196467284  LUMO = -0.106213303992698
+  alpha mo_energy =
+[-0.80961459 -0.44872447]
+  beta  mo_energy =
+[-0.3674032 -0.1062133]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.8362601603193738  Ecoul = 0.5547496316923528
+cycle= 1 E= -0.924367671484164  delta_E= -0.527  |g|= 4.18e-16  |ddm|= 0.945
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.363380448467334  LUMO = 0.225369977294495
+  beta  nocc = 1  HOMO = -0.363380448467334  LUMO = 0.225369977294494
+  alpha mo_energy =
+[-0.36338045  0.22536998]
+  beta  mo_energy =
+[-0.36338045  0.22536998]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -1.836260160319374  Ecoul = 0.554749631692353
+cycle= 2 E= -0.924367671484164  delta_E=    0  |g|= 2.9e-16  |ddm|= 1.04e-15
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.363380448467334  LUMO = 0.225369977294495
+  beta  nocc = 1  HOMO = -0.363380448467334  LUMO = 0.225369977294495
+  alpha mo_energy =
+[-0.36338045  0.22536998]
+  beta  mo_energy =
+[-0.36338045  0.22536998]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.836260160319374  Ecoul = 0.554749631692353
+Extra cycle  E= -0.924367671484164  delta_E=    0  |g|= 3.59e-16  |ddm|= 7.61e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.61 sec
+    CPU time for SCF      0.11 sec, wall time      0.61 sec
+converged SCF energy = -0.924367671484164  <S^2> = 0  2S+1 = 1
+Running pes.py for distance 3.0 Å
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:14:08 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 10
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.846683537472   0.000000000000   0.000000000000 AA    1.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  3 H      1.693367074944   0.000000000000   0.000000000000 AA    3.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  4 H      2.540050612416   0.000000000000   0.000000000000 AA    4.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  5 H      3.386734149888   0.000000000000   0.000000000000 AA    6.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  6 H      4.233417687360   0.000000000000   0.000000000000 AA    8.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  7 H      5.080101224832   0.000000000000   0.000000000000 AA    9.600000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  8 H      5.926784762304   0.000000000000   0.000000000000 AA   11.200000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  9 H      6.773468299776   0.000000000000   0.000000000000 AA   12.800000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] 10 H      7.620151837248   0.000000000000   0.000000000000 AA   14.400000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 12.0560515873016
+number of shells = 10
+number of NR pGTOs = 60
+number of NR cGTOs = 10
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+#INFO: **** input file is /n/home06/mbritt/VAFQMC/importancevafqmc/pes.py ****
+import numpy as np
+from pyscf import gto
+import sys
+import os
+import csv
+from hmc_vafqmc_lbfgs import Propagator
+from itertools import zip_longest
+sys.path.append('../')
+from afqmc.ipieafqmc import ipierun
+
+def run_simulation(dist):
+    os.makedirs('./params-3', exist_ok=True) 
+    natoms = 2
+    nsteps = 5
+    mol = gto.M(
+    atom=[("H", 0, 0, i * dist) for i in range(natoms)],
+    basis='sto-6g',
+    unit='Bohr',
+    verbose=5  
+    )
+    #ipie_energy = ipierun(mol)
+    prop = Propagator(mol, dt=0.5, nsteps = nsteps, nwalkers=1000)
+
+    # Run the simulation to get time and energy lists
+    opt_params = prop.run()
+    np.save(f'./params-3/optimal_param-{dist}s.npy', opt_params)
+
+if __name__ == "__main__":
+    dist = float(sys.argv[1])
+    run_simulation(dist)
+
+
+
+    
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='holy8a24303.rc.fas.harvard.edu', release='4.18.0-513.18.1.el8_9.x86_64', version='#1 SMP Wed Feb 21 21:34:36 UTC 2024', machine='x86_64')  Threads 1
+Python 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:23:07) [GCC 12.3.0]
+numpy 2.0.0  scipy 1.14.0  h5py 3.11.0
+Date: Sun Mar 16 16:14:08 2025
+PySCF version 2.6.2
+PySCF path  /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 2
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Bohr
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 H      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 H      0.000000000000   0.000000000000   1.587531632760 AA    0.000000000000   0.000000000000   3.000000000000 Bohr   0.0
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] H
+[INPUT] 0    0    [6    /1   ]  35.52322122       0.00916359628
+                                6.513143725       0.04936149294
+                                1.822142904       0.1685383049
+                                0.625955266       0.3705627997
+                                0.243076747       0.4164915298
+                                0.100112428       0.1303340841
+
+nuclear repulsion = 0.333333333333333
+number of shells = 2
+number of NR pGTOs = 12
+number of NR cGTOs = 2
+basis = sto-6g
+ecp = {}
+CPU time:         1.15
+
+
+******** <class 'pyscf.scf.uhf.UHF'> ********
+method = UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmpuwdq1tt8
+max_memory 4000 MB (current use 346 MB)
+number electrons alpha = 1  beta = 1
+cond(S) = 1.584565421581352
+Set gradient conv threshold to 3.16228e-05
+E1 = -0.802074701955975  Ecoul = 0.07020365501450263
+init E= -0.398537713608139
+    CPU time for initialize scf      0.11 sec, wall time      0.60 sec
+  alpha nocc = 1  HOMO = -0.775837948557784  LUMO = -0.470879799526118
+  beta  nocc = 1  HOMO = -0.345321930317932  LUMO = -0.121210882143974
+  alpha mo_energy =
+[-0.77583795 -0.4708798 ]
+  beta  mo_energy =
+[-0.34532193 -0.12121088]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.7699108485732638  Ecoul = 0.542916797145564
+cycle= 1 E= -0.893660718094367  delta_E= -0.495  |g|= 2.54e-16  |ddm|= 0.974
+    CPU time for cycle= 1      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.342038627141068  LUMO = 0.193368975141604
+  beta  nocc = 1  HOMO = -0.342038627141068  LUMO = 0.193368975141604
+  alpha mo_energy =
+[-0.34203863  0.19336898]
+  beta  mo_energy =
+[-0.34203863  0.19336898]
+multiplicity <S^2> = -4.4408921e-16  2S+1 = 1
+E1 = -1.769910848573264  Ecoul = 0.542916797145564
+cycle= 2 E= -0.893660718094367  delta_E= -2.22e-16  |g|= 2.61e-16  |ddm|= 7.87e-16
+    CPU time for cycle= 2      0.00 sec, wall time      0.00 sec
+  alpha nocc = 1  HOMO = -0.342038627141068  LUMO = 0.193368975141604
+  beta  nocc = 1  HOMO = -0.342038627141068  LUMO = 0.193368975141604
+  alpha mo_energy =
+[-0.34203863  0.19336898]
+  beta  mo_energy =
+[-0.34203863  0.19336898]
+multiplicity <S^2> = 0  2S+1 = 1
+E1 = -1.7699108485732635  Ecoul = 0.542916797145564
+Extra cycle  E= -0.893660718094366  delta_E= 4.44e-16  |g|= 2.05e-16  |ddm|= 5.18e-16
+    CPU time for scf_cycle      0.11 sec, wall time      0.61 sec
+    CPU time for SCF      0.11 sec, wall time      0.61 sec
+converged SCF energy = -0.893660718094366  <S^2> = 0  2S+1 = 1
+PES scan complete.
