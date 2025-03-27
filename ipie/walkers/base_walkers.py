@@ -220,10 +220,10 @@ class BaseWalkers(metaclass=ABCMeta):
                 self.weight = weight
                 self.hybrid_energy = hybrid_energy
                 self.ovlp = trial.calc_greens_function(self)
-                
+
             except KeyError:
                 print(f" # Could not read walker data from: {read_file}")
-        
+
     @abstractmethod
     def reortho(self):
         pass
