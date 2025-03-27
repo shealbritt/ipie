@@ -18,7 +18,8 @@ try:
     from mpi4py import MPI
     comm = MPI.COMM_WORLD
 except ImportError:
-    comm = None
+    from ipie.qmc.comm import FakeComm
+    comm = FakeComm()
 
 from ipie.config import config
 # config.update_option("use_gpu", True) # enable GPU
@@ -93,6 +94,7 @@ trial.build()
 trial.half_rotate(ham)
 
 initial_walker = numpy.hstack([trial.psi0a, trial.psi0b])
+numpy.random.seed(123456789)
 random_perturbation = numpy.random.random(initial_walker.shape)
 initial_walker = initial_walker + random_perturbation
 initial_walker, _ = numpy.linalg.qr(initial_walker)
