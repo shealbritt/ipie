@@ -1,16 +1,21 @@
+"""Example demonstrating how to save and restart AFQMC calculations."""
+
 import numpy as np
 from pyscf import gto, scf
 
-from ipie.analysis.autocorr import reblock_by_autocorr
-
-# We can extract the qmc data as as a pandas data frame like so
 from ipie.analysis.extraction import extract_observable
 from ipie.estimators.energy import EnergyEstimator, local_energy_batch
 from ipie.qmc.afqmc import AFQMC
 from ipie.systems.generic import Generic
 from ipie.trial_wavefunction.single_det import SingleDet
-from ipie.utils.backend import arraylib as xp
 from ipie.utils.from_pyscf import generate_hamiltonian, generate_wavefunction_from_mo_coeff
+
+# try:
+#     from mpi4py import MPI
+#     comm = MPI.COMM_WORLD
+# except ImportError:
+from ipie.qmc.comm import FakeComm
+comm = FakeComm()
 
 mol = gto.M(
     atom=[("H", 1.6 * i, 0, 0) for i in range(0, 10)],
@@ -24,6 +29,8 @@ mf.kernel()
 
 
 class EnergyEstimatorDumpWalkers(EnergyEstimator):
+    """Energy estimator that also dumps walker configurations periodically."""
+    
     def __init__(
         self,
         comm=None,
@@ -38,22 +45,29 @@ class EnergyEstimatorDumpWalkers(EnergyEstimator):
             ham=ham,
             trial=trial,
         )
-
         self.nblocks = 0
+
+    def compute_estimator(self, system, walkers, hamiltonian, trial):
+        # set as testing purposes. change to larger values for production
+        dump_freq = 10
+        dump_block_init = 10
+        dump_block_end = 10
         
-
-    def compute_estimator(self, system, walkers, hamiltonian, trial, dump_freq=500, dump_block_init=5000, dump_block_end=10000):
-        self.nblocks += 1
         trial.calc_greens_function(walkers)
-        if self.nblocks % dump_freq == 0 and self.nblocks >= dump_block_init and self.nblocks <= dump_block_end:
+        
+        # the dumping condition can be adjusted as needed
+        if (self.nblocks % dump_freq == 0 and 
+            self.nblocks >= dump_block_init and 
+            self.nblocks <= dump_block_end):
             walkers.write_walkers_batch(comm)
-        # Need to be able to dispatch here
+            
         energy = local_energy_batch(system, hamiltonian, walkers, trial)
-        self._data["ENumer"] = numpy.sum(walkers.weight * energy[:, 0].real)
-        self._data["EDenom"] = numpy.sum(walkers.weight)
-        self._data["E1Body"] = numpy.sum(walkers.weight * energy[:, 1].real)
-        self._data["E2Body"] = numpy.sum(walkers.weight * energy[:, 2].real)
+        self._data["ENumer"] = np.sum(walkers.weight * energy[:, 0].real)
+        self._data["EDenom"] = np.sum(walkers.weight)
+        self._data["E1Body"] = np.sum(walkers.weight * energy[:, 1].real)
+        self._data["E2Body"] = np.sum(walkers.weight * energy[:, 2].real)
 
+        self.nblocks += 1
         return self.data
 
 
@@ -105,7 +119,9 @@ add_est = {"energy": EnergyEstimatorDumpWalkers(system=Generic(mol.nelec), ham=h
 afqmc.run(additional_estimators=add_est)
 
 qmc_data = extract_observable(afqmc.estimators.filename, "energy")
-y = qmc_data["ETotal"]
-y = y[1:]  # discard first 1 block
+etotal_last = qmc_data["ETotal"][num_blocks]
 
-df = reblock_by_autocorr(y, verbose=1)
+# read walkers
+afqmc.walkers.read_walkers_batch(trial, comm)
+enum, edeom = afqmc.estimators["energy"].compute_estimator(afqmc.system, afqmc.walkers, ham, trial)[:2]
+assert np.allclose(enum / edeom, etotal_last)

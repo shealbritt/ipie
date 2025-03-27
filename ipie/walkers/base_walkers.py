@@ -18,7 +18,6 @@
 #
 
 import cmath
-import time
 from abc import ABCMeta, abstractmethod
 
 import h5py
@@ -210,8 +209,8 @@ class BaseWalkers(metaclass=ABCMeta):
     def read_walkers_batch(self, trial, comm):
         read_file = f"walkers_{comm.rank}.h5"
         with h5py.File(read_file, "r") as fh5:
-            num_slices = len(fh5.keys()) // 3
             try:
+                num_slices = len(fh5.keys()) // 3 - 1
                 phia = fh5[f"walker_timeslice_{num_slices}"][0]
                 phib = fh5[f"walker_timeslice_{num_slices}"][1]
                 self.phia = phia
