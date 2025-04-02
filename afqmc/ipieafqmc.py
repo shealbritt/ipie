@@ -16,8 +16,11 @@ mol = gto.M(
 )
 def ipierun(mol):
     mf = scf.UHF(mol)
+    dm_alpha, dm_beta = mf.get_init_guess()
+    dm_beta[:2,:2] = 0
+    dm = (dm_alpha,dm_beta)
     mf.chkfile = "scf.chk"
-    mf.kernel()
+    mf.kernel(dm)
 
     # Now let's build our custom AFQMC algorithm
     num_walkers = 1000
@@ -41,6 +44,7 @@ def ipierun(mol):
         mf.mo_coeff,  # Make optional argument
         mol.nelec,
     )
+
     num_basis = mf.mo_coeff[0].shape[-1]
     trial = SingleDet(
         np.hstack([orbs, orbs]),
