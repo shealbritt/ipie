@@ -1,0 +1,10 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pesplot.py", line 49, in <module>
+    sorted_ipieenergy = np.array(ipieenergy)[sorted_indices]
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+IndexError: index 0 is out of bounds for axis 0 with size 0

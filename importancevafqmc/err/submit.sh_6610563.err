@@ -1,0 +1,109 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+ERROR: Could not find a version that satisfies the requirement matplotli (from versions: none)
+ERROR: No matching distribution found for matplotli
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 6, in <module>
+    from hmc_vafqmc_lbfgs import Propagator
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 11, in <module>
+    import numpyro
+ModuleNotFoundError: No module named 'numpyro'
