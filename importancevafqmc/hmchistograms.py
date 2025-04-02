@@ -3,14 +3,20 @@ import jax.numpy as jnp
 import numpy as np
 import matplotlib.pyplot as plt
 from pyscf import gto, scf, fci  # Assuming you use PySCF for molecule definition
-from hmc_vafqmc_lbfgs import Propagator  # Replace with the actual module where your Propagator class is
+from profiler import Propagator  # Replace with the actual module where your Propagator class is
 import sys
+import time
+import numpy as np
+from scipy.stats import gaussian_kde, entropy
+from sklearn.neighbors import KernelDensity
+
 sys.path.append('../afqmc/')
 from trial import Trial 
 from keymanager import KeyManager
 if __name__ == "__main__":
     # Define your molecule and propagator parameters (replace with your setup)
     params = np.load("optimal_params.npy", allow_pickle=True)
+    print(params)
     
     mol = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
     mf = scf.RHF(mol)
@@ -18,9 +24,9 @@ if __name__ == "__main__":
     cisolver = fci.FCI(mf)
     fci_energy = cisolver.kernel()[0]
     print(fci_energy)
-    nsteps = 10
-    dt = 0.1
-    prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=5000) # Example parameters
+    nsteps = 3
+    dt = 0.01
+    prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=10000) # Example parameters
     prop.trial = Trial(prop.mol)
     prop.trial.get_trial()
     prop.trial.tensora = jnp.array(prop.trial.tensora, dtype=jnp.complex128)
@@ -33,73 +39,68 @@ if __name__ == "__main__":
     h1e_repeated = jnp.tile(h1e, (prop.nsteps, 1, 1))  # Repeat h1e nsteps times
     t = jnp.array([prop.dt] * prop.nsteps)
     s = t.copy()
-    params = np.load("optimal_params_adams.npy", allow_pickle=True)    
-        
+    params = np.load("optimal_params.npy")
+    params = prop.unpack_params(params)
+    prop.h1e_params, prop.l_tensor_params, prop.tensora_params, prop.tensorb_params, prop.t_params, prop.s_params = params
 
-    num_hmc_runs = 1000
-    warmup_steps = 300 # Example warmup steps for HMC
+    num_hmc_runs = 20
+    warmup_steps = 20 # Example warmup steps for HMC
 
     # Vectorize simulate_afqmc to run multiple chains in parallel
     vmap_simulate_afqmc = jax.vmap(prop.sampler, in_axes=(None, None), out_axes=(0, 0, 0))
-
-    def run_hmc_chain(seed):
-        """Runs a single HMC chain and returns energy and acceptance rate."""
-        
-
-    # Vectorize run_hmc_chain to run multiple chains in parallel using vmap
-    vmap_run_hmc_chain = jax.vmap(run_hmc_chain, in_axes=(0), out_axes=(0, 0))
-
     # Generate seeds for each HMC run
     seeds = jnp.arange(num_hmc_runs)
 
     # Run vectorized HMC to get energies and acceptance rates
     energies = []
-    acceptance_rates = []
+    def kl_divergence_kde(samples_p, samples_q, bandwidth=0.1, n_samples=10000):
+        # Fit KDE for both distributions
+        kde_p = KernelDensity(kernel='gaussian', bandwidth=bandwidth).fit(samples_p)
+        kde_q = KernelDensity(kernel='gaussian', bandwidth=bandwidth).fit(samples_q)
+
+        # Draw random sample points for evaluation
+        combined_samples = np.vstack((samples_p, samples_q))
+        min_vals = combined_samples.min(axis=0)
+        max_vals = combined_samples.max(axis=0)
+        rng = np.random.default_rng()
+        eval_points = rng.uniform(low=min_vals, high=max_vals, size=(n_samples, samples_p.shape[1]))
+
+        # Evaluate the log densities
+        log_dens_p = kde_p.score_samples(eval_points)
+        log_dens_q = kde_q.score_samples(eval_points)
+
+        # Calculate densities
+        dens_p = np.exp(log_dens_p)
+        dens_q = np.exp(log_dens_q)
+
+        # Compute the KL divergence using Monte Carlo integration
+        kl_div = np.mean(dens_p * (log_dens_p - log_dens_q))
+        return kl_div
+    
     for seed in seeds:
-        prop.key_manager = KeyManager(seed)
-        samples, acceptance_rate = prop.sampler(params, warmup_steps)
+        #print(seed)
+        key = jax.random.PRNGKey(seed)
+        warmup_steps = 20
+        prop.num_chains = 1
+        start = time.time()
+        samples = prop.sampler(warmup_steps, key)
+        newkey, subkey = jax.random.split(key)
         vectorized_variational_energy_func = jax.vmap(prop.variational_energy, in_axes=0)
-        
         energies_phases = vectorized_variational_energy_func(samples)
         energy, phase = energies_phases
         energy_estimate = jnp.real(jnp.sum(energy) / jnp.sum(phase))
-        print(jnp.sum(phase))
-        #plt.hist(energy/jnp.mean(phase), bins=700)
+        #plt.hist((energy/phase).real, bins=100)
         #plt.show()
-        print(energy_estimate)
+        print("energy samples", energy_estimate)
         energies.append(energy_estimate)
-        acceptance_rates.append(acceptance_rate)
         
     
     # Convert energies and acceptance rates to numpy arrays for plotting
     energies_np = np.array(energies)
-    acceptance_rates_np = np.array(acceptance_rates)
     # --- Histogram Plotting with Color Coding ---
     plt.figure(figsize=(8, 6))
     n_bins = 100  # Adjust the number of bins as needed
     n, bins, patches = plt.hist(energies_np, bins=n_bins, edgecolor='black')
-
-    # Normalize acceptance rates to the range [0, 1] for color mapping
-
-    # Use a colormap to color the histogram bars based on acceptance rate
-    cmap = plt.cm.viridis  # You can choose other colormaps like 'viridis', 'plasma', 'magma', 'inferno', etc.
-    ax = plt.gca()
-    for i in range(n_bins):
-        # Find the acceptance rate corresponding to the current bins
-        if  i < n_bins - 1:
-            bin_mask = (energies_np >= bins[i]) & (energies_np < bins[i+1])
-        else:
-            bin_mask = (energies_np >= bins[i])
-        bin_acceptance_rate = np.mean(acceptance_rates_np[bin_mask])  # Take the mean acceptance rate for the bin
-        color_val = cmap(bin_acceptance_rate)  # Map to color
-        # Set the color for the corresponding patch
-        patches[i].set_facecolor(color_val)
-
-    # Add colorbar as legend for acceptance rate
-    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=1))
-    sm.set_array([])  # Dummy array for matplotlib versions < 3.1
-    cbar = plt.colorbar(sm, ax=ax)  # Explicitly pass the Axes object 'ax' to colorbar
-    cbar.set_label('Acceptance Rate')
     
     plt.axvline(hf_energy, color='red', linestyle='--', linewidth=2, label='HF Energy')
     plt.axvline(fci_energy, color='blue', linestyle='--', linewidth=2, label='FCI Energy')

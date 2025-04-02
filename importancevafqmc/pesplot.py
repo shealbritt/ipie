@@ -6,7 +6,7 @@ import re
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from hmc_vafqmc_lbfgs import Propagator
+from profiler import Propagator
 import jax.numpy as jnp
 import jax
 sys.path.append('../afqmc')
@@ -35,7 +35,7 @@ for npy_path in sorted(glob.glob("params/optimal_param-*.npy")):
         #ipieenergy.append(reblocked_ipie['ETotal_ac'].values[0])
         #ipieerror.append(reblocked_ipie['ETotal_error_ac'].values[0])
 
-        prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=10**6) # Example parameters
+        prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=10000) # Example parameters
         prop.trial = Trial(prop.mol)
         prop.trial.get_trial()
         prop.trial.tensora = jnp.array(prop.trial.tensora, dtype=jnp.complex128)
@@ -50,7 +50,10 @@ for npy_path in sorted(glob.glob("params/optimal_param-*.npy")):
         s = t.copy()
         param_value = float(match.group(1))  # Extract numerical parameter
         params = np.load(npy_path)  # Load NumPy array
-        samples, acceptance_rate = prop.sampler(params, warmup_steps)
+        params = prop.unpack_params(params)
+        prop.h1e_params, prop.l_tensor_params, prop.tensora_params, prop.tensorb_params, prop.t_params, prop.s_params = params
+        key = jax.random.PRNGKey(4)
+        samples = prop.sampler(warmup_steps, key)
         vectorized_variational_energy_func = jax.vmap(prop.variational_energy, in_axes=0)
         
         energies_phases = vectorized_variational_energy_func(samples)
