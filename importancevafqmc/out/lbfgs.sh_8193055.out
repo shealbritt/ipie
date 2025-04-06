@@ -1,0 +1,142 @@
+/n/home06/mbritt/.conda/envs/afqmc_env/bin/pip
+Requirement already satisfied: pip in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (25.0.1)
+Requirement already satisfied: pyscf in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (2.6.2)
+Requirement already satisfied: jax in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (0.4.28)
+Requirement already satisfied: scipy in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (1.14.0)
+Requirement already satisfied: numpy in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (2.0.0)
+Requirement already satisfied: matplotlib in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (3.9.1)
+Requirement already satisfied: numpyro in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (0.17.0)
+Requirement already satisfied: optax in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (0.2.4)
+Requirement already satisfied: h5py>=2.7 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from pyscf) (3.11.0)
+Requirement already satisfied: setuptools in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from pyscf) (70.3.0)
+Requirement already satisfied: ml-dtypes>=0.2.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from jax) (0.4.0)
+Requirement already satisfied: opt-einsum in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from jax) (3.3.0)
+Requirement already satisfied: contourpy>=1.0.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (1.2.1)
+Requirement already satisfied: cycler>=0.10 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (4.53.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (1.4.5)
+Requirement already satisfied: packaging>=20.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (24.1)
+Requirement already satisfied: pillow>=8 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (3.1.2)
+Requirement already satisfied: python-dateutil>=2.7 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from matplotlib) (2.9.0)
+Requirement already satisfied: jaxlib>=0.4.25 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from numpyro) (0.4.28.dev20240710)
+Requirement already satisfied: multipledispatch in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from numpyro) (1.0.0)
+Requirement already satisfied: tqdm in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from numpyro) (4.67.1)
+Requirement already satisfied: absl-py>=0.7.1 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from optax) (2.1.0)
+Requirement already satisfied: chex>=0.1.87 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from optax) (0.1.89)
+Requirement already satisfied: etils[epy] in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from optax) (1.12.2)
+Requirement already satisfied: typing_extensions>=4.2.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from chex>=0.1.87->optax) (4.12.2)
+Requirement already satisfied: toolz>=0.9.0 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from chex>=0.1.87->optax) (1.0.0)
+Requirement already satisfied: six>=1.5 in /n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages (from python-dateutil>=2.7->matplotlib) (1.16.0)
+Running H2
+converged SCF energy = -1.1031409704839  <S^2> = 2.220446e-16  2S+1 = 1
+2.3126602172851562e-05
+0.0009310245513916016
+3.552436828613281e-05
+6.270408630371094e-05
+7.033348083496094e-05
+0.0009548664093017578
+Iteration 1: Energy = -1.11302419, Grad Norm = 0.11015096, Param Update Norm = 0.11411454
+3.337860107421875e-05
+6.031990051269531e-05
+5.7697296142578125e-05
+6.008148193359375e-05
+6.008148193359375e-05
+6.29425048828125e-05
+6.008148193359375e-05
+6.508827209472656e-05
+6.318092346191406e-05
+7.510185241699219e-05
+0.06736898422241211
+Iteration 2: Energy = -1.13126493, Grad Norm = 0.66151260, Param Update Norm = 0.87262201
+3.266334533691406e-05
+6.437301635742188e-05
+5.7220458984375e-05
+5.316734313964844e-05
+6.29425048828125e-05
+4.6253204345703125e-05
+4.553794860839844e-05
+5.1021575927734375e-05
+0.04225873947143555
+Iteration 3: Energy = -1.13290947, Grad Norm = 0.71988600, Param Update Norm = 0.00000088
+2.5033950805664062e-05
+5.1975250244140625e-05
+3.695487976074219e-05
+3.314018249511719e-05
+2.9802322387695312e-05
+2.2649765014648438e-05
+3.528594970703125e-05
+4.8160552978515625e-05
+2.3365020751953125e-05
+2.0742416381835938e-05
+2.4080276489257812e-05
+3.409385681152344e-05
+2.5033950805664062e-05
+2.1219253540039062e-05
+2.0742416381835938e-05
+3.552436828613281e-05
+4.482269287109375e-05
+2.2172927856445312e-05
+1.9788742065429688e-05
+4.482269287109375e-05
+4.220008850097656e-05
+5.221366882324219e-05
+4.506111145019531e-05
+4.7206878662109375e-05
+4.482269287109375e-05
+4.363059997558594e-05
+4.696846008300781e-05
+4.982948303222656e-05
+5.7220458984375e-05
+0.04521298408508301
+Iteration 4: Energy = -1.13620407, Grad Norm = 1.10950074, Param Update Norm = 0.00000000
+  message: STOP: TOTAL NO. of f AND g EVALUATIONS EXCEEDS LIMIT
+  success: False
+   status: 1
+      fun: -1.136204066239075
+        x: [-8.642e-01 -3.265e-01 ...  7.813e-02  1.706e-01]
+      nit: 4
+      jac: [-6.671e-03 -5.988e-03 ... -5.920e-01 -8.339e-01]
+     nfev: 47
+     njev: 47
+ hess_inv: <38x38 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.1031409704839
+fci-energy -1.1288156436492547
+vafqmc-energy (-1.122697685699577+0.0029805042138564327j)
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           38     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.11027D+00    |proj g|=  2.21541D-02
+
+At iterate    1    f= -1.11302D+00    |proj g|=  5.94041D-02
+
+At iterate    2    f= -1.13126D+00    |proj g|=  4.49180D-01
+  ys=-1.190E-01  -gs= 3.928E-02 BFGS update SKIPPED
+
+At iterate    3    f= -1.13291D+00    |proj g|=  5.13653D-01
+
+At iterate    4    f= -1.13620D+00    |proj g|=  8.33927D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   38      4     49      2     1     0   8.339D-01  -1.136D+00
+  F =  -1.1362040662390751     
+
+STOP: TOTAL NO. of f AND g EVALUATIONS EXCEEDS LIMIT        

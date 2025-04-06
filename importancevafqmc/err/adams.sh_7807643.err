@@ -1,0 +1,15 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+Traceback (most recent call last):
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_adams.py", line 463, in <module>
+    energy = prop.run()
+             ^^^^^^^^^^
+  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_adams.py", line 385, in run
+    print(f"Iteration {i + 1}")  # Debugging: Print iteration number
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 116] Stale file handle
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+OSError: [Errno 116] Stale file handle

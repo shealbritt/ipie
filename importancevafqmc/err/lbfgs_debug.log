@@ -1,0 +1,67 @@
+Running H2
+Vectorized (prev 2 were parallel) Num Chains 100 num Samples 10000
+converged SCF energy = -1.1031409704839  <S^2> = 2.220446e-16  2S+1 = 1
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           38     M =         1000
+ This problem is unconstrained.
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.08883D+00    |proj g|=  1.59637D-01
+
+At iterate    1    f= -1.10521D+00    |proj g|=  4.21480D-02
+
+At iterate    2    f= -1.11326D+00    |proj g|=  4.13179D-02
+
+At iterate    3    f= -1.11431D+00    |proj g|=  4.42303D-02
+
+At iterate    4    f= -1.11521D+00    |proj g|=  3.41596D-02
+
+At iterate    5    f= -1.11690D+00    |proj g|=  6.27695D-02
+
+At iterate    6    f= -1.11697D+00    |proj g|=  5.63928D-02
+
+At iterate    7    f= -1.11909D+00    |proj g|=  5.49275D-02
+
+At iterate    8    f= -1.11998D+00    |proj g|=  6.72330D-02
+
+At iterate    9    f= -1.11850D+00    |proj g|=  5.58565D-02
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   38      9     26      1     0     0   5.586D-02  -1.118D+00
+  F =  -1.1184956472287142     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.1184956472287142
+        x: [-9.056e-01 -3.236e-01 ...  1.152e-01  1.099e-01]
+      nit: 9
+      jac: [-1.353e-04 -1.467e-04 ... -4.640e-02 -4.460e-02]
+     nfev: 25
+     njev: 25
+ hess_inv: <38x38 LbfgsInvHessProduct with dtype=float64>
+Total time 4747.516270160675
+converged SCF energy = -1.1031409704839
+
+WARN: Not enough memory for FCI solver. The minimal requirement is 0 MB
+
+fci-energy -1.1288156436492542
+vafqmc-energy (-1.1154007871680045+0.007023856320951636j)

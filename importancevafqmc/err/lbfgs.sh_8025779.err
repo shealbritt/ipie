@@ -1,0 +1,8 @@
+
+The following have been reloaded with a version change:
+  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
+  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
+
+/var/slurmd/spool/slurmd/job8025779/slurm_script: line 23: 2991308 Killed                  python lbfgs_fast.py
+/var/slurmd/spool/slurmd/job8025779/slurm_script: line 24: /n/home06/mbritt: Is a directory
+slurmstepd: error: Detected 1 oom_kill event in StepId=8025779.batch. Some of the step tasks have been OOM Killed.

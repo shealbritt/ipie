@@ -7,7 +7,11 @@ import jax.numpy as jnp
 import jax.scipy as jsp
 import jax
 import os
+
+import warnings
+warnings.filterwarnings('ignore')
 from jaxlib import xla_extension
+from jax import jit
 import numpyro
 numpyro.enable_x64()
 from numpyro.infer.initialization import init_to_median
@@ -22,7 +26,7 @@ multiprocessing.set_start_method('fork')
 import numpyro
 import numpyro.distributions as dist
 from numpyro.infer import MCMC, NUTS
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath("../"))
 from afqmc.trial import Trial
 from afqmc.walkers import Walkers
 from afqmc.utils import read_fcidump, get_fci
@@ -131,95 +135,80 @@ class Propagator(object):
         overlap = jnp.linalg.det(overlapa) * jnp.linalg.det(overlapb)
         return overlap
     
-    def potential_fn(self, x_flat): # NUTS expects a flattened array as input)
+    def potential_fn(self, x_flat): 
         x_flat = x_flat['x_flat']
-
         overlap = self.target(x_flat)
-        is_nan_overlap = jnp.isnan(overlap)
-        # Conditionally print only when NOT tracing (during runtime execution)
-        if type(is_nan_overlap) == xla_extension.ArrayImpl: # Now you *can* safely use bool() in eager mode
-            if(is_nan_overlap == True):
-                print('overlap')
-                exit()
+        @staticmethod
+        @jit 
+        def _potential_fn(overlap):
+            log_overlap_magnitude = jnp.log(jnp.abs(overlap))
+            potential_energy = -log_overlap_magnitude
+            return potential_energy
+        return _potential_fn(overlap)
 
-        log_overlap_magnitude = jnp.log(jnp.abs(overlap))
-        potential_energy = -log_overlap_magnitude
-        return potential_energy
-
-            
-    def sampler(self, params, num_warmup): # Renamed to differentiate
+             
+    def sampler(self, params, num_warmup): 
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params
         key = self.key_manager.get_key()
-
         init_x = jax.random.normal(key, (2 * self.nsteps * self.nfields,))
-        init_x_reshaped = init_x.reshape(2, self.nsteps, self.nfields)
-        init_overlap = self.target(init_x_reshaped)
-        init_magnitude = jnp.abs(init_overlap)
-        '''while jnp.any(init_magnitude == 0): # Keep trying until we find a non-zero overlap start
-            key = self.key_manager.get_key()
-            init_x = jax.random.normal(key, (2 * self.nsteps * self.nfields,))
-            init_x_reshaped = init_x.reshape(2, self.nsteps, self.nfields)
-            init_overlap = self.target(init_x_reshaped)
-            init_magnitude = jnp.abs(init_overlap)
-'''
         # Create NUTS kernel with the potential_fn
         nuts_kernel = NUTS(potential_fn=self.potential_fn, target_accept_prob=0.6)
         # Run MCMC
          # Split key for MCMC
         num_samples = self.nwalkers # Sample as many as your current walkers
-        initial_params = {"x_flat": init_x} # Initial parameters for NUTS, must be a dict if model is None
+        initial_params = {"x_flat": jnp.array(init_x)} # Initial parameters for NUTS, must be a dict if model is None
         key = self.key_manager.get_key()
-        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1, progress_bar = False)
+        mcmc = MCMC(nuts_kernel, num_warmup=num_warmup, num_samples=num_samples, num_chains=1, progress_bar=False)
         mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
         samples = mcmc.get_samples()
         x_samples_flat = samples["x_flat"] 
-        num_parameters = x_samples_flat.shape[1]
-        acceptance_rate = self.acceptance(x_samples_flat)
-        return x_samples_flat, acceptance_rate
+        return x_samples_flat
     
     def get_overlap(self, l_tensora, l_tensorb, r_tensora, r_tensorb):
-        ovlpa = jnp.einsum('pr, pq->rq', l_tensora.conj(), r_tensora)
-        ovlpb = jnp.einsum('pr, pq->rq', l_tensorb.conj(), r_tensorb)
-        is_nan_overlap = jnp.isnan(ovlpa)
-        # Conditionally print only when NOT tracing (during runtime execution)
-        if type(is_nan_overlap) == xla_extension.ArrayImpl: # Now you *can* safely use bool() in eager mode
-            if(is_nan_overlap == True):
-                print('overlapa', self.l_tensora)
-                exit()
-        return ovlpa, ovlpb
+        @staticmethod
+        @jit
+        def _get_overlap(l_tensora, l_tensorb, r_tensora, r_tensorb):
+            ovlpa = jnp.einsum('pr, pq->rq', l_tensora.conj(), r_tensora)
+            ovlpb = jnp.einsum('pr, pq->rq', l_tensorb.conj(), r_tensorb)
+            return ovlpa, ovlpb
+        return _get_overlap(l_tensora, l_tensorb, r_tensora, r_tensorb)
     
     def propagate_one_step(self, h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
         # 1-body propagator propagation
-        one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
-        tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
-        # 2-body propagator propagation
-        # Conditionally print only when NOT tracing (during runtime execution)
-        #i think this is - sqrt(s) when s is negative but should be positive sqrt s
-        two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * ((-1j)**((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
-        '''Tempa = tensora.copy()
-        Tempb = tensorb.copy()
-        for order_i in range(1, 1+self.taylor_order):
-            Tempa = jnp.einsum('pq, qr->pr', two_body_op_power, Tempa) / order_i
-            Tempb = jnp.einsum('pq, qr->pr', two_body_op_power, Tempb) / order_i
-            self.walkers.tensora += Tempa
-            self.walkers.tensorb += Tempb'''
-        tensora = jnp.einsum('pq, qr->pr', two_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', two_body_op_power, tensorb)
-        # 1-body propagator propagation
-        one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
-        tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
-        tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
-        #I Think i need to add probability of the field i chose
-        return tensora, tensorb
-
+        @staticmethod
+        @jit
+        def _propagate_one_step(h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
+            one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
+            tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
+            # 2-body propagator propagation
+            two_body_op_power = jsp.linalg.expm(1j * jnp.sqrt(jnp.abs(s)) * ((-1j)**((1-jnp.sign(s))/2)) * jnp.einsum('n, npq->pq', xi, l_tensor))
+            '''Tempa = tensora.copy()
+            Tempb = tensorb.copy()
+            for order_i in range(1, 1+self.taylor_order):
+                Tempa = jnp.einsum('pq, qr->pr', two_body_op_power, Tempa) / order_i
+                Tempb = jnp.einsum('pq, qr->pr', two_body_op_power, Tempb) / order_i
+                self.walkers.tensora += Tempa
+                self.walkers.tensorb += Tempb'''
+            tensora = jnp.einsum('pq, qr->pr', two_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', two_body_op_power, tensorb)
+            # 1-body propagator propagation
+            one_body_op_power = jsp.linalg.expm(-t/2 * h1e_mod)
+            tensora = jnp.einsum('pq, qr->pr', one_body_op_power, tensora)
+            tensorb = jnp.einsum('pq, qr->pr', one_body_op_power, tensorb)
+            return tensora, tensorb
+        return _propagate_one_step(h1e_mod, xi, l_tensor, tensora, tensorb, t, s)
+    
     def normal_pdf(self, x):
-        prob = 1.0
-        for i in range(len(x)):
-            prob *= jnp.exp(-0.5*x[i]**2)/jnp.sqrt(2*jnp.pi)
-
-        return prob
+        @staticmethod
+        @jit
+        def _normal_pdf(x):
+            prob = 1.0
+            for i in range(len(x)):
+                prob *= jnp.exp(-0.5*x[i]**2)/jnp.sqrt(2*jnp.pi)
+            return prob
+        return _normal_pdf(x)
 
     def propagate(self, x):
         tensora = self.tensora_params.copy()
@@ -232,13 +221,17 @@ class Propagator(object):
 
     def green_func(self, la, lb, ra, rb):
         ovlpa, ovlpb = self.get_overlap(la, lb, ra, rb)
-        ovlp_inva = jnp.linalg.inv(ovlpa)
-        ovlp_invb = jnp.linalg.inv(ovlpb)
-        thetaa = jnp.einsum("qp, pr->qr", ra, ovlp_inva)
-        thetab = jnp.einsum("qp, pr->qr", rb, ovlp_invb)
-        green_funca =jnp.einsum("qr, pr->pq", thetaa, la.conj())
-        green_funcb = jnp.einsum("qr, pr->pq", thetab, lb.conj())
-        return green_funca, green_funcb
+        @staticmethod 
+        @jit
+        def _green_func(la, lb, ra, rb, ovlpa, ovlpb):
+            ovlp_inva = jnp.linalg.inv(ovlpa)
+            ovlp_invb = jnp.linalg.inv(ovlpb)
+            thetaa = jnp.einsum("qp, pr->qr", ra, ovlp_inva)
+            thetab = jnp.einsum("qp, pr->qr", rb, ovlp_invb)
+            green_funca =jnp.einsum("qr, pr->pq", thetaa, la.conj())
+            green_funcb = jnp.einsum("qr, pr->pq", thetab, lb.conj())
+            return green_funca, green_funcb
+        return _green_func(la, lb, ra, rb, ovlpa, ovlpb)
     
     def local_energy(self, la, lb, ra, rb):
         green_funca, green_funcb = self.green_func(la, lb, ra, rb)
@@ -252,13 +245,6 @@ class Propagator(object):
         local_e1 += jnp.einsum("pq, pq->", green_funcb, self.h1e)
         local_e = (local_e1 + 0.5 * local_e2 + self.nuc)
         return local_e
-
-    def reorthogonal(self,tensora, tensorb):
-        ortho_walkersa = jnp.zeros_like(tensora)
-        ortho_walkersb = jnp.zeros_like(tensorb)
-        ortho_walkersb = jnp.linalg.qr(tensorb)[0]
-        ortho_walkersa = jnp.linalg.qr(tensora)[0]
-        return ortho_walkersa, ortho_walkersb
 
     
     def unpack_params(self, params):
@@ -312,7 +298,6 @@ class Propagator(object):
     def acceptance(self, samples):    
         accepted_count = 0
         total_moves = samples.shape[0] - 1
-
         for i in range(1, samples.shape[0]):
             if not jnp.allclose(samples[i], samples[i-1]):  # Compare samples
                 accepted_count += 1
@@ -323,8 +308,8 @@ class Propagator(object):
         # Run the simulation
         lam = 1
         B = 0.7
-        warmup = 2000
-        samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
+        warmup = 300
+        samples = jax.lax.stop_gradient(self.sampler(params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
 
         # Vectorizsd calculation of energies and phases for all samples
@@ -354,7 +339,7 @@ class Propagator(object):
        # print('gradient', grad)
         return np.array(grad, dtype=np.float64)
 
-    def run(self, max_iter=30, tol=1e-5, disp=True, seed=1222):
+    def run(self, max_iter=100, tol=1e-10, disp=True, seed=1222):
         self.trial = Trial(self.mol)
         self.trial.get_trial()
         self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
@@ -372,9 +357,7 @@ class Propagator(object):
                                   self.trial.tensora.flatten(), 
                                   self.trial.tensorb.flatten(),
                                   t, s])
-        key = self.key_manager.get_key()
-        noise = random.normal(key, shape=params.shape) * 0.1 + 1
-        params = params * noise
+        
         energy_history = []
         grad_norm_history = []
         param_update_norm_history = []
@@ -387,7 +370,8 @@ class Propagator(object):
             grad_norm = jnp.linalg.norm(current_grad)
             energy_history.append(jnp.real(current_energy)) # Store real part of energy
             grad_norm_history.append(grad_norm)
-
+            if np.isnan(current_energy) or np.isinf(current_energy):
+                print("Warning: objective function returned NaN or Inf!")
             param_update = xk - prev_params
             param_update_norm = jnp.linalg.norm(param_update)
             param_update_norm_history.append(param_update_norm)
@@ -405,10 +389,10 @@ class Propagator(object):
             method="L-BFGS-B",
             options={
                 "maxls": 20,
-                "gtol": tol,
-                "eps": tol,
+                "gtol": 1e-300,
+                "eps": 1e-300,
                 "maxiter": max_iter,
-                "ftol": 1e-20,
+                "ftol": 1e-300,
                 "maxcor": 1000,
                 "maxfun": max_iter,
                 "disp": disp,
@@ -446,9 +430,9 @@ class Propagator(object):
         plt.tight_layout()
         plt.show()
         warmup = 500
-        samples, acceptance = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
-        while (self.acceptance(samples) < 0.3): 
-            samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
+        samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
+       # while (self.acceptance(samples) < 0.3): 
+        #    samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
         energies_phases = vectorized_variational_energy_func(samples)  # Call the vectorized function
         energies, phases = energies_phases # Unpack the tuple of arrays
@@ -456,11 +440,11 @@ class Propagator(object):
         denom = jnp.sum(phases)
 
         return num/denom'''
-    
+                            
 
 if __name__ == "__main__":
     # Define the H2 molecule with PySCF
-    mol = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
+    mol = gto.M(atom='H 0 0 0; H 0 0 1.2', basis='sto-3g', unit='bohr')
 
     # Instantiate the Propagator class for the H2 molecule
     # Example parameters: time step dt=0.01, total simulation time total_t=1.0
@@ -476,13 +460,12 @@ if __name__ == "__main__":
        # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
         #time_list, energy = prop.sampler()
         #plt.plot(time_list, energy, label="jax_afqmc")
-        prop = Propagator(mol, dt=0.1, nsteps=10, nwalkers=10000)
+        prop = Propagator(mol, dt=0.5, nsteps=5, nwalkers=100)
 
     # Run the simulation to get time and energy lists
 
         energy = prop.run()
 
-        plt.hlines(energy,xmin=0, xmax=10, linestyle=':', label="vafqmc")
 
 
 
@@ -495,7 +478,8 @@ if __name__ == "__main__":
     print("vafqmc-energy", energy)
     # Optionally, plot a reference energy line if available
     plt.hlines(fci_energy, xmin=0, xmax=10, color='k', linestyle='--', label='Reference Energy')
-
+    plt.hlines(hf_energy, xmin=0, xmax=10, color='k', linestyle='--', label='HF Energy')
+    plt.hlines(energy,xmin=0, xmax=10, linestyle=':', label="vafqmc")
     # Add labels, title, and legend
     plt.xlabel('Time (a.u.)')
     plt.ylabel('Energy (Hartree)')
@@ -505,3 +489,4 @@ if __name__ == "__main__":
 
     # Show the plot
     plt.savefig("h2-20walkers.png")
+
