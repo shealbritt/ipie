@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 import h5py
+import datetime
 from pyscf import gto, scf, cc, lo
 class Trial(object):
     def __init__(self, mol):
@@ -12,6 +13,9 @@ class Trial(object):
 
     def get_trial(self):
         # UHF
+        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
+        filename = f"input_{timestamp}.h5"
+        self.input = filename
         mf = scf.UHF(self.mol)
         dm_alpha, dm_beta = mf.get_init_guess()
         dm_beta[:2,:2] = 0
@@ -20,11 +24,11 @@ class Trial(object):
         s_mat = self.mol.intor('int1e_ovlp')
         ao_coeff = lo.orth.lowdin(s_mat)
         xinv = np.linalg.inv(ao_coeff)
-
+        self.input = filename
         self.trial = mf.mo_coeff
         self.tensora = xinv.dot(mf.mo_coeff[0][:, :self.mol.nelec[0]])
         self.tensorb = xinv.dot(mf.mo_coeff[1][:, :self.mol.nelec[1]])
-        with h5py.File("input.h5", "w") as fa:
+        with h5py.File(filename, "w") as fa:
             fa["ao_coeff"] = ao_coeff
             fa["xinv"] = xinv
             fa["phia"] = self.tensora
