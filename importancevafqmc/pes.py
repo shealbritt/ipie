@@ -6,12 +6,12 @@ import csv
 from lbfgs_fast import Propagator
 from itertools import zip_longest
 sys.path.append(os.path.abspath("../"))
-#from afqmc.ipieafqmc import ipierun
+from ipieafqmc import ipierun
 
 def run_simulation(dist):
     os.makedirs('./h2pes', exist_ok=True) 
     natoms = 2
-    nsteps = 3
+    nsteps = 5
     mol = gto.M(
     atom=[("H", 0, 0, i * dist) for i in range(natoms)],
     basis='sto-6g',

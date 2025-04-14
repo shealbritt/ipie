@@ -6,7 +6,7 @@ import re
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from hmc_vafqmc_lbfgs import Propagator
+from lbfgs_fast import Propagator
 import jax.numpy as jnp
 import jax
 sys.path.append('../afqmc')
@@ -18,28 +18,31 @@ ipieenergy = []
 ipieerror = []
 vafqmcenergy = []
 vafqmcerror = []
+hf_energies = []
 distances = []
 fcienergies = []
 nan_distances = []
 dist_for_param = []
-warmup_steps = 300
-for npy_path in sorted(glob.glob("params/optimal_param-*.npy")):
+warmup_steps = 200
+for npy_path in sorted(glob.glob("h2pes/optimal_param-*.npy")):
     match = re.search(r"optimal_param-(\d+\.?\d*)s.npy", npy_path)
     dist = float(match.group(1))
     if match:
         mol = gto.M(atom=f'H 0 0 0; H 0 0 {dist}', basis='sto-3g', unit='bohr')
         nsteps = 5
         dt = 0.1
-        reblocked_ipie= reblock(ipierun(mol))
-        ipieenergy.append(reblocked_ipie['ETotal_ac'].values[0])
+        #reblocked_ipie= reblock(ipierun(mol))
+        #print(reblocked_ipie)
+        #ipieenergy.append(reblocked_ipie['ETotal_ac'].values[0])
         #vafqmcenergy.append(reblocked_vafqmc['ETotal_ac'].values[0])
-        ipieerror.append(reblocked_ipie['ETotal_error_ac'].values[0])
+       # ipieerror.append(reblocked_ipie['ETotal_error_ac'].values[0])
 
-        prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=100000) # Example parameters
+        prop = Propagator(mol, dt=dt, nsteps=nsteps, nwalkers=100000, num_chains=50, num_warmup=200) # Example parameters
         prop.trial = Trial(prop.mol)
         prop.trial.get_trial()
         prop.trial.tensora = jnp.array(prop.trial.tensora, dtype=jnp.complex128)
         prop.trial.tensorb = jnp.array(prop.trial.tensorb, dtype=jnp.complex128)
+        prop.input = prop.trial.input
         h1e, v2e, nuc, l_tensor = prop.hamiltonian_integral()
         prop.h1e = jnp.array(h1e)
         prop.v2e = jnp.array(v2e)
@@ -50,18 +53,18 @@ for npy_path in sorted(glob.glob("params/optimal_param-*.npy")):
         s = t.copy()
         param_value = float(match.group(1))  # Extract numerical parameter
         params = np.load(npy_path)  # Load NumPy array
-        samples, acceptance_rate = prop.sampler(params, warmup_steps)
-        vectorized_variational_energy_func = jax.vmap(prop.variational_energy, in_axes=0)
+        #prop.h1e_params, prop.l_tensor_params, prop.tensora_params, prop.tensorb_params, prop.t_params, prop.s_params = prop.unpack_params(params)
+        #samples, acceptance_rate = prop.sampler()
+        #vectorized_variational_energy_func = jax.vmap(prop.variational_energy, in_axes=0)
         
-        energies_phases = vectorized_variational_energy_func(samples)
-        energy, phase = energies_phases
-        energy = jnp.real((energy) / jnp.sum(phase))
-        vafqmcenergy.append(jnp.sum(energy))
-        vafqmcerror.append(jnp.std(energy)) #This might not be the way to cALCULATE
+        #energies_phases = vectorized_variational_energy_func(samples)
+        #energy, phase = energies_phases
+        #energy = jnp.real((energy) / jnp.sum(phase))
+        vafqmcenergy.append(params)
+        #vafqmcerror.append(jnp.std(energy)) #This might not be the way to cALCULATE
         dist_for_param.append(dist)
 
 
-'''
 for csv_path in sorted(glob.glob("csv/h2-*.csv")):  # Now looking directly in 'csv'
     match = re.search(r"h2-(\d+\.?\d*).csv", csv_path)
     if match:
@@ -87,7 +90,6 @@ for csv_path in sorted(glob.glob("csv/h2-*.csv")):  # Now looking directly in 'c
                 print(f"Error processing distance {dist}: {e}")
                 nan_distances.append(dist)
                 continue  # Skip this iteration safely
-'''
 
 # Print distances that were skipped due to NaNs
 if nan_distances:
@@ -111,6 +113,7 @@ for dist in sorted_distances:
     mf = scf.RHF(mol)
     hf_energy = mf.kernel()
     cisolver = fci.FCI(mf)
+    hf_energies.append(hf_energy)
     fci_energy = cisolver.kernel()[0]
     fcienergies.append(fci_energy)
 # Create the plot
@@ -121,11 +124,12 @@ plt.errorbar(sorted_distances, sorted_ipieenergy, yerr=sorted_ipieerror, fmt='o-
              label="IPIE", capsize=3, markersize=5, color='blue')
 
 # Plot VAFQMC data with error bars
-plt.errorbar(dist_for_param, vafqmcenergy, yerr=vafqmcerror, fmt='s-',
-             label="VAFQMC", capsize=3, markersize=5, color='red')
-plt.plot(sorted_distances, fcienergies, label="fci", linestyle = '--', color = 'green')
+plt.plot(dist_for_param, vafqmcenergy,
+             label="VAFQMC", markersize=5, color='red', linestyle = "-", marker = "o")
+plt.plot(np.linspace(0.1,4,40), fcienergies, label="fci", linestyle = '--', color = 'green')
+plt.plot(np.linspace(0.1,4,40), hf_energies, label="hf", linestyle = '--', color = 'orange')
 # Labels and legend
-plt.xlabel("H2 Bond Distance (Å)", fontsize=12)
+plt.xlabel("H2 Bond Distance (Bohr)", fontsize=12)
 plt.ylabel("Total Energy (Ha)", fontsize=12)
 plt.title("Energy Comparison: IPIE vs. VAFQMC", fontsize=14)
 plt.ylim(-1.15,-0.8)
