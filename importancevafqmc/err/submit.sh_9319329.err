@@ -1,8 +1,0 @@
-
-The following have been reloaded with a version change:
-  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
-  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
-
-ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory: '/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/xarray/__init__.py'
-
- This problem is unconstrained.

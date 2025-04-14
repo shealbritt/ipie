@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=100G
 #SBATCH --partition=joonholee
-#SBATCH --array=0-29
+#SBATCH --array=0-39
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=sheabritt@college.harvard.edu
 
@@ -21,7 +21,7 @@ pip install --upgrade pip  # Make sure pip is the latest version
 pip install pyscf jax scipy numpy matplotlib numpyro optax arviz
 
 mamba list  # Check the environment's installed packages
-distances=($(python -c "import numpy as np; print(' '.join([f'{x:.5f}' for x in [0.4, 2.4]]))"))
+distances=($(python -c "import numpy as np; print(' '.join([f'{x:.5f}' for x in np.linspace(0.1, 4.0, 40)]))"))
 d=${distances[$SLURM_ARRAY_TASK_ID]}
 
 

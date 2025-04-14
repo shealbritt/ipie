@@ -24,4 +24,4 @@ echo "Using Pip from: $(which pip)"
 ls -l lbfgs_fast.py
 
 # Run the script and log errors
-python -u lbfgs_fast.py 2>&1 | tee err/lbfgs_debug.log
+python lbfgs_fast.py

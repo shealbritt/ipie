@@ -1,6 +1,0 @@
-Using Python from: /n/home06/mbritt/.conda/envs/afqmc_env/bin/python
-Using Pip from: /n/home06/mbritt/.conda/envs/afqmc_env/bin/pip
--rw-r--r--. 1 mbritt joonholee_lab 20304 Apr  1 23:48 lbfgs_fast.py
-Running H2
-Num Chains 1000 num Samples 10000
-converged SCF energy = -1.1031409704839  <S^2> = 2.220446e-16  2S+1 = 1
