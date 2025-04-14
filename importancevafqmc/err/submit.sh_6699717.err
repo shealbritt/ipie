@@ -1,940 +1,0 @@
-
-The following have been reloaded with a version change:
-  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
-  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
-
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:08:21, 32.74s/it, 3 steps of size 7.53e+00. acc. prob=0.44]warmup:   2%|▏         | 233/12000 [00:32<19:24, 10.11it/s, 3 steps of size 1.74e+00. acc. prob=0.59]  warmup:   4%|▍         | 486/12000 [00:32<07:28, 25.65it/s, 3 steps of size 3.24e-01. acc. prob=0.59]warmup:   6%|▋         | 750/12000 [00:33<03:52, 48.48it/s, 7 steps of size 7.43e-01. acc. prob=0.59]warmup:   8%|▊         | 1015/12000 [00:33<02:16, 80.53it/s, 3 steps of size 8.92e-01. acc. prob=0.59]warmup:  11%|█         | 1296/12000 [00:33<01:23, 127.75it/s, 3 steps of size 7.58e-01. acc. prob=0.59]warmup:  13%|█▎        | 1566/12000 [00:33<00:54, 189.77it/s, 7 steps of size 8.46e-01. acc. prob=0.59]warmup:  15%|█▌        | 1834/12000 [00:33<00:37, 272.68it/s, 7 steps of size 9.28e-01. acc. prob=0.59]sample:  18%|█▊        | 2102/12000 [00:33<00:26, 380.44it/s, 7 steps of size 7.45e-01. acc. prob=0.76]sample:  20%|█▉        | 2363/12000 [00:33<00:18, 514.44it/s, 7 steps of size 7.45e-01. acc. prob=0.76]sample:  22%|██▏       | 2621/12000 [00:33<00:13, 677.41it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  24%|██▍       | 2877/12000 [00:33<00:10, 867.45it/s, 7 steps of size 7.45e-01. acc. prob=0.74]sample:  26%|██▌       | 3132/12000 [00:33<00:08, 1078.73it/s, 7 steps of size 7.45e-01. acc. prob=0.74]sample:  28%|██▊       | 3386/12000 [00:34<00:06, 1299.84it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  30%|███       | 3639/12000 [00:34<00:05, 1517.30it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  32%|███▏      | 3891/12000 [00:34<00:04, 1720.73it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  35%|███▍      | 4144/12000 [00:34<00:04, 1901.37it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  37%|███▋      | 4396/12000 [00:34<00:03, 2050.24it/s, 7 steps of size 7.45e-01. acc. prob=0.74]sample:  39%|███▊      | 4648/12000 [00:34<00:03, 2167.02it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  41%|████      | 4900/12000 [00:34<00:03, 2260.60it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  43%|████▎     | 5152/12000 [00:34<00:02, 2329.90it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  45%|████▌     | 5404/12000 [00:34<00:02, 2383.09it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  47%|████▋     | 5656/12000 [00:34<00:02, 2421.02it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  49%|████▉     | 5908/12000 [00:35<00:02, 2446.97it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  51%|█████▏    | 6161/12000 [00:35<00:02, 2470.74it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  53%|█████▎    | 6413/12000 [00:35<00:02, 2482.36it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  56%|█████▌    | 6665/12000 [00:35<00:02, 2491.15it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  58%|█████▊    | 6917/12000 [00:35<00:02, 2496.57it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  60%|█████▉    | 7169/12000 [00:35<00:01, 2499.50it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  62%|██████▏   | 7421/12000 [00:35<00:01, 2499.89it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  64%|██████▍   | 7673/12000 [00:35<00:01, 2503.93it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  66%|██████▌   | 7924/12000 [00:35<00:01, 2504.90it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  68%|██████▊   | 8175/12000 [00:35<00:01, 2505.46it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  70%|███████   | 8428/12000 [00:36<00:01, 2510.82it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  72%|███████▏  | 8680/12000 [00:36<00:01, 2508.53it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  74%|███████▍  | 8931/12000 [00:36<00:01, 2504.69it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  77%|███████▋  | 9183/12000 [00:36<00:01, 2506.59it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  79%|███████▊  | 9434/12000 [00:36<00:01, 2505.02it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  81%|████████  | 9685/12000 [00:36<00:00, 2502.88it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  83%|████████▎ | 9937/12000 [00:36<00:00, 2507.83it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  85%|████████▍ | 10188/12000 [00:36<00:00, 2505.58it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  87%|████████▋ | 10439/12000 [00:36<00:00, 2506.29it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  89%|████████▉ | 10690/12000 [00:36<00:00, 2504.57it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  91%|█████████ | 10941/12000 [00:37<00:00, 2504.02it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  93%|█████████▎| 11192/12000 [00:37<00:00, 2504.97it/s, 3 steps of size 7.45e-01. acc. prob=0.75]sample:  95%|█████████▌| 11443/12000 [00:37<00:00, 2505.80it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample:  97%|█████████▋| 11694/12000 [00:37<00:00, 2504.96it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample: 100%|█████████▉| 11945/12000 [00:37<00:00, 2505.99it/s, 7 steps of size 7.45e-01. acc. prob=0.75]sample: 100%|██████████| 12000/12000 [00:37<00:00, 320.00it/s, 7 steps of size 7.45e-01. acc. prob=0.75] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:11:49, 32.76s/it, 3 steps of size 8.29e+00. acc. prob=0.50]warmup:   2%|▏         | 241/12000 [00:32<18:45, 10.45it/s, 7 steps of size 1.13e+00. acc. prob=0.59]  warmup:   4%|▍         | 492/12000 [00:32<07:25, 25.86it/s, 7 steps of size 6.59e-01. acc. prob=0.59]warmup:   6%|▋         | 757/12000 [00:33<03:50, 48.76it/s, 7 steps of size 1.15e+00. acc. prob=0.59]warmup:   9%|▊         | 1022/12000 [00:33<02:15, 80.80it/s, 1 steps of size 8.05e-01. acc. prob=0.59]warmup:  11%|█         | 1284/12000 [00:33<01:25, 124.69it/s, 7 steps of size 1.03e+00. acc. prob=0.59]warmup:  13%|█▎        | 1551/12000 [00:33<00:56, 186.02it/s, 7 steps of size 1.12e+00. acc. prob=0.59]warmup:  15%|█▌        | 1813/12000 [00:33<00:38, 266.88it/s, 3 steps of size 1.03e+00. acc. prob=0.59]sample:  17%|█▋        | 2074/12000 [00:33<00:26, 372.97it/s, 7 steps of size 7.53e-01. acc. prob=0.71]sample:  19%|█▉        | 2334/12000 [00:33<00:19, 507.06it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  22%|██▏       | 2591/12000 [00:33<00:14, 670.49it/s, 3 steps of size 7.53e-01. acc. prob=0.74]sample:  24%|██▎       | 2846/12000 [00:33<00:10, 860.92it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  26%|██▌       | 3100/12000 [00:33<00:08, 1072.85it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  28%|██▊       | 3353/12000 [00:34<00:06, 1294.86it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  30%|███       | 3606/12000 [00:34<00:05, 1513.90it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  32%|███▏      | 3858/12000 [00:34<00:04, 1716.39it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  34%|███▍      | 4110/12000 [00:34<00:04, 1897.26it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  36%|███▋      | 4362/12000 [00:34<00:03, 2046.58it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  38%|███▊      | 4614/12000 [00:34<00:03, 2167.27it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  41%|████      | 4866/12000 [00:34<00:03, 2259.91it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  43%|████▎     | 5118/12000 [00:34<00:02, 2329.76it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  45%|████▍     | 5370/12000 [00:34<00:02, 2378.41it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  47%|████▋     | 5622/12000 [00:34<00:02, 2417.58it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  49%|████▉     | 5874/12000 [00:35<00:02, 2441.17it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  51%|█████     | 6126/12000 [00:35<00:02, 2462.56it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  53%|█████▎    | 6377/12000 [00:35<00:02, 2474.94it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  55%|█████▌    | 6628/12000 [00:35<00:02, 2481.50it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  57%|█████▋    | 6879/12000 [00:35<00:02, 2489.34it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  59%|█████▉    | 7130/12000 [00:35<00:01, 2493.57it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  62%|██████▏   | 7381/12000 [00:35<00:01, 2493.82it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  64%|██████▎   | 7632/12000 [00:35<00:01, 2496.94it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  66%|██████▌   | 7883/12000 [00:35<00:01, 2496.47it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  68%|██████▊   | 8135/12000 [00:35<00:01, 2500.54it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  70%|██████▉   | 8386/12000 [00:36<00:01, 2503.21it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  72%|███████▏  | 8637/12000 [00:36<00:01, 2505.14it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  74%|███████▍  | 8888/12000 [00:36<00:01, 2502.45it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  76%|███████▌  | 9139/12000 [00:36<00:01, 2502.41it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  78%|███████▊  | 9390/12000 [00:36<00:01, 2499.74it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  80%|████████  | 9642/12000 [00:36<00:00, 2503.64it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  82%|████████▏ | 9894/12000 [00:36<00:00, 2507.83it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  85%|████████▍ | 10145/12000 [00:36<00:00, 2507.16it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  87%|████████▋ | 10398/12000 [00:36<00:00, 2512.17it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  89%|████████▉ | 10650/12000 [00:36<00:00, 2506.69it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  91%|█████████ | 10902/12000 [00:37<00:00, 2508.32it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  93%|█████████▎| 11153/12000 [00:37<00:00, 2506.16it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  95%|█████████▌| 11405/12000 [00:37<00:00, 2508.17it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  97%|█████████▋| 11656/12000 [00:37<00:00, 2506.93it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  99%|█████████▉| 11907/12000 [00:37<00:00, 2505.76it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample: 100%|██████████| 12000/12000 [00:37<00:00, 319.77it/s, 7 steps of size 7.53e-01. acc. prob=0.74] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:27:39, 32.84s/it, 3 steps of size 8.72e+00. acc. prob=0.52]warmup:   2%|▏         | 233/12000 [00:32<19:27, 10.08it/s, 7 steps of size 1.45e+00. acc. prob=0.59]  warmup:   4%|▍         | 493/12000 [00:33<07:22, 26.00it/s, 7 steps of size 5.54e-01. acc. prob=0.59]warmup:   6%|▋         | 764/12000 [00:33<03:47, 49.38it/s, 3 steps of size 9.51e-01. acc. prob=0.59]warmup:   9%|▊         | 1026/12000 [00:33<02:15, 80.96it/s, 7 steps of size 1.16e+00. acc. prob=0.59]warmup:  11%|█         | 1304/12000 [00:33<01:23, 127.52it/s, 7 steps of size 7.44e-01. acc. prob=0.59]warmup:  13%|█▎        | 1573/12000 [00:33<00:55, 189.13it/s, 7 steps of size 1.06e+00. acc. prob=0.59]warmup:  15%|█▌        | 1840/12000 [00:33<00:37, 271.49it/s, 7 steps of size 8.36e-01. acc. prob=0.59]sample:  18%|█▊        | 2107/12000 [00:33<00:26, 379.45it/s, 7 steps of size 7.15e-01. acc. prob=0.73]sample:  20%|█▉        | 2371/12000 [00:33<00:18, 515.15it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  22%|██▏       | 2631/12000 [00:33<00:13, 679.31it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  24%|██▍       | 2889/12000 [00:33<00:10, 871.03it/s, 7 steps of size 7.15e-01. acc. prob=0.75]sample:  26%|██▌       | 3146/12000 [00:34<00:08, 1083.74it/s, 7 steps of size 7.15e-01. acc. prob=0.75]sample:  28%|██▊       | 3401/12000 [00:34<00:06, 1305.66it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  30%|███       | 3656/12000 [00:34<00:05, 1525.19it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  33%|███▎      | 3910/12000 [00:34<00:04, 1728.12it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  35%|███▍      | 4164/12000 [00:34<00:04, 1908.95it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  37%|███▋      | 4418/12000 [00:34<00:03, 2060.52it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  39%|███▉      | 4671/12000 [00:34<00:03, 2180.30it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  41%|████      | 4925/12000 [00:34<00:03, 2275.54it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  43%|████▎     | 5178/12000 [00:34<00:02, 2343.69it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  45%|████▌     | 5432/12000 [00:34<00:02, 2396.93it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  47%|████▋     | 5685/12000 [00:35<00:02, 2433.24it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  49%|████▉     | 5939/12000 [00:35<00:02, 2462.28it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  52%|█████▏    | 6192/12000 [00:35<00:02, 2481.46it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  54%|█████▎    | 6446/12000 [00:35<00:02, 2496.81it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  56%|█████▌    | 6699/12000 [00:35<00:02, 2505.77it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  58%|█████▊    | 6953/12000 [00:35<00:02, 2513.41it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  60%|██████    | 7207/12000 [00:35<00:01, 2518.74it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  62%|██████▏   | 7461/12000 [00:35<00:01, 2524.65it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  64%|██████▍   | 7715/12000 [00:35<00:01, 2528.12it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  66%|██████▋   | 7969/12000 [00:35<00:01, 2527.66it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  69%|██████▊   | 8223/12000 [00:36<00:01, 2526.45it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  71%|███████   | 8477/12000 [00:36<00:01, 2527.70it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  73%|███████▎  | 8730/12000 [00:36<00:01, 2525.49it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  75%|███████▍  | 8983/12000 [00:36<00:01, 2524.39it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  77%|███████▋  | 9236/12000 [00:36<00:01, 2522.72it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  79%|███████▉  | 9489/12000 [00:36<00:00, 2524.66it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  81%|████████  | 9742/12000 [00:36<00:00, 2525.77it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  83%|████████▎ | 9996/12000 [00:36<00:00, 2528.17it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  85%|████████▌ | 10249/12000 [00:36<00:00, 2524.51it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  88%|████████▊ | 10503/12000 [00:36<00:00, 2526.34it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  90%|████████▉ | 10756/12000 [00:37<00:00, 2525.82it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  92%|█████████▏| 11009/12000 [00:37<00:00, 2521.70it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  94%|█████████▍| 11262/12000 [00:37<00:00, 2522.18it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  96%|█████████▌| 11515/12000 [00:37<00:00, 2522.89it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample:  98%|█████████▊| 11768/12000 [00:37<00:00, 2523.46it/s, 7 steps of size 7.15e-01. acc. prob=0.76]sample: 100%|██████████| 12000/12000 [00:37<00:00, 319.47it/s, 7 steps of size 7.15e-01. acc. prob=0.76] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<108:33:34, 32.57s/it, 3 steps of size 8.67e+00. acc. prob=0.52]warmup:   2%|▏         | 240/12000 [00:32<18:43, 10.47it/s, 7 steps of size 8.54e-01. acc. prob=0.58]  warmup:   4%|▍         | 500/12000 [00:32<07:13, 26.52it/s, 7 steps of size 1.82e+00. acc. prob=0.59]warmup:   6%|▋         | 774/12000 [00:32<03:42, 50.34it/s, 7 steps of size 6.18e-01. acc. prob=0.59]warmup:   9%|▊         | 1036/12000 [00:32<02:13, 82.17it/s, 7 steps of size 7.45e-01. acc. prob=0.59]warmup:  11%|█         | 1298/12000 [00:33<01:24, 126.28it/s, 7 steps of size 9.24e-01. acc. prob=0.59]warmup:  13%|█▎        | 1570/12000 [00:33<00:55, 189.11it/s, 7 steps of size 8.71e-01. acc. prob=0.59]warmup:  15%|█▌        | 1835/12000 [00:33<00:37, 271.39it/s, 3 steps of size 1.01e+00. acc. prob=0.59]sample:  18%|█▊        | 2100/12000 [00:33<00:26, 378.68it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  20%|█▉        | 2359/12000 [00:33<00:18, 513.15it/s, 7 steps of size 7.98e-01. acc. prob=0.72]sample:  22%|██▏       | 2617/12000 [00:33<00:13, 678.37it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  24%|██▍       | 2875/12000 [00:33<00:10, 872.35it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  26%|██▌       | 3132/12000 [00:33<00:08, 1088.64it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  28%|██▊       | 3389/12000 [00:33<00:06, 1313.19it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  30%|███       | 3646/12000 [00:33<00:05, 1538.55it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  33%|███▎      | 3902/12000 [00:34<00:04, 1746.07it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  35%|███▍      | 4159/12000 [00:34<00:04, 1931.99it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  37%|███▋      | 4415/12000 [00:34<00:03, 2083.04it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  39%|███▉      | 4671/12000 [00:34<00:03, 2205.20it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  41%|████      | 4927/12000 [00:34<00:03, 2298.95it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  43%|████▎     | 5184/12000 [00:34<00:02, 2374.17it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  45%|████▌     | 5440/12000 [00:34<00:02, 2424.89it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  47%|████▋     | 5696/12000 [00:34<00:02, 2461.73it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  50%|████▉     | 5952/12000 [00:34<00:02, 2487.28it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  52%|█████▏    | 6208/12000 [00:34<00:02, 2505.19it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  54%|█████▍    | 6464/12000 [00:35<00:02, 2519.56it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  56%|█████▌    | 6720/12000 [00:35<00:02, 2528.40it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  58%|█████▊    | 6976/12000 [00:35<00:01, 2536.36it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  60%|██████    | 7232/12000 [00:35<00:01, 2536.55it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  62%|██████▏   | 7491/12000 [00:35<00:01, 2550.44it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  65%|██████▍   | 7747/12000 [00:35<00:01, 2549.10it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  67%|██████▋   | 8003/12000 [00:35<00:01, 2549.59it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  69%|██████▉   | 8261/12000 [00:35<00:01, 2556.87it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  71%|███████   | 8517/12000 [00:35<00:01, 2554.53it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  73%|███████▎  | 8773/12000 [00:35<00:01, 2550.62it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  75%|███████▌  | 9029/12000 [00:36<00:01, 2551.89it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  77%|███████▋  | 9285/12000 [00:36<00:01, 2548.76it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  80%|███████▉  | 9540/12000 [00:36<00:00, 2544.24it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  82%|████████▏ | 9795/12000 [00:36<00:00, 2542.96it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  84%|████████▍ | 10053/12000 [00:36<00:00, 2552.06it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  86%|████████▌ | 10309/12000 [00:36<00:00, 2548.42it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  88%|████████▊ | 10569/12000 [00:36<00:00, 2563.24it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  90%|█████████ | 10826/12000 [00:36<00:00, 2564.15it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  92%|█████████▏| 11083/12000 [00:36<00:00, 2560.05it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  94%|█████████▍| 11340/12000 [00:36<00:00, 2554.69it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  97%|█████████▋| 11596/12000 [00:37<00:00, 2549.39it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  99%|█████████▉| 11853/12000 [00:37<00:00, 2552.68it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample: 100%|██████████| 12000/12000 [00:37<00:00, 322.09it/s, 7 steps of size 7.98e-01. acc. prob=0.70] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:33<110:29:54, 33.15s/it, 3 steps of size 8.66e+00. acc. prob=0.52]warmup:   2%|▏         | 231/12000 [00:33<19:48,  9.90it/s, 7 steps of size 9.01e-01. acc. prob=0.58]  warmup:   4%|▍         | 492/12000 [00:33<07:27, 25.74it/s, 7 steps of size 7.14e-01. acc. prob=0.59]warmup:   6%|▋         | 750/12000 [00:33<03:55, 47.77it/s, 7 steps of size 7.78e-01. acc. prob=0.59]warmup:   8%|▊         | 1011/12000 [00:33<02:19, 78.97it/s, 3 steps of size 1.24e+00. acc. prob=0.59]warmup:  11%|█         | 1282/12000 [00:33<01:26, 123.94it/s, 7 steps of size 7.70e-01. acc. prob=0.59]warmup:  13%|█▎        | 1543/12000 [00:33<00:57, 183.13it/s, 7 steps of size 8.21e-01. acc. prob=0.59]warmup:  15%|█▌        | 1803/12000 [00:33<00:38, 262.58it/s, 7 steps of size 6.35e-01. acc. prob=0.59]sample:  17%|█▋        | 2062/12000 [00:33<00:27, 366.63it/s, 7 steps of size 7.95e-01. acc. prob=0.67]sample:  19%|█▉        | 2319/12000 [00:34<00:19, 498.36it/s, 7 steps of size 7.95e-01. acc. prob=0.69]sample:  21%|██▏       | 2574/12000 [00:34<00:14, 659.58it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  24%|██▎       | 2828/12000 [00:34<00:10, 849.32it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  26%|██▌       | 3081/12000 [00:34<00:08, 1060.88it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  28%|██▊       | 3334/12000 [00:34<00:06, 1282.76it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  30%|██▉       | 3586/12000 [00:34<00:05, 1501.85it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  32%|███▏      | 3837/12000 [00:34<00:04, 1704.71it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  34%|███▍      | 4089/12000 [00:34<00:04, 1887.84it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  36%|███▌      | 4341/12000 [00:34<00:03, 2039.78it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  38%|███▊      | 4592/12000 [00:34<00:03, 2160.04it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  40%|████      | 4844/12000 [00:35<00:03, 2255.89it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  42%|████▏     | 5097/12000 [00:35<00:02, 2329.39it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  45%|████▍     | 5349/12000 [00:35<00:02, 2383.36it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  47%|████▋     | 5601/12000 [00:35<00:02, 2417.74it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  49%|████▉     | 5855/12000 [00:35<00:02, 2451.07it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  51%|█████     | 6107/12000 [00:35<00:02, 2469.92it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  53%|█████▎    | 6360/12000 [00:35<00:02, 2487.18it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  55%|█████▌    | 6613/12000 [00:35<00:02, 2495.96it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  57%|█████▋    | 6865/12000 [00:35<00:02, 2501.00it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  59%|█████▉    | 7117/12000 [00:35<00:01, 2504.35it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  61%|██████▏   | 7370/12000 [00:36<00:01, 2509.89it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  64%|██████▎   | 7623/12000 [00:36<00:01, 2513.90it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  66%|██████▌   | 7876/12000 [00:36<00:01, 2517.90it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  68%|██████▊   | 8129/12000 [00:36<00:01, 2512.39it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  70%|██████▉   | 8381/12000 [00:36<00:01, 2514.33it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  72%|███████▏  | 8633/12000 [00:36<00:01, 2511.61it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  74%|███████▍  | 8885/12000 [00:36<00:01, 2513.70it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  76%|███████▌  | 9137/12000 [00:36<00:01, 2512.42it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  78%|███████▊  | 9389/12000 [00:36<00:01, 2507.94it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  80%|████████  | 9641/12000 [00:36<00:00, 2510.64it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  82%|████████▏ | 9893/12000 [00:37<00:00, 2511.25it/s, 7 steps of size 7.95e-01. acc. prob=0.71]sample:  85%|████████▍ | 10146/12000 [00:37<00:00, 2515.13it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  87%|████████▋ | 10399/12000 [00:37<00:00, 2518.00it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  89%|████████▉ | 10651/12000 [00:37<00:00, 2515.00it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  91%|█████████ | 10905/12000 [00:37<00:00, 2522.31it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  93%|█████████▎| 11158/12000 [00:37<00:00, 2517.01it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  95%|█████████▌| 11411/12000 [00:37<00:00, 2520.42it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  97%|█████████▋| 11664/12000 [00:37<00:00, 2512.29it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample:  99%|█████████▉| 11916/12000 [00:37<00:00, 2508.21it/s, 7 steps of size 7.95e-01. acc. prob=0.70]sample: 100%|██████████| 12000/12000 [00:37<00:00, 316.51it/s, 7 steps of size 7.95e-01. acc. prob=0.70] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:38:25, 32.89s/it, 3 steps of size 8.68e+00. acc. prob=0.52]warmup:   2%|▏         | 237/12000 [00:32<19:09, 10.23it/s, 3 steps of size 1.15e+00. acc. prob=0.59]  warmup:   4%|▍         | 491/12000 [00:33<07:26, 25.77it/s, 7 steps of size 7.43e-01. acc. prob=0.59]warmup:   6%|▋         | 755/12000 [00:33<03:51, 48.49it/s, 7 steps of size 9.97e-01. acc. prob=0.59]warmup:   9%|▊         | 1021/12000 [00:33<02:16, 80.53it/s, 3 steps of size 1.65e+00. acc. prob=0.59]warmup:  11%|█         | 1281/12000 [00:33<01:26, 123.91it/s, 7 steps of size 7.02e-01. acc. prob=0.59]warmup:  13%|█▎        | 1543/12000 [00:33<00:56, 183.84it/s, 7 steps of size 8.85e-01. acc. prob=0.59]warmup:  15%|█▌        | 1803/12000 [00:33<00:38, 263.96it/s, 3 steps of size 8.55e-01. acc. prob=0.59]sample:  17%|█▋        | 2063/12000 [00:33<00:26, 369.43it/s, 7 steps of size 7.53e-01. acc. prob=0.71]sample:  19%|█▉        | 2322/12000 [00:33<00:19, 502.84it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  21%|██▏       | 2578/12000 [00:33<00:14, 664.94it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  24%|██▎       | 2832/12000 [00:34<00:10, 854.02it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  26%|██▌       | 3084/12000 [00:34<00:08, 1063.54it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  28%|██▊       | 3336/12000 [00:34<00:06, 1284.45it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  30%|██▉       | 3587/12000 [00:34<00:05, 1501.20it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  32%|███▏      | 3837/12000 [00:34<00:04, 1700.50it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  34%|███▍      | 4087/12000 [00:34<00:04, 1879.15it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  36%|███▌      | 4339/12000 [00:34<00:03, 2033.58it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  38%|███▊      | 4589/12000 [00:34<00:03, 2151.27it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  40%|████      | 4839/12000 [00:34<00:03, 2242.69it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  42%|████▏     | 5089/12000 [00:34<00:02, 2310.75it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  44%|████▍     | 5339/12000 [00:35<00:02, 2361.32it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  47%|████▋     | 5589/12000 [00:35<00:02, 2397.53it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  49%|████▊     | 5838/12000 [00:35<00:02, 2424.26it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  51%|█████     | 6089/12000 [00:35<00:02, 2447.21it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  53%|█████▎    | 6341/12000 [00:35<00:02, 2466.97it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  55%|█████▍    | 6592/12000 [00:35<00:02, 2478.60it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  57%|█████▋    | 6844/12000 [00:35<00:02, 2489.19it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  59%|█████▉    | 7096/12000 [00:35<00:01, 2495.69it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  61%|██████    | 7347/12000 [00:35<00:01, 2496.50it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  63%|██████▎   | 7598/12000 [00:35<00:01, 2499.94it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  65%|██████▌   | 7849/12000 [00:36<00:01, 2500.07it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  68%|██████▊   | 8100/12000 [00:36<00:01, 2502.19it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  70%|██████▉   | 8351/12000 [00:36<00:01, 2502.52it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  72%|███████▏  | 8603/12000 [00:36<00:01, 2505.17it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  74%|███████▍  | 8854/12000 [00:36<00:01, 2502.45it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  76%|███████▌  | 9105/12000 [00:36<00:01, 2499.13it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  78%|███████▊  | 9355/12000 [00:36<00:01, 2498.28it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  80%|████████  | 9607/12000 [00:36<00:00, 2502.85it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  82%|████████▏ | 9859/12000 [00:36<00:00, 2506.22it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  84%|████████▍ | 10110/12000 [00:36<00:00, 2506.03it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  86%|████████▋ | 10361/12000 [00:37<00:00, 2506.18it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  88%|████████▊ | 10612/12000 [00:37<00:00, 2502.41it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  91%|█████████ | 10864/12000 [00:37<00:00, 2505.31it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  93%|█████████▎| 11115/12000 [00:37<00:00, 2500.78it/s, 7 steps of size 7.53e-01. acc. prob=0.73]sample:  95%|█████████▍| 11367/12000 [00:37<00:00, 2503.93it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  97%|█████████▋| 11618/12000 [00:37<00:00, 2500.40it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample:  99%|█████████▉| 11869/12000 [00:37<00:00, 2498.01it/s, 7 steps of size 7.53e-01. acc. prob=0.74]sample: 100%|██████████| 12000/12000 [00:37<00:00, 318.51it/s, 7 steps of size 7.53e-01. acc. prob=0.74] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:31<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:03:57, 32.72s/it, 3 steps of size 8.72e+00. acc. prob=0.52]warmup:   2%|▏         | 243/12000 [00:32<18:34, 10.55it/s, 7 steps of size 9.42e-01. acc. prob=0.59]  warmup:   4%|▍         | 499/12000 [00:32<07:17, 26.28it/s, 15 steps of size 8.68e-01. acc. prob=0.59]warmup:   6%|▋         | 765/12000 [00:33<03:47, 49.30it/s, 7 steps of size 5.57e-01. acc. prob=0.59] warmup:   9%|▊         | 1038/12000 [00:33<02:13, 82.35it/s, 3 steps of size 4.31e-01. acc. prob=0.59]warmup:  11%|█         | 1309/12000 [00:33<01:23, 127.82it/s, 19 steps of size 1.21e+00. acc. prob=0.59]warmup:  13%|█▎        | 1575/12000 [00:33<00:55, 188.80it/s, 3 steps of size 1.31e+00. acc. prob=0.59] warmup:  15%|█▌        | 1841/12000 [00:33<00:37, 271.08it/s, 7 steps of size 7.79e-01. acc. prob=0.59]sample:  18%|█▊        | 2106/12000 [00:33<00:26, 378.38it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  20%|█▉        | 2367/12000 [00:33<00:18, 512.81it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  22%|██▏       | 2625/12000 [00:33<00:13, 676.69it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  24%|██▍       | 2882/12000 [00:33<00:10, 868.52it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  26%|██▌       | 3138/12000 [00:33<00:08, 1081.42it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  28%|██▊       | 3393/12000 [00:34<00:06, 1304.42it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  30%|███       | 3647/12000 [00:34<00:05, 1523.63it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  32%|███▎      | 3900/12000 [00:34<00:04, 1725.27it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  35%|███▍      | 4154/12000 [00:34<00:04, 1908.51it/s, 3 steps of size 7.98e-01. acc. prob=0.70]sample:  37%|███▋      | 4407/12000 [00:34<00:03, 2058.06it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  39%|███▉      | 4660/12000 [00:34<00:03, 2179.05it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  41%|████      | 4913/12000 [00:34<00:03, 2270.47it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  43%|████▎     | 5167/12000 [00:34<00:02, 2343.13it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  45%|████▌     | 5421/12000 [00:34<00:02, 2398.49it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  47%|████▋     | 5674/12000 [00:34<00:02, 2433.74it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  49%|████▉     | 5927/12000 [00:35<00:02, 2460.39it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  52%|█████▏    | 6181/12000 [00:35<00:02, 2483.64it/s, 3 steps of size 7.98e-01. acc. prob=0.71]sample:  54%|█████▎    | 6435/12000 [00:35<00:02, 2499.17it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  56%|█████▌    | 6689/12000 [00:35<00:02, 2498.86it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  58%|█████▊    | 6943/12000 [00:35<00:02, 2508.29it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  60%|█████▉    | 7196/12000 [00:35<00:01, 2512.55it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  62%|██████▏   | 7451/12000 [00:35<00:01, 2523.01it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  64%|██████▍   | 7705/12000 [00:35<00:01, 2524.67it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  66%|██████▋   | 7959/12000 [00:35<00:01, 2522.46it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  68%|██████▊   | 8212/12000 [00:35<00:01, 2520.39it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  71%|███████   | 8466/12000 [00:36<00:01, 2524.31it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  73%|███████▎  | 8720/12000 [00:36<00:01, 2527.30it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  75%|███████▍  | 8975/12000 [00:36<00:01, 2531.50it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  77%|███████▋  | 9229/12000 [00:36<00:01, 2529.17it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  79%|███████▉  | 9482/12000 [00:36<00:00, 2527.70it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  81%|████████  | 9735/12000 [00:36<00:00, 2525.49it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  83%|████████▎ | 9988/12000 [00:36<00:00, 2526.41it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  85%|████████▌ | 10242/12000 [00:36<00:00, 2527.92it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  87%|████████▋ | 10495/12000 [00:36<00:00, 2527.72it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  90%|████████▉ | 10750/12000 [00:36<00:00, 2533.89it/s, 3 steps of size 7.98e-01. acc. prob=0.70]sample:  92%|█████████▏| 11004/12000 [00:37<00:00, 2531.42it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  94%|█████████▍| 11258/12000 [00:37<00:00, 2532.09it/s, 7 steps of size 7.98e-01. acc. prob=0.70]sample:  96%|█████████▌| 11512/12000 [00:37<00:00, 2533.20it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample:  98%|█████████▊| 11766/12000 [00:37<00:00, 2529.55it/s, 7 steps of size 7.98e-01. acc. prob=0.71]sample: 100%|██████████| 12000/12000 [00:37<00:00, 320.46it/s, 7 steps of size 7.98e-01. acc. prob=0.71] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:39:02, 32.90s/it, 3 steps of size 8.78e+00. acc. prob=0.53]warmup:   2%|▏         | 234/12000 [00:32<19:24, 10.10it/s, 7 steps of size 8.17e-01. acc. prob=0.58]  warmup:   4%|▍         | 498/12000 [00:33<07:18, 26.25it/s, 7 steps of size 7.59e-01. acc. prob=0.59]warmup:   6%|▋         | 773/12000 [00:33<03:44, 49.93it/s, 3 steps of size 7.45e-01. acc. prob=0.59]warmup:   9%|▊         | 1035/12000 [00:33<02:14, 81.45it/s, 1 steps of size 7.79e-01. acc. prob=0.59]warmup:  11%|█         | 1297/12000 [00:33<01:25, 125.16it/s, 7 steps of size 6.89e-01. acc. prob=0.59]warmup:  13%|█▎        | 1561/12000 [00:33<00:56, 185.53it/s, 3 steps of size 8.91e-01. acc. prob=0.59]warmup:  15%|█▌        | 1824/12000 [00:33<00:38, 266.44it/s, 3 steps of size 9.94e-01. acc. prob=0.59]sample:  17%|█▋        | 2085/12000 [00:33<00:26, 371.75it/s, 7 steps of size 7.36e-01. acc. prob=0.73]sample:  20%|█▉        | 2343/12000 [00:33<00:19, 504.66it/s, 7 steps of size 7.36e-01. acc. prob=0.76]sample:  22%|██▏       | 2599/12000 [00:33<00:14, 667.11it/s, 7 steps of size 7.36e-01. acc. prob=0.76]sample:  24%|██▍       | 2854/12000 [00:34<00:10, 857.41it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  26%|██▌       | 3108/12000 [00:34<00:08, 1069.68it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  28%|██▊       | 3361/12000 [00:34<00:06, 1292.10it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  30%|███       | 3614/12000 [00:34<00:05, 1512.52it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  32%|███▏      | 3867/12000 [00:34<00:04, 1716.63it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  34%|███▍      | 4120/12000 [00:34<00:04, 1898.82it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  36%|███▋      | 4373/12000 [00:34<00:03, 2050.49it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  39%|███▊      | 4625/12000 [00:34<00:03, 2168.28it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  41%|████      | 4878/12000 [00:34<00:03, 2264.07it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  43%|████▎     | 5130/12000 [00:34<00:02, 2334.27it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  45%|████▍     | 5382/12000 [00:35<00:02, 2385.44it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  47%|████▋     | 5634/12000 [00:35<00:02, 2419.35it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  49%|████▉     | 5886/12000 [00:35<00:02, 2447.24it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  51%|█████     | 6139/12000 [00:35<00:02, 2469.77it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  53%|█████▎    | 6391/12000 [00:35<00:02, 2482.62it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  55%|█████▌    | 6643/12000 [00:35<00:02, 2490.86it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  57%|█████▋    | 6896/12000 [00:35<00:02, 2500.50it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  60%|█████▉    | 7148/12000 [00:35<00:01, 2506.11it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  62%|██████▏   | 7401/12000 [00:35<00:01, 2512.64it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  64%|██████▍   | 7654/12000 [00:35<00:01, 2514.16it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  66%|██████▌   | 7907/12000 [00:36<00:01, 2516.25it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  68%|██████▊   | 8160/12000 [00:36<00:01, 2517.21it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  70%|███████   | 8413/12000 [00:36<00:01, 2518.74it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  72%|███████▏  | 8666/12000 [00:36<00:01, 2517.18it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  74%|███████▍  | 8918/12000 [00:36<00:01, 2515.73it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  76%|███████▋  | 9170/12000 [00:36<00:01, 2514.73it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  79%|███████▊  | 9422/12000 [00:36<00:01, 2512.03it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  81%|████████  | 9674/12000 [00:36<00:00, 2512.74it/s, 7 steps of size 7.36e-01. acc. prob=0.75]sample:  83%|████████▎ | 9926/12000 [00:36<00:00, 2514.56it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  85%|████████▍ | 10178/12000 [00:36<00:00, 2514.48it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  87%|████████▋ | 10432/12000 [00:37<00:00, 2520.04it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  89%|████████▉ | 10685/12000 [00:37<00:00, 2520.41it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  91%|█████████ | 10938/12000 [00:37<00:00, 2521.17it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  93%|█████████▎| 11191/12000 [00:37<00:00, 2519.23it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  95%|█████████▌| 11443/12000 [00:37<00:00, 2518.00it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample:  97%|█████████▋| 11695/12000 [00:37<00:00, 2516.71it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample: 100%|█████████▉| 11948/12000 [00:37<00:00, 2519.20it/s, 7 steps of size 7.36e-01. acc. prob=0.74]sample: 100%|██████████| 12000/12000 [00:37<00:00, 318.77it/s, 7 steps of size 7.36e-01. acc. prob=0.75] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:31<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:45:12, 32.93s/it, 3 steps of size 8.85e+00. acc. prob=0.53]warmup:   2%|▏         | 241/12000 [00:33<18:50, 10.40it/s, 7 steps of size 5.53e-01. acc. prob=0.58]  warmup:   4%|▍         | 495/12000 [00:33<07:24, 25.91it/s, 11 steps of size 6.06e-01. acc. prob=0.59]warmup:   6%|▋         | 761/12000 [00:33<03:50, 48.79it/s, 7 steps of size 7.52e-01. acc. prob=0.59] warmup:   9%|▊         | 1029/12000 [00:33<02:15, 81.03it/s, 7 steps of size 5.77e-01. acc. prob=0.59]warmup:  11%|█         | 1298/12000 [00:33<01:24, 125.91it/s, 7 steps of size 1.12e+00. acc. prob=0.59]warmup:  13%|█▎        | 1572/12000 [00:33<00:55, 188.61it/s, 3 steps of size 7.13e-01. acc. prob=0.59]warmup:  15%|█▌        | 1840/12000 [00:33<00:37, 271.13it/s, 7 steps of size 6.34e-01. acc. prob=0.59]sample:  18%|█▊        | 2107/12000 [00:33<00:26, 378.44it/s, 7 steps of size 7.66e-01. acc. prob=0.71]sample:  20%|█▉        | 2369/12000 [00:33<00:18, 512.63it/s, 7 steps of size 7.66e-01. acc. prob=0.74]sample:  22%|██▏       | 2628/12000 [00:33<00:13, 676.34it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  24%|██▍       | 2885/12000 [00:34<00:10, 867.78it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  26%|██▌       | 3142/12000 [00:34<00:08, 1081.24it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  28%|██▊       | 3398/12000 [00:34<00:06, 1304.22it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  30%|███       | 3653/12000 [00:34<00:05, 1523.17it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  33%|███▎      | 3907/12000 [00:34<00:04, 1726.62it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  35%|███▍      | 4162/12000 [00:34<00:04, 1910.31it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  37%|███▋      | 4416/12000 [00:34<00:03, 2058.13it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  39%|███▉      | 4670/12000 [00:34<00:03, 2180.04it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  41%|████      | 4923/12000 [00:34<00:03, 2272.52it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  43%|████▎     | 5176/12000 [00:34<00:02, 2341.17it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  45%|████▌     | 5430/12000 [00:35<00:02, 2395.76it/s, 3 steps of size 7.66e-01. acc. prob=0.72]sample:  47%|████▋     | 5683/12000 [00:35<00:02, 2428.91it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  49%|████▉     | 5936/12000 [00:35<00:02, 2454.85it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  52%|█████▏    | 6189/12000 [00:35<00:02, 2472.83it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  54%|█████▎    | 6441/12000 [00:35<00:02, 2484.08it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  56%|█████▌    | 6693/12000 [00:35<00:02, 2494.41it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  58%|█████▊    | 6947/12000 [00:35<00:02, 2505.19it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  60%|██████    | 7200/12000 [00:35<00:01, 2509.76it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  62%|██████▏   | 7453/12000 [00:35<00:01, 2515.05it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  64%|██████▍   | 7707/12000 [00:35<00:01, 2519.71it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  66%|██████▋   | 7960/12000 [00:36<00:01, 2520.83it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  68%|██████▊   | 8213/12000 [00:36<00:01, 2521.02it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  71%|███████   | 8466/12000 [00:36<00:01, 2522.35it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  73%|███████▎  | 8719/12000 [00:36<00:01, 2519.52it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  75%|███████▍  | 8972/12000 [00:36<00:01, 2515.87it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  77%|███████▋  | 9224/12000 [00:36<00:01, 2515.25it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  79%|███████▉  | 9476/12000 [00:36<00:01, 2513.47it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  81%|████████  | 9729/12000 [00:36<00:00, 2516.90it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  83%|████████▎ | 9983/12000 [00:36<00:00, 2521.99it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  85%|████████▌ | 10236/12000 [00:36<00:00, 2515.68it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  87%|████████▋ | 10490/12000 [00:37<00:00, 2522.29it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  90%|████████▉ | 10743/12000 [00:37<00:00, 2522.16it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  92%|█████████▏| 10996/12000 [00:37<00:00, 2519.04it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  94%|█████████▎| 11249/12000 [00:37<00:00, 2520.38it/s, 7 steps of size 7.66e-01. acc. prob=0.72]sample:  96%|█████████▌| 11502/12000 [00:37<00:00, 2521.80it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample:  98%|█████████▊| 11755/12000 [00:37<00:00, 2521.37it/s, 7 steps of size 7.66e-01. acc. prob=0.73]sample: 100%|██████████| 12000/12000 [00:37<00:00, 318.64it/s, 7 steps of size 7.66e-01. acc. prob=0.73] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:33<110:06:27, 33.04s/it, 3 steps of size 9.24e+00. acc. prob=0.56]warmup:   2%|▏         | 240/12000 [00:33<18:59, 10.32it/s, 31 steps of size 8.43e-01. acc. prob=0.58] warmup:   4%|▍         | 492/12000 [00:33<07:28, 25.66it/s, 7 steps of size 1.66e+00. acc. prob=0.59] warmup:   6%|▋         | 762/12000 [00:33<03:50, 48.82it/s, 3 steps of size 5.70e-01. acc. prob=0.59]warmup:   9%|▊         | 1035/12000 [00:33<02:14, 81.57it/s, 3 steps of size 6.76e-01. acc. prob=0.59]warmup:  11%|█         | 1310/12000 [00:33<01:23, 127.34it/s, 7 steps of size 1.01e+00. acc. prob=0.59]warmup:  13%|█▎        | 1586/12000 [00:33<00:54, 190.29it/s, 7 steps of size 1.13e+00. acc. prob=0.59]warmup:  15%|█▌        | 1856/12000 [00:33<00:37, 272.44it/s, 7 steps of size 7.52e-01. acc. prob=0.59]sample:  18%|█▊        | 2120/12000 [00:33<00:26, 378.22it/s, 3 steps of size 8.35e-01. acc. prob=0.66]sample:  20%|█▉        | 2381/12000 [00:33<00:18, 512.48it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  22%|██▏       | 2643/12000 [00:34<00:13, 679.28it/s, 7 steps of size 8.35e-01. acc. prob=0.65]sample:  24%|██▍       | 2904/12000 [00:34<00:10, 874.45it/s, 3 steps of size 8.35e-01. acc. prob=0.65]sample:  26%|██▋       | 3164/12000 [00:34<00:08, 1091.88it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  29%|██▊       | 3424/12000 [00:34<00:06, 1322.45it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  31%|███       | 3684/12000 [00:34<00:05, 1548.63it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  33%|███▎      | 3943/12000 [00:34<00:04, 1757.83it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  35%|███▌      | 4204/12000 [00:34<00:04, 1948.50it/s, 7 steps of size 8.35e-01. acc. prob=0.66]sample:  37%|███▋      | 4463/12000 [00:34<00:03, 2098.11it/s, 3 steps of size 8.35e-01. acc. prob=0.67]sample:  39%|███▉      | 4724/12000 [00:34<00:03, 2227.67it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  42%|████▏     | 4983/12000 [00:34<00:03, 2316.73it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  44%|████▎     | 5241/12000 [00:35<00:02, 2386.70it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  46%|████▌     | 5500/12000 [00:35<00:02, 2443.79it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  48%|████▊     | 5758/12000 [00:35<00:02, 2478.89it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  50%|█████     | 6016/12000 [00:35<00:02, 2505.22it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  52%|█████▏    | 6276/12000 [00:35<00:02, 2530.43it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  54%|█████▍    | 6534/12000 [00:35<00:02, 2534.99it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  57%|█████▋    | 6794/12000 [00:35<00:02, 2552.87it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  59%|█████▉    | 7052/12000 [00:35<00:01, 2555.92it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  61%|██████    | 7310/12000 [00:35<00:01, 2560.65it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  63%|██████▎   | 7572/12000 [00:35<00:01, 2577.51it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  65%|██████▌   | 7833/12000 [00:36<00:01, 2586.38it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  67%|██████▋   | 8093/12000 [00:36<00:01, 2584.66it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  70%|██████▉   | 8352/12000 [00:36<00:01, 2583.56it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  72%|███████▏  | 8611/12000 [00:36<00:01, 2584.23it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  74%|███████▍  | 8871/12000 [00:36<00:01, 2586.95it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  76%|███████▌  | 9130/12000 [00:36<00:01, 2583.74it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  78%|███████▊  | 9389/12000 [00:36<00:01, 2581.72it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  80%|████████  | 9648/12000 [00:36<00:00, 2576.75it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  83%|████████▎ | 9910/12000 [00:36<00:00, 2587.00it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  85%|████████▍ | 10169/12000 [00:36<00:00, 2584.83it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  87%|████████▋ | 10428/12000 [00:37<00:00, 2584.98it/s, 3 steps of size 8.35e-01. acc. prob=0.67]sample:  89%|████████▉ | 10688/12000 [00:37<00:00, 2588.04it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  91%|█████████ | 10948/12000 [00:37<00:00, 2588.95it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  93%|█████████▎| 11208/12000 [00:37<00:00, 2592.17it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  96%|█████████▌| 11469/12000 [00:37<00:00, 2596.38it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample:  98%|█████████▊| 11729/12000 [00:37<00:00, 2592.21it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample: 100%|█████████▉| 11990/12000 [00:37<00:00, 2594.73it/s, 7 steps of size 8.35e-01. acc. prob=0.67]sample: 100%|██████████| 12000/12000 [00:37<00:00, 318.54it/s, 7 steps of size 8.35e-01. acc. prob=0.67] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:10:00, 32.75s/it, 3 steps of size 1.13e+01. acc. prob=0.67]warmup:   2%|▏         | 235/12000 [00:32<19:14, 10.19it/s, 7 steps of size 7.22e-01. acc. prob=0.58]  warmup:   4%|▍         | 489/12000 [00:32<07:26, 25.79it/s, 15 steps of size 9.11e-01. acc. prob=0.59]warmup:   6%|▋         | 761/12000 [00:33<03:47, 49.31it/s, 7 steps of size 7.72e-01. acc. prob=0.59] warmup:   9%|▊         | 1029/12000 [00:33<02:14, 81.72it/s, 3 steps of size 8.19e-01. acc. prob=0.59]warmup:  11%|█         | 1291/12000 [00:33<01:25, 125.57it/s, 7 steps of size 8.56e-01. acc. prob=0.59]warmup:  13%|█▎        | 1551/12000 [00:33<00:56, 185.14it/s, 7 steps of size 8.65e-01. acc. prob=0.59]warmup:  15%|█▌        | 1810/12000 [00:33<00:38, 264.97it/s, 11 steps of size 9.67e-01. acc. prob=0.59]sample:  17%|█▋        | 2069/12000 [00:33<00:26, 370.35it/s, 7 steps of size 8.08e-01. acc. prob=0.63] sample:  19%|█▉        | 2327/12000 [00:33<00:19, 504.03it/s, 7 steps of size 8.08e-01. acc. prob=0.69]sample:  22%|██▏       | 2583/12000 [00:33<00:14, 667.58it/s, 7 steps of size 8.08e-01. acc. prob=0.68]sample:  24%|██▎       | 2838/12000 [00:33<00:10, 858.99it/s, 7 steps of size 8.08e-01. acc. prob=0.69]sample:  26%|██▌       | 3092/12000 [00:33<00:08, 1071.99it/s, 7 steps of size 8.08e-01. acc. prob=0.69]sample:  28%|██▊       | 3346/12000 [00:34<00:06, 1294.95it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  30%|███       | 3600/12000 [00:34<00:05, 1517.83it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  32%|███▏      | 3853/12000 [00:34<00:04, 1721.60it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  34%|███▍      | 4107/12000 [00:34<00:04, 1905.00it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  36%|███▋      | 4361/12000 [00:34<00:03, 2057.68it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  38%|███▊      | 4614/12000 [00:34<00:03, 2174.97it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  41%|████      | 4867/12000 [00:34<00:03, 2269.69it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  43%|████▎     | 5120/12000 [00:34<00:02, 2337.64it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  45%|████▍     | 5373/12000 [00:34<00:02, 2390.87it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  47%|████▋     | 5626/12000 [00:34<00:02, 2426.34it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  49%|████▉     | 5878/12000 [00:35<00:02, 2451.66it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  51%|█████     | 6130/12000 [00:35<00:02, 2469.40it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  53%|█████▎    | 6383/12000 [00:35<00:02, 2486.21it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  55%|█████▌    | 6635/12000 [00:35<00:02, 2494.42it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  57%|█████▋    | 6888/12000 [00:35<00:02, 2504.34it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  60%|█████▉    | 7141/12000 [00:35<00:01, 2509.47it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  62%|██████▏   | 7394/12000 [00:35<00:01, 2514.92it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  64%|██████▎   | 7648/12000 [00:35<00:01, 2521.88it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  66%|██████▌   | 7902/12000 [00:35<00:01, 2524.85it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  68%|██████▊   | 8155/12000 [00:35<00:01, 2519.24it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  70%|███████   | 8408/12000 [00:36<00:01, 2521.18it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  72%|███████▏  | 8661/12000 [00:36<00:01, 2519.26it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  74%|███████▍  | 8914/12000 [00:36<00:01, 2519.37it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  76%|███████▋  | 9167/12000 [00:36<00:01, 2518.06it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  78%|███████▊  | 9419/12000 [00:36<00:01, 2517.60it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  81%|████████  | 9671/12000 [00:36<00:00, 2515.93it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  83%|████████▎ | 9926/12000 [00:36<00:00, 2524.95it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  85%|████████▍ | 10179/12000 [00:36<00:00, 2522.36it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  87%|████████▋ | 10432/12000 [00:36<00:00, 2523.57it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  89%|████████▉ | 10687/12000 [00:36<00:00, 2529.04it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  91%|█████████ | 10940/12000 [00:37<00:00, 2522.34it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  93%|█████████▎| 11193/12000 [00:37<00:00, 2519.05it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  95%|█████████▌| 11446/12000 [00:37<00:00, 2519.31it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample:  97%|█████████▋| 11698/12000 [00:37<00:00, 2516.09it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample: 100%|█████████▉| 11952/12000 [00:37<00:00, 2522.42it/s, 7 steps of size 8.08e-01. acc. prob=0.70]sample: 100%|██████████| 12000/12000 [00:37<00:00, 320.00it/s, 7 steps of size 8.08e-01. acc. prob=0.70] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:31<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:22:22, 32.81s/it, 3 steps of size 1.13e+01. acc. prob=0.67]warmup:   2%|▏         | 238/12000 [00:32<19:01, 10.30it/s, 3 steps of size 5.85e-01. acc. prob=0.58]  warmup:   4%|▍         | 496/12000 [00:33<07:20, 26.12it/s, 7 steps of size 1.82e+00. acc. prob=0.59]warmup:   6%|▋         | 769/12000 [00:33<03:46, 49.68it/s, 7 steps of size 1.03e+00. acc. prob=0.59]warmup:   9%|▊         | 1029/12000 [00:33<02:15, 81.01it/s, 3 steps of size 1.04e+00. acc. prob=0.59]warmup:  11%|█         | 1301/12000 [00:33<01:24, 126.55it/s, 3 steps of size 5.83e-01. acc. prob=0.59]warmup:  13%|█▎        | 1566/12000 [00:33<00:55, 187.24it/s, 7 steps of size 7.72e-01. acc. prob=0.59]warmup:  15%|█▌        | 1836/12000 [00:33<00:37, 270.71it/s, 7 steps of size 7.14e-01. acc. prob=0.59]sample:  18%|█▊        | 2101/12000 [00:33<00:26, 377.46it/s, 7 steps of size 7.27e-01. acc. prob=0.74]sample:  20%|█▉        | 2362/12000 [00:33<00:18, 511.59it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  22%|██▏       | 2620/12000 [00:33<00:13, 674.66it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  24%|██▍       | 2876/12000 [00:33<00:10, 864.87it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  26%|██▌       | 3131/12000 [00:34<00:08, 1076.38it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  28%|██▊       | 3385/12000 [00:34<00:06, 1297.02it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  30%|███       | 3638/12000 [00:34<00:05, 1514.72it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  32%|███▏      | 3890/12000 [00:34<00:04, 1716.77it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  35%|███▍      | 4142/12000 [00:34<00:04, 1896.53it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  37%|███▋      | 4394/12000 [00:34<00:03, 2044.90it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  39%|███▊      | 4645/12000 [00:34<00:03, 2164.53it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  41%|████      | 4896/12000 [00:34<00:03, 2257.01it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  43%|████▎     | 5147/12000 [00:34<00:02, 2325.11it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  45%|████▍     | 5398/12000 [00:34<00:02, 2376.69it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  47%|████▋     | 5649/12000 [00:35<00:02, 2410.76it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  49%|████▉     | 5900/12000 [00:35<00:02, 2437.40it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  51%|█████▏    | 6151/12000 [00:35<00:02, 2455.75it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  53%|█████▎    | 6402/12000 [00:35<00:02, 2468.87it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  55%|█████▌    | 6653/12000 [00:35<00:02, 2478.27it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  58%|█████▊    | 6904/12000 [00:35<00:02, 2485.97it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  60%|█████▉    | 7155/12000 [00:35<00:01, 2489.70it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  62%|██████▏   | 7407/12000 [00:35<00:01, 2495.85it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  64%|██████▍   | 7659/12000 [00:35<00:01, 2501.37it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  66%|██████▌   | 7910/12000 [00:35<00:01, 2503.41it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  68%|██████▊   | 8161/12000 [00:36<00:01, 2502.46it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  70%|███████   | 8412/12000 [00:36<00:01, 2499.62it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  72%|███████▏  | 8663/12000 [00:36<00:01, 2499.39it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  74%|███████▍  | 8914/12000 [00:36<00:01, 2499.42it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  76%|███████▋  | 9165/12000 [00:36<00:01, 2501.71it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  78%|███████▊  | 9416/12000 [00:36<00:01, 2502.25it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  81%|████████  | 9667/12000 [00:36<00:00, 2501.66it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  83%|████████▎ | 9919/12000 [00:36<00:00, 2505.89it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  85%|████████▍ | 10170/12000 [00:36<00:00, 2504.79it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  87%|████████▋ | 10421/12000 [00:36<00:00, 2503.47it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  89%|████████▉ | 10673/12000 [00:37<00:00, 2505.79it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  91%|█████████ | 10924/12000 [00:37<00:00, 2506.51it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  93%|█████████▎| 11176/12000 [00:37<00:00, 2508.72it/s, 7 steps of size 7.27e-01. acc. prob=0.75]sample:  95%|█████████▌| 11428/12000 [00:37<00:00, 2510.08it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  97%|█████████▋| 11680/12000 [00:37<00:00, 2505.95it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample:  99%|█████████▉| 11931/12000 [00:37<00:00, 2504.78it/s, 7 steps of size 7.27e-01. acc. prob=0.76]sample: 100%|██████████| 12000/12000 [00:37<00:00, 319.34it/s, 7 steps of size 7.27e-01. acc. prob=0.76] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:33<109:59:28, 33.00s/it, 3 steps of size 1.13e+01. acc. prob=0.67]warmup:   2%|▏         | 239/12000 [00:33<19:03, 10.29it/s, 7 steps of size 8.57e-01. acc. prob=0.58]  warmup:   4%|▍         | 487/12000 [00:33<07:33, 25.40it/s, 15 steps of size 9.40e-01. acc. prob=0.59]warmup:   6%|▋         | 757/12000 [00:33<03:51, 48.58it/s, 7 steps of size 8.80e-01. acc. prob=0.59] warmup:   8%|▊         | 1012/12000 [00:33<02:18, 79.17it/s, 7 steps of size 8.72e-01. acc. prob=0.59]warmup:  11%|█         | 1273/12000 [00:33<01:27, 122.62it/s, 3 steps of size 7.17e-01. acc. prob=0.59]warmup:  13%|█▎        | 1531/12000 [00:33<00:57, 181.44it/s, 3 steps of size 7.95e-01. acc. prob=0.59]warmup:  15%|█▍        | 1791/12000 [00:33<00:39, 261.41it/s, 3 steps of size 7.85e-01. acc. prob=0.59]sample:  17%|█▋        | 2049/12000 [00:33<00:27, 365.86it/s, 7 steps of size 7.51e-01. acc. prob=0.69]sample:  19%|█▉        | 2307/12000 [00:33<00:19, 498.30it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  21%|██▏       | 2561/12000 [00:34<00:14, 658.72it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  23%|██▎       | 2813/12000 [00:34<00:10, 846.46it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  26%|██▌       | 3064/12000 [00:34<00:08, 1055.04it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  28%|██▊       | 3314/12000 [00:34<00:06, 1274.67it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  30%|██▉       | 3564/12000 [00:34<00:05, 1491.15it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  32%|███▏      | 3813/12000 [00:34<00:04, 1691.20it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  34%|███▍      | 4062/12000 [00:34<00:04, 1868.37it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  36%|███▌      | 4310/12000 [00:34<00:03, 2016.76it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  38%|███▊      | 4558/12000 [00:34<00:03, 2134.02it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  40%|████      | 4806/12000 [00:34<00:03, 2223.59it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  42%|████▏     | 5054/12000 [00:35<00:03, 2293.82it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  44%|████▍     | 5303/12000 [00:35<00:02, 2347.90it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  46%|████▋     | 5551/12000 [00:35<00:02, 2384.32it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  48%|████▊     | 5799/12000 [00:35<00:02, 2411.07it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  50%|█████     | 6049/12000 [00:35<00:02, 2434.57it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  52%|█████▏    | 6298/12000 [00:35<00:02, 2445.34it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  55%|█████▍    | 6546/12000 [00:35<00:02, 2452.18it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  57%|█████▋    | 6795/12000 [00:35<00:02, 2460.59it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  59%|█████▊    | 7043/12000 [00:35<00:02, 2461.42it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  61%|██████    | 7291/12000 [00:35<00:01, 2463.12it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  63%|██████▎   | 7539/12000 [00:36<00:01, 2467.05it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  65%|██████▍   | 7787/12000 [00:36<00:01, 2468.52it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  67%|██████▋   | 8035/12000 [00:36<00:01, 2466.93it/s, 3 steps of size 7.51e-01. acc. prob=0.74]sample:  69%|██████▉   | 8283/12000 [00:36<00:01, 2468.18it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  71%|███████   | 8531/12000 [00:36<00:01, 2469.44it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  73%|███████▎  | 8779/12000 [00:36<00:01, 2469.57it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  75%|███████▌  | 9027/12000 [00:36<00:01, 2469.57it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  77%|███████▋  | 9275/12000 [00:36<00:01, 2469.28it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  79%|███████▉  | 9523/12000 [00:36<00:01, 2470.26it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  81%|████████▏ | 9771/12000 [00:36<00:00, 2472.10it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  84%|████████▎ | 10020/12000 [00:37<00:00, 2474.73it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  86%|████████▌ | 10268/12000 [00:37<00:00, 2469.07it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  88%|████████▊ | 10516/12000 [00:37<00:00, 2469.69it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  90%|████████▉ | 10763/12000 [00:37<00:00, 2466.73it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  92%|█████████▏| 11010/12000 [00:37<00:00, 2463.05it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  94%|█████████▍| 11258/12000 [00:37<00:00, 2465.39it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  96%|█████████▌| 11505/12000 [00:37<00:00, 2463.11it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample:  98%|█████████▊| 11752/12000 [00:37<00:00, 2461.52it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample: 100%|█████████▉| 11999/12000 [00:37<00:00, 2462.18it/s, 7 steps of size 7.51e-01. acc. prob=0.74]sample: 100%|██████████| 12000/12000 [00:37<00:00, 317.20it/s, 7 steps of size 7.51e-01. acc. prob=0.74] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:01:07, 32.71s/it, 3 steps of size 6.45e+00. acc. prob=0.36]warmup:   2%|▏         | 224/12000 [00:32<20:10,  9.73it/s, 3 steps of size 9.61e-01. acc. prob=0.58]  warmup:   4%|▍         | 480/12000 [00:32<07:32, 25.47it/s, 3 steps of size 4.19e-01. acc. prob=0.59]warmup:   6%|▌         | 743/12000 [00:33<03:53, 48.24it/s, 19 steps of size 7.96e-01. acc. prob=0.59]warmup:   8%|▊         | 1006/12000 [00:33<02:17, 80.09it/s, 3 steps of size 9.65e-01. acc. prob=0.59]warmup:  11%|█         | 1268/12000 [00:33<01:26, 124.07it/s, 1 steps of size 9.77e-01. acc. prob=0.59]warmup:  13%|█▎        | 1533/12000 [00:33<00:56, 185.03it/s, 7 steps of size 9.32e-01. acc. prob=0.59]warmup:  15%|█▍        | 1798/12000 [00:33<00:38, 267.17it/s, 7 steps of size 8.41e-01. acc. prob=0.59]sample:  17%|█▋        | 2060/12000 [00:33<00:26, 373.63it/s, 7 steps of size 7.38e-01. acc. prob=0.73]sample:  19%|█▉        | 2320/12000 [00:33<00:19, 507.79it/s, 7 steps of size 7.38e-01. acc. prob=0.74]sample:  21%|██▏       | 2576/12000 [00:33<00:14, 670.05it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  24%|██▎       | 2830/12000 [00:33<00:10, 859.43it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  26%|██▌       | 3083/12000 [00:33<00:08, 1069.41it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  28%|██▊       | 3335/12000 [00:34<00:06, 1289.16it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  30%|██▉       | 3586/12000 [00:34<00:05, 1505.96it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  32%|███▏      | 3836/12000 [00:34<00:04, 1707.13it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  34%|███▍      | 4086/12000 [00:34<00:04, 1885.10it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  36%|███▌      | 4336/12000 [00:34<00:03, 2032.11it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  38%|███▊      | 4586/12000 [00:34<00:03, 2149.45it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  40%|████      | 4836/12000 [00:34<00:03, 2243.27it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  42%|████▏     | 5086/12000 [00:34<00:02, 2311.95it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  44%|████▍     | 5336/12000 [00:34<00:02, 2362.72it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  47%|████▋     | 5586/12000 [00:34<00:02, 2397.74it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  49%|████▊     | 5836/12000 [00:35<00:02, 2425.18it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  51%|█████     | 6087/12000 [00:35<00:02, 2448.60it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  53%|█████▎    | 6337/12000 [00:35<00:02, 2462.01it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  55%|█████▍    | 6587/12000 [00:35<00:02, 2470.42it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  57%|█████▋    | 6837/12000 [00:35<00:02, 2475.14it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  59%|█████▉    | 7087/12000 [00:35<00:01, 2478.75it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  61%|██████    | 7337/12000 [00:35<00:01, 2484.30it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  63%|██████▎   | 7588/12000 [00:35<00:01, 2490.48it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  65%|██████▌   | 7838/12000 [00:35<00:01, 2491.87it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  67%|██████▋   | 8088/12000 [00:35<00:01, 2489.00it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  69%|██████▉   | 8338/12000 [00:36<00:01, 2488.90it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  72%|███████▏  | 8588/12000 [00:36<00:01, 2492.06it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  74%|███████▎  | 8838/12000 [00:36<00:01, 2491.53it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  76%|███████▌  | 9088/12000 [00:36<00:01, 2490.14it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  78%|███████▊  | 9338/12000 [00:36<00:01, 2488.86it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  80%|███████▉  | 9587/12000 [00:36<00:00, 2487.88it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  82%|████████▏ | 9836/12000 [00:36<00:00, 2488.39it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  84%|████████▍ | 10087/12000 [00:36<00:00, 2492.63it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  86%|████████▌ | 10337/12000 [00:36<00:00, 2493.78it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  88%|████████▊ | 10587/12000 [00:36<00:00, 2494.12it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  90%|█████████ | 10837/12000 [00:37<00:00, 2492.74it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  92%|█████████▏| 11087/12000 [00:37<00:00, 2491.79it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  94%|█████████▍| 11337/12000 [00:37<00:00, 2493.37it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  97%|█████████▋| 11587/12000 [00:37<00:00, 2493.89it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample:  99%|█████████▊| 11837/12000 [00:37<00:00, 2490.80it/s, 7 steps of size 7.38e-01. acc. prob=0.75]sample: 100%|██████████| 12000/12000 [00:37<00:00, 319.97it/s, 7 steps of size 7.38e-01. acc. prob=0.75] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:44:05, 32.92s/it, 3 steps of size 3.36e+00. acc. prob=0.00]warmup:   1%|▏         | 166/12000 [00:33<27:33,  7.16it/s, 15 steps of size 6.03e-01. acc. prob=0.58] warmup:   3%|▎         | 414/12000 [00:33<08:38, 22.33it/s, 7 steps of size 1.09e+00. acc. prob=0.59] warmup:   6%|▌         | 663/12000 [00:33<04:19, 43.76it/s, 7 steps of size 1.30e+00. acc. prob=0.59]warmup:   8%|▊         | 926/12000 [00:33<02:26, 75.46it/s, 15 steps of size 6.26e-01. acc. prob=0.59]warmup:  10%|▉         | 1172/12000 [00:33<01:32, 116.48it/s, 7 steps of size 7.05e-01. acc. prob=0.59]warmup:  12%|█▏        | 1435/12000 [00:33<00:59, 176.78it/s, 7 steps of size 9.04e-01. acc. prob=0.59]warmup:  14%|█▍        | 1690/12000 [00:33<00:40, 255.41it/s, 3 steps of size 1.11e+00. acc. prob=0.59]warmup:  16%|█▌        | 1947/12000 [00:33<00:27, 359.90it/s, 31 steps of size 9.03e-01. acc. prob=0.59]sample:  18%|█▊        | 2200/12000 [00:33<00:20, 489.97it/s, 7 steps of size 7.78e-01. acc. prob=0.71] sample:  20%|██        | 2449/12000 [00:33<00:14, 648.16it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  22%|██▏       | 2697/12000 [00:34<00:11, 834.20it/s, 3 steps of size 7.78e-01. acc. prob=0.72]sample:  25%|██▍       | 2945/12000 [00:34<00:08, 1041.62it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  27%|██▋       | 3192/12000 [00:34<00:06, 1259.00it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  29%|██▊       | 3439/12000 [00:34<00:05, 1474.11it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  31%|███       | 3685/12000 [00:34<00:04, 1673.32it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  33%|███▎      | 3931/12000 [00:34<00:04, 1847.55it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  35%|███▍      | 4179/12000 [00:34<00:03, 2000.61it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  37%|███▋      | 4425/12000 [00:34<00:03, 2115.18it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  39%|███▉      | 4671/12000 [00:34<00:03, 2206.54it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  41%|████      | 4917/12000 [00:34<00:03, 2276.45it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  43%|████▎     | 5163/12000 [00:35<00:02, 2326.12it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  45%|████▌     | 5409/12000 [00:35<00:02, 2362.89it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  47%|████▋     | 5655/12000 [00:35<00:02, 2384.76it/s, 3 steps of size 7.78e-01. acc. prob=0.72]sample:  49%|████▉     | 5900/12000 [00:35<00:02, 2403.78it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  51%|█████     | 6146/12000 [00:35<00:02, 2418.45it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  53%|█████▎    | 6392/12000 [00:35<00:02, 2428.60it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  55%|█████▌    | 6638/12000 [00:35<00:02, 2431.23it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  57%|█████▋    | 6886/12000 [00:35<00:02, 2443.15it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  59%|█████▉    | 7132/12000 [00:35<00:01, 2447.50it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  61%|██████▏   | 7379/12000 [00:35<00:01, 2451.32it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  64%|██████▎   | 7626/12000 [00:36<00:01, 2456.19it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  66%|██████▌   | 7873/12000 [00:36<00:01, 2456.00it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  68%|██████▊   | 8120/12000 [00:36<00:01, 2458.04it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  70%|██████▉   | 8367/12000 [00:36<00:01, 2461.09it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  72%|███████▏  | 8615/12000 [00:36<00:01, 2464.28it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  74%|███████▍  | 8862/12000 [00:36<00:01, 2460.83it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  76%|███████▌  | 9109/12000 [00:36<00:01, 2460.98it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  78%|███████▊  | 9356/12000 [00:36<00:01, 2458.00it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  80%|████████  | 9602/12000 [00:36<00:00, 2456.75it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  82%|████████▏ | 9849/12000 [00:36<00:00, 2460.63it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  84%|████████▍ | 10096/12000 [00:37<00:00, 2460.99it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  86%|████████▌ | 10344/12000 [00:37<00:00, 2465.21it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  88%|████████▊ | 10591/12000 [00:37<00:00, 2463.42it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  90%|█████████ | 10838/12000 [00:37<00:00, 2462.52it/s, 3 steps of size 7.78e-01. acc. prob=0.72]sample:  92%|█████████▏| 11085/12000 [00:37<00:00, 2457.14it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  94%|█████████▍| 11332/12000 [00:37<00:00, 2458.56it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  96%|█████████▋| 11579/12000 [00:37<00:00, 2461.47it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample:  99%|█████████▊| 11826/12000 [00:37<00:00, 2459.07it/s, 7 steps of size 7.78e-01. acc. prob=0.72]sample: 100%|██████████| 12000/12000 [00:37<00:00, 317.30it/s, 7 steps of size 7.78e-01. acc. prob=0.72] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:32<109:50:25, 32.95s/it, 1 steps of size 3.36e+00. acc. prob=0.00]warmup:   2%|▏         | 216/12000 [00:33<21:05,  9.31it/s, 7 steps of size 6.30e-01. acc. prob=0.58]  warmup:   4%|▍         | 466/12000 [00:33<07:49, 24.57it/s, 7 steps of size 8.46e-01. acc. prob=0.59]warmup:   6%|▌         | 730/12000 [00:33<03:58, 47.27it/s, 7 steps of size 8.67e-01. acc. prob=0.59]warmup:   8%|▊         | 986/12000 [00:33<02:21, 78.04it/s, 7 steps of size 6.72e-01. acc. prob=0.59]warmup:  10%|█         | 1251/12000 [00:33<01:27, 122.26it/s, 3 steps of size 6.43e-01. acc. prob=0.59]warmup:  13%|█▎        | 1524/12000 [00:33<00:56, 184.77it/s, 3 steps of size 8.14e-01. acc. prob=0.59]warmup:  15%|█▍        | 1786/12000 [00:33<00:38, 265.21it/s, 23 steps of size 9.67e-01. acc. prob=0.59]sample:  17%|█▋        | 2046/12000 [00:33<00:26, 369.90it/s, 7 steps of size 7.61e-01. acc. prob=0.71] sample:  19%|█▉        | 2303/12000 [00:33<00:19, 501.85it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  21%|██▏       | 2558/12000 [00:33<00:14, 662.99it/s, 7 steps of size 7.61e-01. acc. prob=0.75]sample:  23%|██▎       | 2811/12000 [00:34<00:10, 851.69it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  26%|██▌       | 3063/12000 [00:34<00:08, 1061.22it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  28%|██▊       | 3314/12000 [00:34<00:06, 1282.06it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  30%|██▉       | 3565/12000 [00:34<00:05, 1500.30it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  32%|███▏      | 3816/12000 [00:34<00:04, 1702.75it/s, 7 steps of size 7.61e-01. acc. prob=0.75]sample:  34%|███▍      | 4066/12000 [00:34<00:04, 1882.05it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  36%|███▌      | 4316/12000 [00:34<00:03, 2031.85it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  38%|███▊      | 4567/12000 [00:34<00:03, 2153.32it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  40%|████      | 4817/12000 [00:34<00:03, 2246.01it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  42%|████▏     | 5067/12000 [00:34<00:02, 2314.75it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  44%|████▍     | 5317/12000 [00:35<00:02, 2366.39it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  46%|████▋     | 5567/12000 [00:35<00:02, 2400.53it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  48%|████▊     | 5817/12000 [00:35<00:02, 2425.48it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  51%|█████     | 6067/12000 [00:35<00:02, 2446.15it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  53%|█████▎    | 6317/12000 [00:35<00:02, 2459.44it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  55%|█████▍    | 6567/12000 [00:35<00:02, 2466.73it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  57%|█████▋    | 6818/12000 [00:35<00:02, 2479.25it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  59%|█████▉    | 7068/12000 [00:35<00:01, 2481.95it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  61%|██████    | 7318/12000 [00:35<00:01, 2484.03it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  63%|██████▎   | 7569/12000 [00:35<00:01, 2489.00it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  65%|██████▌   | 7819/12000 [00:36<00:01, 2487.87it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  67%|██████▋   | 8069/12000 [00:36<00:01, 2487.97it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  69%|██████▉   | 8319/12000 [00:36<00:01, 2489.67it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  71%|███████▏  | 8569/12000 [00:36<00:01, 2490.00it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  73%|███████▎  | 8819/12000 [00:36<00:01, 2489.71it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  76%|███████▌  | 9069/12000 [00:36<00:01, 2487.91it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  78%|███████▊  | 9319/12000 [00:36<00:01, 2490.04it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  80%|███████▉  | 9569/12000 [00:36<00:00, 2490.59it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  82%|████████▏ | 9819/12000 [00:36<00:00, 2490.39it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  84%|████████▍ | 10070/12000 [00:36<00:00, 2495.15it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  86%|████████▌ | 10320/12000 [00:37<00:00, 2492.08it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  88%|████████▊ | 10570/12000 [00:37<00:00, 2492.49it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  90%|█████████ | 10820/12000 [00:37<00:00, 2494.27it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  92%|█████████▏| 11070/12000 [00:37<00:00, 2491.03it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  94%|█████████▍| 11321/12000 [00:37<00:00, 2494.51it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  96%|█████████▋| 11571/12000 [00:37<00:00, 2491.66it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample:  99%|█████████▊| 11821/12000 [00:37<00:00, 2490.95it/s, 7 steps of size 7.61e-01. acc. prob=0.74]sample: 100%|██████████| 12000/12000 [00:37<00:00, 317.83it/s, 7 steps of size 7.61e-01. acc. prob=0.74] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:31<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 1/12000 [00:33<110:25:10, 33.13s/it, 3 steps of size 3.36e+00. acc. prob=0.00]warmup:   2%|▏         | 211/12000 [00:33<21:43,  9.05it/s, 3 steps of size 4.25e-01. acc. prob=0.58]  warmup:   4%|▍         | 472/12000 [00:33<07:42, 24.90it/s, 7 steps of size 1.43e+00. acc. prob=0.59]warmup:   6%|▌         | 742/12000 [00:33<03:54, 48.00it/s, 7 steps of size 9.20e-01. acc. prob=0.59]warmup:   8%|▊         | 1012/12000 [00:33<02:16, 80.31it/s, 3 steps of size 6.91e-01. acc. prob=0.59]warmup:  11%|█         | 1285/12000 [00:33<01:25, 125.63it/s, 15 steps of size 8.56e-01. acc. prob=0.59]warmup:  13%|█▎        | 1550/12000 [00:33<00:56, 185.79it/s, 7 steps of size 9.08e-01. acc. prob=0.59] warmup:  15%|█▌        | 1814/12000 [00:33<00:38, 266.29it/s, 3 steps of size 1.48e+00. acc. prob=0.59]sample:  17%|█▋        | 2075/12000 [00:33<00:26, 370.74it/s, 7 steps of size 7.37e-01. acc. prob=0.74]sample:  19%|█▉        | 2332/12000 [00:34<00:19, 502.25it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  22%|██▏       | 2587/12000 [00:34<00:14, 663.19it/s, 7 steps of size 7.37e-01. acc. prob=0.76]sample:  24%|██▎       | 2841/12000 [00:34<00:10, 851.74it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  26%|██▌       | 3094/12000 [00:34<00:08, 1062.44it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  28%|██▊       | 3346/12000 [00:34<00:06, 1284.49it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  30%|██▉       | 3598/12000 [00:34<00:05, 1504.07it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  32%|███▏      | 3850/12000 [00:34<00:04, 1708.97it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  34%|███▍      | 4102/12000 [00:34<00:04, 1890.77it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  36%|███▋      | 4354/12000 [00:34<00:03, 2042.24it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  38%|███▊      | 4606/12000 [00:34<00:03, 2163.89it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  40%|████      | 4858/12000 [00:35<00:03, 2258.19it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  43%|████▎     | 5110/12000 [00:35<00:02, 2327.91it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  45%|████▍     | 5362/12000 [00:35<00:02, 2380.49it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  47%|████▋     | 5614/12000 [00:35<00:02, 2416.57it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  49%|████▉     | 5866/12000 [00:35<00:02, 2441.61it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  51%|█████     | 6118/12000 [00:35<00:02, 2462.92it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  53%|█████▎    | 6369/12000 [00:35<00:02, 2475.96it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  55%|█████▌    | 6620/12000 [00:35<00:02, 2485.84it/s, 7 steps of size 7.37e-01. acc. prob=0.76]sample:  57%|█████▋    | 6872/12000 [00:35<00:02, 2493.43it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  59%|█████▉    | 7123/12000 [00:35<00:01, 2497.79it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  61%|██████▏   | 7374/12000 [00:36<00:01, 2501.17it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  64%|██████▎   | 7627/12000 [00:36<00:01, 2508.95it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  66%|██████▌   | 7879/12000 [00:36<00:01, 2509.43it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  68%|██████▊   | 8131/12000 [00:36<00:01, 2507.95it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  70%|██████▉   | 8383/12000 [00:36<00:01, 2507.53it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  72%|███████▏  | 8634/12000 [00:36<00:01, 2506.63it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  74%|███████▍  | 8885/12000 [00:36<00:01, 2505.59it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  76%|███████▌  | 9137/12000 [00:36<00:01, 2507.20it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  78%|███████▊  | 9389/12000 [00:36<00:01, 2508.84it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  80%|████████  | 9641/12000 [00:36<00:00, 2510.25it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  82%|████████▏ | 9893/12000 [00:37<00:00, 2512.90it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  85%|████████▍ | 10145/12000 [00:37<00:00, 2512.74it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  87%|████████▋ | 10397/12000 [00:37<00:00, 2514.07it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  89%|████████▊ | 10649/12000 [00:37<00:00, 2511.98it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  91%|█████████ | 10901/12000 [00:37<00:00, 2512.20it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  93%|█████████▎| 11153/12000 [00:37<00:00, 2513.88it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  95%|█████████▌| 11406/12000 [00:37<00:00, 2515.97it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  97%|█████████▋| 11659/12000 [00:37<00:00, 2517.45it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample:  99%|█████████▉| 11911/12000 [00:37<00:00, 2516.67it/s, 7 steps of size 7.37e-01. acc. prob=0.75]sample: 100%|██████████| 12000/12000 [00:37<00:00, 316.68it/s, 7 steps of size 7.37e-01. acc. prob=0.75] 
-  0%|          | 0/12000 [00:00<?, ?it/s]warmup:   0%|          | 0/12000 [00:30<?, ?it/s]
-Traceback (most recent call last):
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 30, in <module>
-    run_simulation(dist)
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/pes.py", line 25, in run_simulation
-    opt_params = prop.run()
-                 ^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 421, in run
-    res = scipy.optimize.minimize(
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_minimize.py", line 731, in minimize
-    res = _minimize_lbfgsb(fun, x0, args, jac, bounds,
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_lbfgsb_py.py", line 347, in _minimize_lbfgsb
-    sf = _prepare_scalar_function(fun, x0, jac=jac, args=args, epsilon=eps,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_optimize.py", line 288, in _prepare_scalar_function
-    sf = ScalarFunction(fun, x0, args, grad, hess,
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 231, in __init__
-    self._update_grad()
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 306, in _update_grad
-    self.g = self._wrapped_grad(self.x, f0=self.f)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/scipy/optimize/_differentiable_functions.py", line 41, in wrapped
-    return np.atleast_1d(grad(np.copy(x), *args))
-                         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 377, in gradient
-    grad = jax.grad(self.objective_func)(params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 351, in objective_func
-    samples, acceptance = jax.lax.stop_gradient(self.sampler(params, warmup))
-                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_lbfgs.py", line 174, in sampler
-    mcmc.run(key, init_params=initial_params) # Pass init_params as a dictionary
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 702, in run
-    states_flat, last_state = partial_map_fn(map_args)
-                              ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 489, in _single_chain_mcmc
-    collect_vals = fori_collect(
-                   ^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/util.py", line 403, in fori_collect
-    t.set_postfix_str(diagnostics_fn(vals[0]), refresh=False)
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/mcmc.py", line 475, in <lambda>
-    lambda x: self.sampler.get_diagnostics_str(x[0])
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/n/home06/mbritt/.conda/envs/afqmc_env/lib/python3.12/site-packages/numpyro/infer/hmc.py", line 734, in get_diagnostics_str
-    return "{} steps of size {:.2e}. acc. prob={:.2f}".format(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: unsupported format string passed to JVPTracer.__format__
---------------------
-For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.

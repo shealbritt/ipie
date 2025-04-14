@@ -1,9 +1,0 @@
-
-The following have been reloaded with a version change:
-  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
-  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
-
-  File "/n/home06/mbritt/VAFQMC/importancevafqmc/hmc_vafqmc_adams.py", line 402
-    ''' iterations = range(1, len(energy_history) + 1)
-                                                      ^
-IndentationError: unindent does not match any outer indentation level

@@ -392,12 +392,7 @@ class Propagator(object):
         tools.fcidump.from_mo(self.mol, ftmp.name, ao_coeff)
         h1e, eri, nuc = read_fcidump(ftmp.name, norb)
         # Cholesky decomposition
-        v2e = eri.reshape((norb**2, -1))
-        u, s, v = scipy.linalg.svd(v2e)
-        l_tensor = u * np.sqrt(s)
-        l_tensor = l_tensor.T
-        l_tensor = l_tensor.reshape(l_tensor.shape[0], norb, norb)
-        self.nfields = l_tensor.shape[0]
+        l_tensor, self.nfields = self.modified_cholesky_decomposition(eri)
         #originally was r+ not w
         with h5py.File(self.input, "r+") as fa:
             fa["h1e"] = h1e
@@ -412,7 +407,48 @@ class Propagator(object):
     def potential_fn(self, x_flat): 
         return _potential_fn(x_flat, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps, self.nfields)
 
-              
+    def modified_cholesky_decomposition(self, eri):
+       # print("Starting modified Cholesky decomposition (NumPy version).")
+        
+        eri = np.array(eri)  # Ensure eri is a numpy array
+        norb = eri.shape[0]
+        v2e = eri.reshape((norb**2, -1))
+        thresh = 10**(-9)
+        residual = v2e.copy()
+        num_fields = 0
+        tensor_list = []
+        error = np.linalg.norm(residual)
+      #  print(f"Initial error: {error}")
+        
+        while error > thresh:
+            max_res, max_i = np.max(np.diag(residual)), np.argmax(np.diag(residual))
+            #print(f"Max residual: {max_res}, Index: {max_i}")
+    
+            diag = np.diag(residual)
+            mask = np.sqrt(np.abs(diag * max_res)) <= thresh
+            np.fill_diagonal(residual, diag * (~mask))
+            
+            L = residual[:, max_i] / np.sqrt(max_res)
+         #   print(f"L vector (reshaped to {norb}x{norb}): {L.reshape(norb, norb)}")
+            tensor_list.append(L.reshape(norb, norb))
+            
+            Ls = np.array([L.flatten() for L in tensor_list])  # Shape: (n_tensors, norb**2)
+
+            # Use einsum to compute the matrix of dot products:
+            products = np.einsum('ki,kj->ij', Ls, Ls)  # Shape: (norb**2, norb**2)
+
+            # Subtract from v2e
+            residual = v2e - products
+            
+            error = np.linalg.norm(residual)
+          #  print(f"Current error: {error}")
+            num_fields += 1
+        
+        tensor_list = jnp.array(tensor_list)
+       # print("Finished modified Cholesky decomposition (NumPy version).")
+        return tensor_list, num_fields
+
+          
     def sampler(self): 
         keys = jax.random.split(self.key, self.num_chains + 2)
         self.key = keys[-1]
@@ -539,6 +575,7 @@ class Propagator(object):
         self.trial = Trial(self.mol)
         self.trial.get_trial()
         self.input = self.trial.input
+        print("h5py",self.input, flush=True)
         self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
         self.trial.tensorb = jnp.array(self.trial.tensorb, dtype=jnp.complex128)
         h1e, v2e, nuc, l_tensor = self.hamiltonian_integral()
@@ -601,7 +638,7 @@ class Propagator(object):
         
         print(res)
         opt_params = res.x
-        np.save('optimal_params.npy', opt_params)
+        #np.save('optimal_params.npy', opt_params)
         # **Plot Results**
         '''iterations = range(1, len(energy_history) + 1)
             
@@ -632,24 +669,25 @@ class Propagator(object):
 
         warmup = 300
         key = jax.random.PRNGKey(self.seed)
-        opt_params = self.unpack_params(opt_params)
-        self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = opt_params
-        samples = self.sampler()
-        check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
+        opt_params_unpacked = self.unpack_params(opt_params)
+        self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = opt_params_unpacked
+        #samples = self.sampler()
+        # check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
         #while (self.acceptance(samples) < 0.3): 
          #   samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
-        vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
-        energies_phases = vectorized_variational_energy_func(samples)  # Call the vectorized function
-        energies, phases = energies_phases # Unpack the tuple of arrays
-        num = jnp.sum(energies)
-        denom = jnp.sum(phases)
-
-        return num/denom
+        #vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
+        #energies_phases = vectorized_variational_energy_func(samples)  # Call the vectorized function
+        #energies, phases = energies_phases # Unpack the tuple of arrays
+        #num = jnp.sum(energies)
+        #denom = jnp.sum(phases)
+        # if os.path.exists(self.input):
+         #   os.remove(self.input)
+        return np.array(opt_params)
     
 
 if __name__ == "__main__":
     # Define the H2 molecule with PySCF
-    mol1 = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
+    mol1 = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-6g', unit='bohr')
     mol = gto.M(
     atom='''
         C       0.000000     1.208000     0.000000
@@ -666,9 +704,27 @@ if __name__ == "__main__":
 
     )
     mol = mol1
+    directory = os.path.expanduser('~/warmupsparams/')  # This uses the home directory
+
+    directory = 'warmupsparams'  # New directory inside the current directoryi
+
+    # Create the directory if it doesn't exist
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    nwarmups = [2, 5, 10, 25, 50, 100, 200]
+    for c in nwarmups:
+        
+       # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
+        #time_list, energy = prop.sampler()
+        #plt.plot(time_list, energy, label="jax_afqmc")
+        prop = Propagator(mol, dt=0.01, nsteps=5, nwalkers=100000, num_chains=50, num_warmup=2)
+    # Run the simulation to get time and energy lists
+        start= time.time()
+        opt_params = prop.run()
+        np.save(os.path.join(directory, f'opt_params_{c}.npy'), opt_params)
     # Instantiate the Propagator class for the H2 molecule
     # Example parameters: time step dt=0.01, total simulation time total_t=1.0
-    print("Running C4H4")
+    ''' print("Running C4H4")
     t = 1
     times = np.linspace(0, t, int(t/0.005) + 1)
     times = [3]
@@ -680,7 +736,7 @@ if __name__ == "__main__":
        # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
         #time_list, energy = prop.sampler()
         #plt.plot(time_list, energy, label="jax_afqmc")
-        prop = Propagator(mol, dt=0.01, nsteps=3, nwalkers=100000, num_chains=50)
+        prop = Propagator(mol, dt=0.01, nsteps=5, nwalkers=100000, num_chains=50)
     # Run the simulation to get time and energy lists
         start= time.time()
         energy = prop.run()
@@ -710,5 +766,4 @@ if __name__ == "__main__":
     plt.legend()
 
     # Show the plot
-    plt.savefig("h2-lbfgs.png")
-
+    plt.savefig("h2-lbfgs.png")'''

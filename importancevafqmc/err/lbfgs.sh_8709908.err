@@ -1,6 +1,0 @@
-
-The following have been reloaded with a version change:
-  1) Mambaforge/23.3.1-fasrc01 => Mambaforge/22.11.1-fasrc01
-  2) python/3.10.12-fasrc01 => python/3.10.9-fasrc01
-
-slurmstepd: error: Detected 1 oom_kill event in StepId=8709908.batch. Some of the step tasks have been OOM Killed.

@@ -1,0 +1,439 @@
+Using Python from: /n/home06/mbritt/.conda/envs/afqmc_env/bin/python
+Using Pip from: /n/home06/mbritt/.conda/envs/afqmc_env/bin/pip
+-rw-r--r--. 1 mbritt joonholee_lab 31896 Apr 11 16:26 lbfgs_fast.py
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250411170202183990.h5
+grad 158.58799290657043
+grad 146.6944601535797
+grad 146.47192478179932
+grad 146.37584567070007
+grad 147.6686851978302
+grad 147.80825114250183
+grad 145.44787502288818
+grad 146.83352541923523
+grad 146.4027500152588
+grad 146.65379238128662
+grad 146.50852870941162
+grad 145.3768458366394
+grad 145.88792848587036
+grad 147.0421485900879
+grad 146.9630479812622
+grad 147.49414134025574
+grad 146.00712037086487
+grad 146.98659706115723
+grad 146.6538233757019
+grad 146.76998257637024
+grad 147.67705035209656
+grad 147.58359813690186
+grad 146.46362113952637
+grad 147.44155430793762
+grad 145.67130637168884
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.12596392158269
+        x: [-8.938e-01 -3.293e-01 ...  9.458e-02  1.047e-01]
+      nit: 6
+      jac: [-1.107e-03 -1.259e-03 ...  9.682e-03  2.308e-02]
+     nfev: 25
+     njev: 25
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250411190057953720.h5
+grad 147.1915602684021
+grad 146.17815613746643
+grad 148.9445357322693
+grad 149.0894844532013
+grad 147.01306986808777
+grad 148.47726035118103
+grad 156.84180736541748
+grad 147.46597719192505
+grad 169.97823238372803
+grad 147.75188398361206
+grad 155.94828867912292
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.1204771072719548
+        x: [-9.320e-01 -2.890e-01 ...  4.933e-02  4.992e-02]
+      nit: 3
+      jac: [-1.897e-04 -2.739e-04 ... -3.725e-02 -3.904e-02]
+     nfev: 11
+     njev: 11
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250411195428584707.h5
+grad 151.94125127792358
+grad 141.3301613330841
+grad 146.09174919128418
+grad 153.799622297287
+grad 142.14922714233398
+grad 146.26451754570007
+grad 142.84627628326416
+grad 143.28771305084229
+grad 154.80275225639343
+grad 153.27426600456238
+grad 144.42147636413574
+grad 173.78277730941772
+grad 143.47992181777954
+grad 143.95741772651672
+grad 147.33390760421753
+grad 152.81740355491638
+grad 143.7994167804718
+grad 141.83913350105286
+grad 142.33751487731934
+grad 142.72494220733643
+grad 146.52318358421326
+grad 144.30509567260742
+grad 156.71821641921997
+grad 143.3316469192505
+grad 156.57046151161194
+grad 143.8624804019928
+grad 160.86390089988708
+grad 146.51944041252136
+grad 152.37314677238464
+grad 141.92793679237366
+grad 144.71801853179932
+grad 165.13269186019897
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.1257998700947782
+        x: [-8.154e-01 -3.175e-01 ...  8.861e-02  1.037e-01]
+      nit: 6
+      jac: [ 1.394e-03  1.348e-03 ...  4.483e-03  1.220e-02]
+     nfev: 32
+     njev: 32
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250411222625546751.h5
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.09189D+00    |proj g|=  1.79711D-01
+
+At iterate    1    f= -1.11169D+00    |proj g|=  6.30596D-02
+
+At iterate    2    f= -1.11608D+00    |proj g|=  3.88740D-02
+
+At iterate    3    f= -1.12008D+00    |proj g|=  2.40775D-02
+
+At iterate    4    f= -1.12018D+00    |proj g|=  3.05538D-02
+
+At iterate    5    f= -1.12666D+00    |proj g|=  8.94292D-02
+  ys=-1.660E-02  -gs= 1.137E-02 BFGS update SKIPPED
+
+At iterate    6    f= -1.12596D+00    |proj g|=  8.85087D-02
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      6     26      1     1     0   8.851D-02  -1.126D+00
+  F =  -1.1259639215826900     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.08610D+00    |proj g|=  2.26101D-01
+
+At iterate    1    f= -1.11860D+00    |proj g|=  5.03811D-02
+
+At iterate    2    f= -1.12091D+00    |proj g|=  4.40172D-02
+
+At iterate    3    f= -1.12048D+00    |proj g|=  3.90372D-02
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      3     11      1     0     0   3.904D-02  -1.120D+00
+  F =  -1.1204771072719548     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.10739D+00    |proj g|=  8.65675D-02
+
+At iterate    1    f= -1.11493D+00    |proj g|=  3.46405D-02
+
+At iterate    2    f= -1.11883D+00    |proj g|=  3.09233D-02
+
+At iterate    3    f= -1.11931D+00    |proj g|=  3.93224D-02
+
+At iterate    4    f= -1.12274D+00    |proj g|=  7.31820D-02
+  ys=-1.867E-03  -gs= 9.755E-03 BFGS update SKIPPED
+
+At iterate    5    f= -1.12680D+00    |proj g|=  9.27164D-02
+  ys=-1.512E-03  -gs= 6.251E-03 BFGS update SKIPPED
+
+At iterate    6    f= -1.12580D+00    |proj g|=  9.23345D-02
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      6     33      1     2     0   9.233D-02  -1.126D+00
+  F =  -1.1257998700947782     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.11108D+00    |proj g|=  4.83835D-02
+
+At iterate    1    f= -1.11450D+00    |proj g|=  3.27083D-02
+
+At iterate    2    f= -1.11827D+00    |proj g|=  4.25549D-02
+
+At iterate    3    f= -1.11941D+00    |proj g|=  3.98478D-02
+
+At iterate    4    f= -1.12381D+00    |proj g|=  4.20290D-02
+
+At iterate    5    f= -1.12482D+00    |proj g|=  1.45066D-01
+  ys=-2.912E-02  -gs= 1.486E-02 BFGS update SKIPPED
+
+grad 176.8522434234619
+grad 163.7361867427826
+grad 171.0973904132843
+grad 156.14775109291077
+grad 155.0079414844513
+grad 166.15530729293823
+grad 164.67578840255737
+grad 154.84605360031128
+grad 155.99407196044922
+grad 169.35999035835266
+grad 159.0563521385193
+grad 151.66138458251953
+grad 158.49755358695984
+grad 151.8708176612854
+grad 167.32244443893433
+grad 160.92885661125183
+grad 152.55592894554138
+grad 165.27733087539673
+grad 160.12651705741882
+grad 156.95207142829895
+grad 271.0144829750061
+grad 160.80277490615845
+grad 154.23134446144104
+grad 167.04336857795715
+grad 157.03326511383057
+grad 167.9504725933075
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.1216094575229074
+        x: [-7.927e-01 -2.998e-01 ...  1.073e-01  1.127e-01]
+      nit: 6
+      jac: [ 1.373e-03  1.334e-03 ... -2.978e-02 -2.962e-02]
+     nfev: 26
+     njev: 26
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250412004554641981.h5
+grad 197.09693312644958
+grad 201.0293459892273
+grad 244.01853466033936
+grad 185.1674771308899
+grad 233.05434203147888
+grad 194.82610726356506
+grad 171.1078860759735
+grad 201.39957976341248
+grad 176.14641547203064
+grad 177.2820041179657
+grad 176.48675870895386
+grad 172.4983651638031
+grad 173.34100985527039
+grad 194.64787983894348
+grad 202.4646008014679
+grad 176.15577483177185
+grad 197.54949927330017
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.129948896780439
+        x: [-9.123e-01 -3.570e-01 ...  1.067e-01  1.114e-01]
+      nit: 4
+      jac: [ 1.571e-03  1.604e-03 ... -8.102e-02 -8.217e-02]
+     nfev: 17
+     njev: 17
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+converged SCF energy = -1.11134971410867  <S^2> = 0  2S+1 = 1
+h5py input_20250412023328786315.h5
+grad 307.7772698402405
+grad 282.552946805954
+grad 347.0943236351013
+grad 315.5437262058258
+grad 270.3868658542633
+grad 301.5555408000946
+grad 247.9806730747223
+grad 355.52866649627686
+grad 220.5918779373169
+grad 243.91852712631226
+grad 223.8277359008789
+grad 339.590208530426
+grad 230.87986016273499
+grad 248.1812138557434
+grad 236.37603783607483
+grad 235.84729647636414
+grad 246.2020583152771
+grad 253.66853380203247
+grad 251.89314556121826
+  message: CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH
+  success: True
+   status: 0
+      fun: -1.1211866539220674
+        x: [-9.358e-01 -2.700e-01 ...  1.242e-01  1.312e-01]
+      nit: 5
+      jac: [ 7.428e-04  6.766e-04 ... -9.623e-02 -9.819e-02]
+     nfev: 19
+     njev: 19
+ hess_inv: <46x46 LbfgsInvHessProduct with dtype=float64>
+At iterate    6    f= -1.12161D+00    |proj g|=  1.45623D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      6     26      1     1     0   1.456D-01  -1.122D+00
+  F =  -1.1216094575229074     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.08940D+00    |proj g|=  1.92875D-01
+
+At iterate    1    f= -1.11744D+00    |proj g|=  4.17934D-02
+
+At iterate    2    f= -1.12143D+00    |proj g|=  3.55787D-02
+
+At iterate    3    f= -1.13008D+00    |proj g|=  9.75450D-02
+  ys=-1.955E-02  -gs= 2.231E-02 BFGS update SKIPPED
+
+At iterate    4    f= -1.12995D+00    |proj g|=  1.16504D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      4     17      1     1     0   1.165D-01  -1.130D+00
+  F =  -1.1299488967804390     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           46     M =         1000
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f= -1.10831D+00    |proj g|=  8.17218D-02
+
+At iterate    1    f= -1.11573D+00    |proj g|=  3.91732D-02
+
+At iterate    2    f= -1.12087D+00    |proj g|=  4.13138D-02
+
+At iterate    3    f= -1.12161D+00    |proj g|=  5.21193D-02
+
+At iterate    4    f= -1.12198D+00    |proj g|=  1.87217D-01
+  ys=-7.030E-02  -gs= 2.865E-02 BFGS update SKIPPED
+
+At iterate    5    f= -1.12119D+00    |proj g|=  2.06195D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   46      5     20      1     1     0   2.062D-01  -1.121D+00
+  F =  -1.1211866539220674     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
