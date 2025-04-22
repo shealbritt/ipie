@@ -143,7 +143,7 @@ def check_mcmc_convergence(samples, parameter_names=None, verbose=False):
         print(summary)
 
     # Plot diagnostics
-    plot_paginated_trace_autocorr(data, parameter_names, 6)
+    #plot_paginated_trace_autocorr(data, parameter_names, 6)
 
     # Initialize warnings
     warnings = {name: [] for name in parameter_names}
@@ -199,9 +199,10 @@ def check_mcmc_convergence(samples, parameter_names=None, verbose=False):
     print(f"{total} total warning(s)")
 
     return summary, warnings
+
 @jit
-def _normal_logpdf(x):
-    return -0.5 * jnp.sum(x**2) - 0.5 * len(x) * jnp.log(2 * jnp.pi)
+def _normal_pdf(x):
+    return  jnp.exp(-0.5 * jnp.sum(x**2)) / (jnp.sqrt(2 * jnp.pi) ** len(x))
 
 @jit
 def _get_overlap(l_tensora, l_tensorb, r_tensora, r_tensorb):
@@ -231,8 +232,8 @@ def _propagate_one_step(h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
         for order_i in range(1, 1+self.taylor_order):
         Tempa = jnp.einsum('pq, qr->pr', two_body_op_power, Tempa) / order_i
         Tempb = jnp.einsum('pq, qr->pr', two_body_op_power, Tempb) / order_i
-        tensora += Tempa
-        tensorb += Tempb'''
+        self.walkers.tensora += Tempa
+        self.walkers.tensorb += Tempb'''
     tensora = jnp.einsum('pq, qr->pr', two_body_op_power, tensora)
     tensorb = jnp.einsum('pq, qr->pr', two_body_op_power, tensorb)
             # 1-body propagator propagation
@@ -246,8 +247,8 @@ def _propagate(x, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_
     tensorb = tensorb_params.copy()
     for i in range(nsteps):
         tensora, tensorb = _propagate_one_step(h1e_params[i], x[i], l_tensor_params, tensora, tensorb, t_params[i], s_params[i])
-    prob = _normal_logpdf(x.flatten()) 
-    return prob, tensora, tensorb
+    prob = _normal_pdf(x.flatten())   
+    return prob*tensora, prob*tensorb
 
 @jit
 def _local_energy(green_funca, green_funcb, v2e, h1e, nuc):
@@ -262,13 +263,14 @@ def _local_energy(green_funca, green_funcb, v2e, h1e, nuc):
     local_e = (local_e1 + 0.5 * local_e2 + nuc)
     return local_e
 
-@partial(jit,static_argnums=(7,))   
-def _variational_energy(x, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, v2e, h1e, nuc): # Removed method arguments
+@partial(jit,static_argnums=(7, 8))   
+def _variational_energy(x, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, nfields, v2e, h1e, nuc): # Removed method arguments
+
+    x = x.reshape(2, nsteps, nfields)
     x_l = x[0]
     x_r = x[1]
-    #probabilities unnecessary
-    probl, l_tensora, l_tensorb = _propagate(x_l, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps) 
-    probr, r_tensora, r_tensorb = _propagate(x_r, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps) 
+    l_tensora, l_tensorb = _propagate(x_l, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps) 
+    r_tensora, r_tensorb = _propagate(x_r, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps) 
     wfs = l_tensora, l_tensorb, r_tensora, r_tensorb
     overlapa, overlapb = _get_overlap(*wfs)
     overlap = jnp.linalg.det(overlapa) * jnp.linalg.det(overlapb)
@@ -278,40 +280,43 @@ def _variational_energy(x, tensora_params,tensorb_params, h1e_params, l_tensor_p
     phase = overlap / magnitude
     return energy*phase, phase
 
-@partial(jit, static_argnums=(7,))
-def _target(x, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps):
+@partial(jit, static_argnums=(7,8))
+def _target(x, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, nfields):
+    x = x.reshape(2, nsteps, nfields)
     x_l = x[0]
     x_r = x[1]
-    probl, l_tensora, l_tensorb = _propagate(x_l, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps)
-    probr, r_tensora, r_tensorb = _propagate(x_r, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps)   
+    l_tensora, l_tensorb = _propagate(x_l, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps)
+    r_tensora, r_tensorb = _propagate(x_r, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps)   
     wfs = l_tensora, l_tensorb, r_tensora, r_tensorb   
     overlapa, overlapb = _get_overlap(*wfs)
     overlap = jnp.linalg.det(overlapa) * jnp.linalg.det(overlapb)
-    return probl + probr , overlap
+    return overlap
 
-@partial(jit, static_argnums=(7,))
-def _potential_fn(x, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps):
-    prob, overlap = _target(x, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps)
+@partial(jit, static_argnums=(7,8))
+def _potential_fn(x_flat, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, nfield):
+    x_flat = x_flat['x_flat']
+    overlap = _target(x_flat, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, nfield)
     log_overlap_magnitude = jnp.log(jnp.abs(overlap))
-    potential_energy = -(prob + log_overlap_magnitude)
+    potential_energy = -log_overlap_magnitude
     return potential_energy
 
-@partial(jit,static_argnums=(2,))   
-def _objective_func(samples, params, nsteps, v2e, h1e, nuc):   
+@partial(jit,static_argnums=(2, 3))   
+def _objective_func(samples, params, nsteps, nfields, v2e, h1e, nuc):   
     lam = 1
     B = 0.7
-    vectorized_variational_energy_func = jax.vmap(_variational_energy, in_axes=(0, None, None, None, None, None, None, None, None, None, None)) # Vectorize over the first argument (x)
+    vectorized_variational_energy_func = jax.vmap(_variational_energy, in_axes=(0, None, None, None, None, None, None, None, None, None, None, None)) # Vectorize over the first argument (x)
     h1e_params, l_tensor_params, tensora_params, tensorb_params,t_params, s_params = params
     # Vectorizsd calculation of energies and phases for all samples
-    energies_phases = vectorized_variational_energy_func(samples, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, v2e, h1e, nuc)  # Call the vectorized function
+    energies_phases = vectorized_variational_energy_func(samples, tensora_params,tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, nfields, v2e, h1e, nuc)  # Call the vectorized function
+    
     energies, phases = energies_phases # Unpack the tuple of array)
     num = jnp.sum(energies)
     denom = jnp.sum(phases)
     return jnp.real(num / denom) + lam *(jnp.maximum(B-jnp.real(jnp.mean(phases)), 0))**2
     
-@partial(jit,static_argnums=(2,))   
-def _gradient(samples, params, nsteps, v2e, h1e, nuc):
-            gradient_fn = lambda p: _objective_func(samples, p, nsteps, v2e, h1e, nuc)
+@partial(jit,static_argnums=(2, 3))   
+def _gradient(samples, params, nsteps, nfields, v2e, h1e, nuc):
+            gradient_fn = lambda p: _objective_func(samples, p, nsteps, nfields, v2e, h1e, nuc)
             grad_params = jax.grad(gradient_fn)(params)
             return grad_params
 
@@ -387,13 +392,12 @@ class Propagator(object):
         tools.fcidump.from_mo(self.mol, ftmp.name, ao_coeff)
         h1e, eri, nuc = read_fcidump(ftmp.name, norb)
         # Cholesky decomposition
-        '''v2e = eri.reshape((norb**2, -1))
+        v2e = eri.reshape((norb**2, -1))
         u, s, v = scipy.linalg.svd(v2e)
         l_tensor = u * np.sqrt(s)
         l_tensor = l_tensor.T
         l_tensor = l_tensor.reshape(l_tensor.shape[0], norb, norb)
-        self.nfields = l_tensor.shape[0]'''
-        l_tensor, self.nfields = self.modified_cholesky_decomposition(eri)
+        self.nfields = l_tensor.shape[0]
         #originally was r+ not w
         with h5py.File(self.input, "r+") as fa:
             fa["h1e"] = h1e
@@ -403,56 +407,12 @@ class Propagator(object):
         return jnp.array(h1e, dtype=jnp.complex128), jnp.array(eri,  dtype=jnp.complex128), jnp.array(nuc,  dtype=jnp.complex128), jnp.array(l_tensor,  dtype=jnp.complex128)
     
     def target(self, x):
-        x = x.reshape(2, self.nsteps, self.nfields)
-        return _target(x, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps)
+        return _target(x, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps, self.nfields)
     
     def potential_fn(self, x_flat): 
-        x = x_flat['x_flat'].reshape(2, self.nsteps, self.nfields)
-        return _potential_fn(x, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps)
+        return _potential_fn(x_flat, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps, self.nfields)
 
-
-    def modified_cholesky_decomposition(self, eri):
-       # print("Starting modified Cholesky decomposition (NumPy version).")
-        
-        eri = np.array(eri)  # Ensure eri is a numpy array
-        norb = eri.shape[0]
-        v2e = eri.reshape((norb**2, -1))
-        thresh = 10**(-9)
-        residual = v2e.copy()
-        num_fields = 0
-        tensor_list = []
-        error = np.linalg.norm(residual)
-      #  print(f"Initial error: {error}")
-        
-        while error > thresh:
-            max_res, max_i = np.max(np.diag(residual)), np.argmax(np.diag(residual))
-            #print(f"Max residual: {max_res}, Index: {max_i}")
-    
-            diag = np.diag(residual)
-            mask = np.sqrt(np.abs(diag * max_res)) <= thresh
-            np.fill_diagonal(residual, diag * (~mask))
-            
-            L = residual[:, max_i] / np.sqrt(max_res)
-         #   print(f"L vector (reshaped to {norb}x{norb}): {L.reshape(norb, norb)}")
-            tensor_list.append(L.reshape(norb, norb))
-            
-            Ls = np.array([L.flatten() for L in tensor_list])  # Shape: (n_tensors, norb**2)
-
-            # Use einsum to compute the matrix of dot products:
-            products = np.einsum('ki,kj->ij', Ls, Ls)  # Shape: (norb**2, norb**2)
-
-            # Subtract from v2e
-            residual = v2e - products
-            
-            error = np.linalg.norm(residual)
-          #  print(f"Current error: {error}")
-            num_fields += 1
-        
-        tensor_list = jnp.array(tensor_list)
-       # print("Finished modified Cholesky decomposition (NumPy version).")
-        return tensor_list, num_fields
-
-
+              
     def sampler(self): 
         keys = jax.random.split(self.key, self.num_chains + 2)
         self.key = keys[-1]
@@ -470,15 +430,14 @@ class Propagator(object):
             mcmc.run(single_key, init_params={"x_flat": init_param})
             samples = jax.lax.stop_gradient(mcmc.get_samples())
             x_samples_flat = samples["x_flat"]
-            return x_samples_flat
-        
-        @jit
-        def _run_multiple_chains(keys, init_params):
+            return x_samples_flat.reshape(-1, x_samples_flat.shape[-1])
+        @partial(jit, static_argnums=(1,2,3))
+        def _run_multiple_chains(keys, num_chains, nsteps, nfields):
+            init_params = jax.random.normal(keys[0], (num_chains, 2 * nsteps * nfields))
             vectorized_run = jax.vmap(run_single_chain, in_axes=(0, 0))
             samples = vectorized_run(keys[1:-1], init_params)
             return samples
-        init_params = jax.random.normal(keys[0], (self.num_chains, 2 * self.nsteps * self.nfields))
-        samples = _run_multiple_chains(keys, init_params)
+        samples = _run_multiple_chains(keys, self.num_chains, self.nsteps, self.nfields)
         total_samples_shape = samples.shape[0] * samples.shape[1]
         final_samples = samples.reshape(total_samples_shape, samples.shape[-1])
         return final_samples
@@ -490,8 +449,8 @@ class Propagator(object):
     def propagate_one_step(self, h1e_mod, xi, l_tensor, tensora, tensorb, t, s):
         return _propagate_one_step(h1e_mod, xi, l_tensor, tensora, tensorb, t, s)
     
-    def normal_logpdf(self, x):
-        return _normal_logpdf(x)
+    def normal_pdf(self, x):
+        return _normal_pdf(x)
  
     def propagate(self, x):
         return _propagate(x, self.tensora_params, self.tensorb_params, self.h1e_params, self.l_tensor_params, self.t_params, self.s_params, self.nsteps)
@@ -541,7 +500,6 @@ class Propagator(object):
 
 
     def variational_energy(self, x):
-        x = x.reshape(2, self.nsteps, self.nfields)
         return _variational_energy(x,  
                                    self.tensora_params, 
                                    self.tensorb_params, 
@@ -550,6 +508,7 @@ class Propagator(object):
                                    self.t_params, 
                                    self.s_params, 
                                    self.nsteps, 
+                                   self.nfields,
                                    self.v2e,
                                    self.h1e, 
                                    self.nuc)
@@ -559,17 +518,19 @@ class Propagator(object):
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params
         samples = self.sampler()
-        samples = samples.reshape(self.nwalkers, 2, self.nsteps, self.nfields)
-        return float(_objective_func(samples, params, self.nsteps, self.v2e, self.h1e, self.nuc))
-    
+        #check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
+        return _objective_func(samples, params, self.nsteps, self.nfields, self.v2e, self.h1e, self.nuc)
 
     def gradient(self, params):
+        start = time.time()
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params 
         samples = self.sampler()
-        samples = samples.reshape(self.nwalkers, 2, self.nsteps, self.nfields)
-        grads = _gradient(samples, params, self.nsteps, self.v2e, self.h1e, self.nuc)
-        grads =  np.ascontiguousarray(jnp.concatenate([x.ravel() for x in grads]), dtype=np.complex128)
+        #check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
+        grads = _gradient(samples, params, self.nsteps, self.nfields, self.v2e, self.h1e, self.nuc)
+        end = time.time()
+        print("grad", end - start)
+        grads = jnp.concatenate([x.ravel() for x in grads])
         return grads
         
 
@@ -578,7 +539,6 @@ class Propagator(object):
         self.trial = Trial(self.mol)
         self.trial.get_trial()
         self.input = self.trial.input
-        print("trial set")
         self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
         self.trial.tensorb = jnp.array(self.trial.tensorb, dtype=jnp.complex128)
         h1e, v2e, nuc, l_tensor = self.hamiltonian_integral()
@@ -596,9 +556,7 @@ class Propagator(object):
                                   t, s])
         perturbation = 1.0 + 0.1 * np.random.normal(size=params.shape)
         params = params * perturbation
-        params = np.array(params, dtype=np.complex128, order='C', copy=True)
-
-        print(params.shape)
+        
         energy_history = []
         grad_norm_history = []
         param_update_norm_history = []
@@ -672,10 +630,12 @@ class Propagator(object):
         plt.tight_layout()
         plt.show()'''
 
+        warmup = 300
+        key = jax.random.PRNGKey(self.seed)
         opt_params = self.unpack_params(opt_params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = opt_params
         samples = self.sampler()
-        #check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
+        check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 24), verbose=False)
         #while (self.acceptance(samples) < 0.3): 
          #   samples = jax.lax.stop_gradient(self.sampler(opt_params, warmup))
         vectorized_variational_energy_func = jax.vmap(self.variational_energy, in_axes=0) # Vectorize over the first argument (x)
@@ -689,7 +649,7 @@ class Propagator(object):
 
 if __name__ == "__main__":
     # Define the H2 molecule with PySCF
-    mol1 = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-6g', unit='bohr')
+    mol1 = gto.M(atom='H 0 0 0; H 0 0 1.6', basis='sto-3g', unit='bohr')
     mol = gto.M(
     atom='''
         C       0.000000     1.208000     0.000000
@@ -708,51 +668,46 @@ if __name__ == "__main__":
     mol = mol1
     # Instantiate the Propagator class for the H2 molecule
     # Example parameters: time step dt=0.01, total simulation time total_t=1.0
-    mf = scf.RHF(mol)
-    hf_energy = mf.kernel()
-    cisolver = fci.FCI(mf)
-    fci_energy = cisolver.kernel()[0]
-   # print("fci_energy", fci_energy)
     print("Running C4H4")
     t = 1
     times = np.linspace(0, t, int(t/0.005) + 1)
     times = [3]
     energy_list = []
     error_list = []
-    nwalkers = [100, 500, 1000, 5000, 10000, 50000, 100000]
-    directory = os.path.expanduser('~/walkersparams/')  # This uses the home directory
-
-    directory = 'walkersparams'  # New directory inside the current directory
-
-    # Create the directory if it doesn't exist
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    for w in nwalkers:
+    
+    for _ in times:
         
        # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
         #time_list, energy = prop.sampler()
         #plt.plot(time_list, energy, label="jax_afqmc")
-        prop = Propagator(mol, dt=0.01, nsteps=5, nwalkers=w, num_chains=50, num_warmup=200)
+        prop = Propagator(mol, dt=0.01, nsteps=3, nwalkers=100000, num_chains=50)
     # Run the simulation to get time and energy lists
         start= time.time()
-        opt_params = prop.run()
-        np.save(os.path.join(directory, f'opt_params_{w}.npy'), opt_params)
-        '''
-        energy_list.append(energy)
+        energy = prop.run()
+        end = time.time()
+        print("Total time", end - start)
 
-        energy_error = abs(energy - fci_energy)
+
+
+
+    #plt.errorbar(time_list, np.real(energy_list), np.real(error_list), label='Importance Propagator', color='r', marker='x')
+    mf = scf.RHF(mol)
+    hf_energy = mf.kernel()
+    cisolver = fci.FCI(mf)
+    fci_energy = cisolver.kernel()[0]
+    print("vafqmc-energy", energy)
+    # Optionally, plot a reference energy line if available
+    plt.hlines(fci_energy, xmin=0, xmax=10, color='k', linestyle='--', label='Reference Energy')
+    plt.hlines(hf_energy, xmin=0, xmax=10, color='k', linestyle='--', label='HF Energy')
     
-    # Print the error for the current number of walkers
-    print(f"Walkers: {w}, Energy Error: {energy_error}")
+    plt.hlines(energy,xmin=0, xmax=10, linestyle=':', label="vafqmc")
 
-# Plot the error in energy vs number of walkers
-plt.figure(figsize=(8, 6))
-plt.plot(nwalkers, [abs(energy - fci_energy) for energy in energy_list], marker='o', linestyle='-', color='b')
-plt.xscale('log')  # Log scale for number of walkers
-plt.yscale('log')  # Log scale for error in energy
-plt.xlabel('Number of Walkers')
-plt.ylabel('Energy Error')
-plt.title('Error in Energy for Different Numbers of Walkers')
-plt.grid(True)
-plt.savefig("walkererror.png")
-plt.show()'''
+    # Add labels, title, and legend
+    plt.xlabel('Time (a.u.)')
+    plt.ylabel('Energy (Hartree)')
+    plt.title('Comparison of AFQMC Propagators: JAX vs VAFQMC for H2')
+    plt.grid(True)
+    plt.legend()
+
+    # Show the plot
+    plt.savefig("h2-lbfgs.png")
