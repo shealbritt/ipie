@@ -760,7 +760,7 @@ class Propagator(object):
         grads = jnp.clip(grads, a_min=-1.0, a_max=1.0)
         e = time.time()
        # print("gradient time",e - s)
-        self.samples = None
+        #self.samples = None
         return grads
     
 
@@ -816,10 +816,10 @@ class Propagator(object):
         tol = 1e-5
         learning_rate = 3e-4
         def schedule(step):
-            return learning_rate / (1 + step / 5000)
+            return learning_rate / (1 + step / 500)
 
         # Create the Adam optimizer with the learning rate schedule
-        optimizer = optax.adabelief(learning_rate=schedule, b1=0.95, b2=0.999)
+        optimizer = optax.adabelief(learning_rate=schedule, b1=0.9, b2=0.99)
         opt_state = optimizer.init(params)
     
         @jit
@@ -834,7 +834,8 @@ class Propagator(object):
         for i in range(max_iter):
             print("Iteration", i+1, flush=True) 
             l = time.time()
-    
+            if (i + 1) % 5 == 0:
+                self.samples = None
             grads = np.array(self.gradient(params))
             #for j in range(len(grads)):
              #   if not (12 <= j <= 23):
@@ -854,7 +855,7 @@ class Propagator(object):
             #print("con time", ec-sc)
             params = new_params
             e = time.time()
-            #print("iteration time", e-l)
+            print("iteration time", e-l)
             if (i + 1) % 10 == 0:
                 energy = self.objective_func(params)
                 print("Energy", energy)
