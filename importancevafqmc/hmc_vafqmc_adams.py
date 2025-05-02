@@ -361,7 +361,7 @@ def _potential_fn(x, tensora_params, tensorb_params, h1e_params, l_tensor_params
 
 @partial(jit,static_argnums=(2,))   
 def _objective_func(samples, params, nsteps, v2e, h1e, nuc):   
-    lam = 1
+    lam = 0.1
     B = 0.7
     vectorized_variational_energy_func = jax.vmap(_variational_energy, in_axes=(0, None, None, None, None, None, None, None, None, None, None)) # Vectorize over the first argument (x)
     h1e_params, l_tensor_params, tensora_params, tensorb_params,t_params, s_params = params
@@ -370,7 +370,7 @@ def _objective_func(samples, params, nsteps, v2e, h1e, nuc):
     energies, phases = energies_phases # Unpack the tuple of array)
     num = jnp.sum(energies)
     denom = jnp.sum(phases)
-    return jnp.real(num / denom) #+ lam *(jnp.maximum(B-jnp.real(jnp.mean(phases)), 0))**2
+    return jnp.real(num / denom), lam *(jnp.maximum(B-jnp.real(jnp.mean(phases)), 0))**2
 
 @partial(jit,static_argnums=(7,))     
 def _gradient_helper(x, tensora_params, tensorb_params, h1e_params, l_tensor_params, t_params, s_params, nsteps, v2e, h1e, nuc): # Removed method arguments
@@ -392,7 +392,7 @@ def _gradient_helper(x, tensora_params, tensorb_params, h1e_params, l_tensor_par
 
 @partial(jit, static_argnums=(2,))
 def _gradient(samples, params, nsteps, v2e, h1e, nuc):
-    lam = 1
+    lam = 0.1
     B = 0.7
     def single_sample_grad(x):
         def energy_overlap_fn(packed_params):
@@ -430,7 +430,7 @@ def _gradient(samples, params, nsteps, v2e, h1e, nuc):
     num = jnp.sum(e_vals*s_vals)
     denom = jnp.sum(s_vals)
     penalty = 2*lam *(B - jnp.mean(s_vals)) * (jnp.mean(s_vals * dlogw_vals, axis=0) + jnp.mean(ds_vals, axis=0))
-    return  jnp.real((num_grad*denom - num * denom_grad)/(denom**2)) # - jnp.where(B - jnp.mean(s_vals) > 0, penalty, 0.))
+    return  jnp.real((num_grad*denom - num * denom_grad)/(denom**2)) #- jnp.where(B - jnp.mean(s_vals) > 0, penalty, 0.))
 
 '''
 @partial(jit,static_argnums=(2,))   
@@ -583,7 +583,6 @@ class Propagator(object):
     def sampler(self, key):
         # Step 1: Reference chain with full adaptation
         print("sampling")
-        s = time.time()
         ref_kernel = NUTS(potential_fn=self.potential_fn, target_accept_prob=0.7)
         ref_mcmc = MCMC(ref_kernel, num_warmup=1000, num_samples=100,
                         num_chains=1, chain_method="sequential", progress_bar=False)
@@ -595,9 +594,7 @@ class Propagator(object):
         step_size = ref_mcmc._last_state.adapt_state.step_size
         mass_matrix = ref_mcmc._last_state.adapt_state.inverse_mass_matrix
         ref_samples = ref_mcmc.get_samples()["x_flat"]
-        e = time.time()
 
-        print("ref time", e - s)
         # Step 2: Initialize multiple chains from the reference posterior
         key, subkey = jax.random.split(key)
         init_samples_idx = jax.random.choice(subkey, ref_samples.shape[0], shape=(self.num_chains,))
@@ -721,15 +718,14 @@ class Propagator(object):
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params
         if self.samples is None:
-            print("sample")
             key, self.key = jax.random.split(self.key)
             self.samples = self.sampler(key)
         samples = self.samples
-        #check_mcmc_convergence(samples.reshape(self.num_chains, int(self.nwalkers/self.num_chains), 2*self.nfields*self.nsteps), verbose=False)
         samples = samples.reshape(self.nwalkers, 2, self.nsteps, self.nfields)
-        energy = _objective_func(samples, params, self.nsteps, self.v2e, self.h1e, self.nuc)
-        print(energy)
-        return float(energy)
+        energy, penalty = _objective_func(samples, params, self.nsteps, self.v2e, self.h1e, self.nuc)
+        if penalty > 0:
+            print(penalty)
+        return float(energy) #+ penalty
 
 
     def gradient(self, params):
@@ -737,26 +733,20 @@ class Propagator(object):
         params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = params 
         if self.samples is None:
-            s = time.time()
             key, self.key = jax.random.split(self.key)
             self.samples = self.sampler(key)
-            e = time.time()
-            print("sample time", e - s)
-        s = time.time()
         samples = self.samples
         samples = samples.reshape(self.nwalkers, 2, self.nsteps, self.nfields)
         grads = _gradient(samples, params, self.nsteps, self.v2e, self.h1e, self.nuc)
         grads = jnp.concatenate([x.ravel() for x in grads])
         grads = jnp.clip(grads, a_min=-0.5, a_max=0.5)
-        e = time.time()
-        print("gradient time",e - s)
-        #self.samples = None
+        self.samples = None
         return grads
     
 
     
 
-    def run(self, max_iter=40000, tol=1e-3, disp=True, seed=1222):
+    def run(self, max_iter=1000, tol=1e-5, disp=True, seed=1222):
         self.trial = Trial(self.mol)
         self.trial.get_trial()
         self.trial.tensora = jnp.array(self.trial.tensora, dtype=jnp.complex128)
@@ -803,8 +793,7 @@ class Propagator(object):
                     f"Param Update Norm = {param_update_norm:.8f}")
         
         # **Optimization Loop**
-        tol = 1e-6
-        learning_rate = 3e-5
+        learning_rate = 3e-4
         def schedule(step):
             return learning_rate / (1 + step / 5000)
 
@@ -822,37 +811,55 @@ class Propagator(object):
         gradslist = []
         grad_norms = []
         losses = []
-        max_iter = 0
+        patience = 100        
+        best_loss = float('inf')
+        wait = 0
+        def moving_average(arr, window_size=20):
+            return np.convolve(arr, np.ones(window_size)/window_size, mode='valid')
+        
         for i in range(max_iter):
-            print("Iteration", i+1, flush=True) 
-            l = time.time()
+            print(f"Iteration {i+1}", flush=True)
+            
             obj = float(self.objective_func(params))
             grads = np.array(self.gradient(params))
-           # for j in range(len(grads)):
-            #    if not (28 <= j <= 34):
-             #       grads[j] = 0.0
-                   
-            #print(energy, flush=True)
-            new_params, opt_state = train_step(params, grads, opt_state)   
+            new_params, opt_state = train_step(params, grads, opt_state)
+
             gradslist.append(grads)
             grad_norms.append(np.linalg.norm(grads))
-            losses.append(obj) 
+            losses.append(obj)
 
-            # Check for convergence
-            #SHOULD USE JIT FOR CONVERGENCE
-            sc = time.time()
-            if jnp.linalg.norm(new_params - params) < tol:
-                print("Converged!")
-                break
-            ec = time.time()
-            #print("con time", ec-sc)
+            # --- Convergence Criteria ---
+            grad_tol = np.linalg.norm(grads) < tol
+            param_change_tol = np.linalg.norm(new_params - params) < tol
+
+            # Moving average on loss (after enough iterations)
+            if i >= 20:
+                smoothed_losses = moving_average(losses)
+                current_loss_ma = smoothed_losses[-1]
+                loss_improved = best_loss - current_loss_ma > tol
+                if loss_improved:
+                    best_loss = current_loss_ma
+                    wait = 0
+                else:
+                    wait += 1
+
+                if grad_tol or param_change_tol or wait >= patience:
+                    reason = []
+                    if grad_tol:
+                        reason.append("gradient norm below threshold")
+                    if param_change_tol:
+                        reason.append("parameter change below threshold")
+                    if wait >= patience:
+                        reason.append(f"no improvement for {patience} iterations")
+                    
+                    print(f"Converged due to: {', '.join(reason)}.")
+                    print(obj)
+                    break
+
             params = new_params
-            e = time.time()
-            print("iteration time", e-l)
-            def moving_average(arr, window_size=20):
-                return np.convolve(arr, np.ones(window_size)/window_size, mode='valid')
-
-            if (i + 1) % 20 == 0:
+           
+           # - the following should be deleted later
+            if (i + 1) % 50 == 0:
                 grads_array = np.array(gradslist)  # Stack all gradients
 
                 # Gradient Norms and Loss
@@ -915,37 +922,11 @@ class Propagator(object):
                     plt.show()
         #np.save('optimal_params_adams.npy', opt_params)
 
-        # **Plot Results**
-        ''' iterations = range(1, len(energy_history) + 1)
-        
-        plt.figure(figsize=(12, 4))
-
-        plt.subplot(1, 3, 1)
-        plt.plot(iterations, energy_history, marker='o')
-        plt.xlabel("Iteration")
-        plt.ylabel("Variational Energy")
-        plt.title("Energy Convergence")
-
-        plt.subplot(1, 3, 2)
-        plt.plot(iterations, grad_norm_history, marker='o')
-        plt.xlabel("Iteration")
-        plt.ylabel("Gradient Norm")
-        plt.yscale('log')  # Log scale to show small values
-        plt.title("Gradient Norm Convergence")
-
-        plt.subplot(1, 3, 3)
-        plt.plot(iterations, param_update_norm_history, marker='o')
-        plt.xlabel("Iteration")
-        plt.ylabel("Parameter Update Norm")
-        plt.yscale('log')  # Log scale to show small changes
-        plt.title("Parameter Update Convergence")
-
-        plt.tight_layout()
-        plt.show()
-
+        # **Plot Results*
+      
         warmup = 200 
         self.key, key = jax.random.split(self.key)
-        opt_params = self.unpack_params(opt_params)
+        opt_params = self.unpack_params(params)
         self.h1e_params, self.l_tensor_params, self.tensora_params, self.tensorb_params, self.t_params, self.s_params = opt_params
         newkey, self.key = jax.random.split(self.key)
         samples = self.sampler(newkey)
@@ -956,9 +937,7 @@ class Propagator(object):
         energies, phases = energies_phases # Unpack the tuple of arrays
         num = jnp.sum(energies)
         denom = jnp.sum(phases)
-
-        return num/denom'''
-        return 0
+        return num/denom
     
 
 
@@ -979,12 +958,11 @@ if __name__ == "__main__":
        # prop = JaxPropagator(mol, dt=0.01, total_t=time, nwalkers=100)  
         #time_list, energy = prop.sampler()
         #plt.plot(time_list, energy, label="jax_afqmc")
-        prop = Propagator(mol, dt=0.1, nsteps=3, nwalkers=1000, num_chains=10, num_warmup=200)
+        prop = Propagator(mol, dt=0.1, nsteps=3, nwalkers=10000, num_chains=50, num_warmup=200)
 
     # Run the simulation to get time and energy lists
 
         energy = prop.run()
-        check_gradients_finite_difference(prop, prop.params)
 
 
 
